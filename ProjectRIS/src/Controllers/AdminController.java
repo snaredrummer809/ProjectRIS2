@@ -44,4 +44,9 @@ public class AdminController {
 		Main m = new Main();
 		m.changeScene("../Views/AdminReferrals.fxml");
 	}
+	public void HomeButton(ActionEvent event) throws IOException{
+		
+		Main m = new Main();
+		m.changeScene("../Views/Admin.fxml");
+	}
 }
