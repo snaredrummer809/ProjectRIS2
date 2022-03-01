@@ -24,27 +24,27 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Button fx:id="Admin" layoutX="8.0" layoutY="52.0" mnemonicParsing="false" onAction="#AdminButton" style="-fx-background-color: yellow;" text="Admin" textFill="#462323">
+            <Button fx:id="Admin" layoutX="87.0" layoutY="59.0" mnemonicParsing="false" onAction="#AdminButton" style="-fx-background-color: yellow;" text="Admin" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="Appointment" layoutX="84.0" layoutY="52.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: yellow;" text="Appointments" textFill="#462323">
+            <Button fx:id="Appointment" layoutX="163.0" layoutY="59.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: yellow;" text="Appointments" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="Invoice" layoutX="210.0" layoutY="52.0" mnemonicParsing="false" onAction="#InvoiceButton" style="-fx-background-color: yellow;" text="Invoice" textFill="#462323">
+            <Button fx:id="Invoice" layoutX="288.0" layoutY="59.0" mnemonicParsing="false" onAction="#InvoiceButton" style="-fx-background-color: yellow;" text="Invoice" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="Orders" layoutX="289.0" layoutY="52.0" mnemonicParsing="false" onAction="#OrderButton" style="-fx-background-color: yellow;" text="Orders" textFill="#462323">
+            <Button fx:id="Home" layoutX="14.0" layoutY="59.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: yellow;" text="Home" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="Referrals" layoutX="364.0" layoutY="52.0" mnemonicParsing="false" onAction="#ReferralsButton" style="-fx-background-color: yellow;" text="Referrals" textFill="#462323">
+            <Button fx:id="Referrals" layoutX="448.0" layoutY="59.0" mnemonicParsing="false" onAction="#ReferralsButton" style="-fx-background-color: yellow;" text="Referrals" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
@@ -78,6 +78,11 @@
                   </Label>
                </children>
             </Pane>
+            <Button fx:id="OrderButton" layoutX="368.0" layoutY="59.0" mnemonicParsing="false" onAction="#OrderButton" style="-fx-background-color: white;" text="Orders" textFill="#462323">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </center>
