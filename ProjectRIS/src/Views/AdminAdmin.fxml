@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1900.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminAdminController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1900.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminController">
    <center>
       <AnchorPane prefHeight="1900.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
          <children>
@@ -30,32 +30,32 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Button id="homeButton" fx:id="HomeButton" layoutX="86.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: yellow;" text="Home" textFill="#462323">
+            <Button id="homeButton" fx:id="HomeButton" layoutX="33.0" layoutY="58.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: yellow;" text="Home" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button id="appointmentButton" fx:id="AppointmentButton" layoutX="154.0" layoutY="14.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: yellow;" text="Appointments" textFill="#462323">
+            <Button id="appointmentButton" fx:id="AppointmentButton" layoutX="179.0" layoutY="58.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: yellow;" text="Appointments" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button id="invoiceButton" fx:id="InvoiceButton" layoutX="279.0" layoutY="14.0" mnemonicParsing="false" onAction="#InvoiceButton" style="-fx-background-color: yellow;" text="Invoice" textFill="#462323">
+            <Button id="invoiceButton" fx:id="InvoiceButton" layoutX="306.0" layoutY="58.0" mnemonicParsing="false" onAction="#InvoiceButton" style="-fx-background-color: yellow;" text="Invoice" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button id="ordersButton" fx:id="OrdersButton" layoutX="354.0" layoutY="14.0" mnemonicParsing="false" onAction="#OrderButton" style="-fx-background-color: yellow;" text="Orders" textFill="#462323">
+            <Button id="ordersButton" fx:id="OrdersButton" layoutX="386.0" layoutY="58.0" mnemonicParsing="false" onAction="#OrderButton" style="-fx-background-color: yellow;" text="Orders" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button id="referralsButton" fx:id="ReferralsButton" layoutX="427.0" layoutY="14.0" mnemonicParsing="false" onAction="#ReferralsButton" style="-fx-background-color: yellow;" text="Referrals" textFill="#462323">
+            <Button id="referralsButton" fx:id="ReferralsButton" layoutX="463.0" layoutY="58.0" mnemonicParsing="false" onAction="#ReferralsButton" style="-fx-background-color: yellow;" text="Referrals" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Label layoutX="14.0" layoutY="18.0" text="Admin">
+            <Label layoutX="39.0" layoutY="18.0" text="Admin">
                <font>
                   <Font size="18.0" />
                </font>
@@ -302,7 +302,13 @@
                   </TableView>
                </children>
             </Pane>
+            <Button id="homeButton" fx:id="Adminbutton" layoutX="105.0" layoutY="58.0" mnemonicParsing="false" onAction="#AdminButton" style="-fx-background-color: white;" text="Admin" textFill="#462323">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </center>
 </BorderPane>
+
