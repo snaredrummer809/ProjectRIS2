@@ -62,7 +62,6 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField id="searchOrdersTextField" layoutX="554.0" layoutY="71.0" prefHeight="25.0" prefWidth="141.0" />
                   <TableView id="placedOrdersTable" layoutX="14.0" layoutY="115.0" prefHeight="90.0" prefWidth="694.0">
                     <columns>
                       <TableColumn id="placedOrdersTablePatientColumn" prefWidth="173.0" text="Patient" />
@@ -71,9 +70,10 @@
                       <TableColumn id="placedOrdersTableStatusColumn" prefWidth="175.0" text="Status" />
                     </columns>
                   </TableView>
+                  <TextField layoutX="554.0" layoutY="70.0" prefHeight="26.0" prefWidth="155.0" />
                </children>
             </Pane>
-            <Pane id="checkedInAppointmentsPane" layoutX="15.0" layoutY="324.0" prefHeight="215.0" prefWidth="720.0" style="-fx-background-color: white;">
+            <Pane id="checkedInAppointmentsPane" layoutX="15.0" layoutY="311.0" prefHeight="215.0" prefWidth="720.0" style="-fx-background-color: white;">
                <children>
                   <Label id="checkedInAppointmentsPaneLabel" layoutX="241.0" layoutY="14.0" text="Checked-In Appointments">
                      <font>
@@ -95,7 +95,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField id="searchCIATextField" layoutX="554.0" layoutY="71.0" prefHeight="25.0" prefWidth="141.0" />
+                  <TextField id="searchCIATextField" layoutX="554.0" layoutY="71.0" prefHeight="26.0" prefWidth="152.0" />
                </children>
             </Pane>
             <Pane id="todaysAppointmentsPane" layoutX="15.0" layoutY="552.0" prefHeight="215.0" prefWidth="720.0" style="-fx-background-color: white;">
@@ -196,11 +196,12 @@
                   <TextField id="searchPATextField" layoutX="554.0" layoutY="71.0" prefHeight="25.0" prefWidth="141.0" />
                </children>
             </Pane>
-            <Button id="homeButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: yellow;" text="Home">
+            <Button id="homeButton" fx:id="homebutton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: white;" text="Home">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
+            <ScrollBar layoutX="735.0" layoutY="75.0" orientation="VERTICAL" prefHeight="1386.0" prefWidth="16.0" />
          </children>
       </AnchorPane>
    </top>
