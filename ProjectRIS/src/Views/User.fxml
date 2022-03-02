@@ -11,41 +11,36 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.UserController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1460.0" prefWidth="750.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.UserController">
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="1460.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="LogOut" layoutX="503.0" layoutY="14.0" mnemonicParsing="false" onAction="#userLogOut" style="-fx-background-color: yellow;" text="Log Out" textFill="#462323">
+            <Button fx:id="LogOut" layoutX="657.0" layoutY="14.0" mnemonicParsing="false" onAction="#userLogOut" style="-fx-background-color: yellow;" text="Log Out" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Label layoutX="357.0" layoutY="19.0" text="Logged In: ">
+            <Label layoutX="516.0" layoutY="19.0" text="Logged In: ">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="436.0" layoutY="19.0" text="User">
+            <Label layoutX="601.0" layoutY="19.0" text="User">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Button fx:id="UserHome" layoutX="14.0" layoutY="45.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: white;" text="Home" textFill="#462323">
+            <Button fx:id="UserHome" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: white;" text="Home" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="UserResources" layoutX="84.0" layoutY="45.0" mnemonicParsing="false" onAction="#ResourcesButton" style="-fx-background-color: yellow;" text="Resources" textFill="#462323">
+            <Button fx:id="UserResources" layoutX="83.0" layoutY="14.0" mnemonicParsing="false" onAction="#ResourcesButton" style="-fx-background-color: yellow;" text="Resources" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Label layoutX="20.0" layoutY="18.0" text="HOME">
-               <font>
-                  <Font size="18.0" />
-               </font>
-            </Label>
-            <Pane id="checkedInAppointmentsPane" layoutY="106.0" prefHeight="215.0" prefWidth="720.0" style="-fx-background-color: white;">
+            <Pane id="checkedInAppointmentsPane" layoutX="15.0" layoutY="75.0" prefHeight="312.0" prefWidth="720.0" style="-fx-background-color: white;">
                <children>
                   <Label id="checkedInAppointmentsPaneLabel" layoutX="265.0" layoutY="14.0" text="Patient Appointments">
                      <font>
@@ -53,7 +48,7 @@
                      </font>
                   </Label>
                   <Line id="checkedInAppointmentsCosmeticLine" endX="410.0" endY="1.52587890625E-5" layoutX="284.0" layoutY="55.0" startX="-264.6666564941406" startY="1.52587890625E-5" />
-                  <TableView id="checkedInAppointmentsTable" layoutX="14.0" layoutY="115.0" prefHeight="90.0" prefWidth="694.0">
+                  <TableView id="checkedInAppointmentsTable" layoutX="15.0" layoutY="96.0" prefHeight="200.0" prefWidth="694.0">
                      <columns>
                         <TableColumn id="CIATablePatientColumn" prefWidth="138.5" text="Patient" />
                         <TableColumn id="CIATableModalityColumn" prefWidth="138.5" text="Modality" />
@@ -62,12 +57,12 @@
                         <TableColumn id="CIATableTechnicianColumn" prefWidth="138.5" text="Technician" />
                      </columns>
                   </TableView>
-                  <Label id="searchCIALabel" layoutX="506.0" layoutY="74.0" text="Search:">
+                  <Label id="searchCIALabel" layoutX="506.0" layoutY="61.0" text="Search:">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField id="searchCIATextField" layoutX="554.0" layoutY="71.0" prefHeight="26.0" prefWidth="152.0" />
+                  <TextField id="searchCIATextField" layoutX="554.0" layoutY="58.0" prefHeight="26.0" prefWidth="152.0" />
                </children>
             </Pane>
          </children>
