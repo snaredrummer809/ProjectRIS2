@@ -35,7 +35,7 @@
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="DeskAppointments" layoutX="86.0" layoutY="45.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: yellow;" text="Appointments" textFill="#462323">
+            <Button fx:id="DeskAppointments" layoutX="86.0" layoutY="45.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: white;" text="Appointments" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
