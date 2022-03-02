@@ -20,7 +20,7 @@ public class Main extends Application {
 			primaryStage.setResizable(false);
 			Parent root = FXMLLoader.load(getClass().getResource("../Views/Login.fxml"));
 			primaryStage.setTitle("RIS");
-			primaryStage.setScene(new Scene(root,600,400));
+			primaryStage.setScene(new Scene(root,760,500));
 			primaryStage.show();
 			
 		
