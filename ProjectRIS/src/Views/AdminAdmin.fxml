@@ -1,308 +1,307 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2600.0" prefWidth="750.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.AdminController">
-   <center>
-      <AnchorPane prefHeight="2600.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="LogOut" layoutX="657.0" layoutY="14.0" mnemonicParsing="false" onAction="#userLogOut" style="-fx-background-color: yellow;" text="Log Out" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Label layoutX="516.0" layoutY="19.0" text="Logged In: ">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="601.0" layoutY="19.0" text="Admin">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Button id="homeButton" fx:id="HomeButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: yellow;" text="Home" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button id="appointmentButton" fx:id="AppointmentButton" layoutX="154.0" layoutY="14.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: yellow;" text="Appointments" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button id="invoiceButton" fx:id="InvoiceButton" layoutX="279.0" layoutY="14.0" mnemonicParsing="false" onAction="#InvoiceButton" style="-fx-background-color: yellow;" text="Invoice" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button id="ordersButton" fx:id="OrdersButton" layoutX="354.0" layoutY="14.0" mnemonicParsing="false" onAction="#OrderButton" style="-fx-background-color: yellow;" text="Orders" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button id="referralsButton" fx:id="ReferralsButton" layoutX="427.0" layoutY="14.0" mnemonicParsing="false" onAction="#ReferralsButton" style="-fx-background-color: yellow;" text="Referrals" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Pane id="systemUsersPane" layoutX="15.0" layoutY="75.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
+
+<ScrollPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminController">
+   <content>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2600.0" prefWidth="750.0">
+         <center>
+            <AnchorPane prefHeight="2600.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
                <children>
-                  <Label id="systemUserLabel" layoutX="291.0" layoutY="14.0" text="System Users">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Line id="systemUsersCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
-                  <Button id="newUserButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
+                  <Button fx:id="LogOut" layoutX="657.0" layoutY="14.0" mnemonicParsing="false" onAction="#userLogOut" style="-fx-background-color: yellow;" text="Log Out" textFill="#462323">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Label id="searchUsersLabel" layoutX="519.0" layoutY="77.0" text="Search:">
+                  <Label layoutX="516.0" layoutY="19.0" text="Logged In: ">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font size="17.0" />
                      </font>
                   </Label>
-                  <TextField id="searchUsersTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
-                  <TableView id="systemUsersTable" layoutX="16.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
-                    <columns>
-                      <TableColumn id="SUTableUserIDColumn" text="User ID" />
-                      <TableColumn id="SUTableUsernameColumn" prefWidth="120.0" text="Username" />
-                        <TableColumn id="SUTableDisplayNameColumn" prefWidth="140.0" text="Display Name" />
-                        <TableColumn id="SUTableEmailColumn" prefWidth="140.0" text="Email Address" />
-                        <TableColumn id="SUTableRoleColumn" prefWidth="100.0" text="System Role" />
-                        <TableColumn id="SUTableModifyUserColumn" prefWidth="78.0" />
-                    </columns>
-                  </TableView>
-               </children>
-            </Pane>
-            <Pane id="modalitiesPane" layoutX="15.0" layoutY="374.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
-               <children>
-                  <Label id="modalitiesPaneLabel" layoutX="307.0" layoutY="17.0" text="Modalities">
+                  <Label layoutX="601.0" layoutY="19.0" text="Admin">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="17.0" />
                      </font>
                   </Label>
-                  <Line id="systemUsersCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
-                  <Button id="newModalityButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
+                  <Button id="homeButton" fx:id="HomeButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: yellow;" text="Home" textFill="#462323">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Label id="searchModalitiesLabel" layoutX="519.0" layoutY="77.0" text="Search:">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField id="searchModalitiesTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
-                  <TableView id="systemUsersTable" layoutX="13.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
-                    <columns>
-                      <TableColumn id="ModalityTableIDColumn" prefWidth="190.0" text="Modality ID" />
-                      <TableColumn id="ModalityTableModalityNameColumn" minWidth="9.33331298828125" prefWidth="190.0" text="Modality" />
-                        <TableColumn id="ModalityTableCostColumn" prefWidth="170.0" text="Cost" />
-                        <TableColumn id="ModalityTableModifyModalityColumn" prefWidth="99.3333740234375" />
-                    </columns>
-                  </TableView>
-               </children>
-            </Pane>
-            <Pane id="patientAlertsPane" layoutX="15.0" layoutY="679.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
-               <children>
-                  <Label id="patientAlertsPaneLabel" layoutX="291.0" layoutY="17.0" text="Patient Alerts">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Line id="patientAlertsCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
-                  <Button id="newAlertButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
+                  <Button id="appointmentButton" fx:id="AppointmentButton" layoutX="154.0" layoutY="14.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: yellow;" text="Appointments" textFill="#462323">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Label id="searchAlertsLabel" layoutX="519.0" layoutY="77.0" text="Search:">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField id="searchAlertsTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
-                  <TableView id="patientAlertsTable" layoutX="12.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
-                    <columns>
-                      <TableColumn id="AlertsTableAlertIDColumn" prefWidth="250.0" text="Patient Alert ID" />
-                      <TableColumn id="AlertsTableAlertNameColumn" minWidth="9.33331298828125" prefWidth="250.0" text="Patient Alert" />
-                        <TableColumn id="AlertsTableModifyAlertColumn" prefWidth="155.0" />
-                    </columns>
-                  </TableView>
-               </children>
-            </Pane>
-            <Pane id="patientsPane" layoutX="15.0" layoutY="982.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
-               <children>
-                  <Label id="patientsPaneLabel" layoutX="318.0" layoutY="17.0" text="Patients">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Line id="patientsCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
-                  <Button id="newPatientButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
+                  <Button id="invoiceButton" fx:id="InvoiceButton" layoutX="279.0" layoutY="14.0" mnemonicParsing="false" onAction="#InvoiceButton" style="-fx-background-color: yellow;" text="Invoice" textFill="#462323">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Label id="searchPatientsLabel" layoutX="519.0" layoutY="77.0" text="Search:">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField id="searchPatientsTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
-                  <TableView id="patientsTable" layoutX="13.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
-                    <columns>
-                      <TableColumn id="patientsTableIDColumn" prefWidth="140.0" text="Patient ID" />
-                      <TableColumn id="patientsTableDOBColumn" minWidth="9.33331298828125" prefWidth="140.0" text="Date of Birth" />
-                      <TableColumn id="patientsTableLastNameColumn" prefWidth="140.0" text="Last Name" />
-                      <TableColumn id="patientsTableFirstNameColumn" prefWidth="140.0" text="First Name" />
-                      <TableColumn id="patientsTableModifyPatientColumn" prefWidth="96.0" />
-                    </columns>
-                  </TableView>
-               </children>
-            </Pane>
-            <Pane id="ordersPane" layoutX="15.0" layoutY="1581.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
-               <children>
-                  <Label id="ordersPaneLabel" layoutX="320.0" layoutY="17.0" text="Orders">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Line id="ordersCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
-                  <Button id="newOrderButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
+                  <Button id="ordersButton" fx:id="OrdersButton" layoutX="354.0" layoutY="14.0" mnemonicParsing="false" onAction="#OrderButton" style="-fx-background-color: yellow;" text="Orders" textFill="#462323">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Label id="searchOrdersLabel" layoutX="519.0" layoutY="77.0" text="Search:">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField id="searchOrdersTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
-                  <TableView id="ordersTable" layoutX="14.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
-                    <columns>
-                      <TableColumn id="ordersTableIDColumn" text="Order ID" />
-                      <TableColumn id="ordersTablePatientNameColumn" minWidth="9.33331298828125" prefWidth="100.0" text="Patient" />
-                      <TableColumn id="ordersTableReferralMDColumn" prefWidth="100.0" text="Referral MD" />
-                      <TableColumn id="ordersTableModalityColumn" prefWidth="100.0" text="Modality" />
-                      <TableColumn id="ordersTableNotesColumn" prefWidth="100.0" text="Notes" />
-                      <TableColumn id="ordersTableStatusColumn" prefWidth="100.0" text="Status" />
-                      <TableColumn id="ordersTableModifyOrderColumn" prefWidth="76.0" />
-                    </columns>
-                  </TableView>
-               </children>
-            </Pane>
-            <Pane id="appointmentsPane" layoutX="15.0" layoutY="1280.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
-               <children>
-                  <Label id="appointmentsPaneLabel" layoutX="290.0" layoutY="17.0" text="Appointments">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Line id="appointmentsCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
-                  <Button id="newAppointmentButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
+                  <Button id="referralsButton" fx:id="ReferralsButton" layoutX="427.0" layoutY="14.0" mnemonicParsing="false" onAction="#ReferralsButton" style="-fx-background-color: yellow;" text="Referrals" textFill="#462323">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Label id="searchAppointmentsLabel" layoutX="519.0" layoutY="77.0" text="Search:">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField id="searchAppointmentsTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
-                  <TableView id="appointmentsTable" layoutX="14.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
-                    <columns>
-                      <TableColumn id="appointmentsTableIDColumn" prefWidth="108.0" text="Appointment ID" />
-                      <TableColumn id="appointmentsTablePatientNameColumn" minWidth="9.33331298828125" prefWidth="100.0" text="Patient" />
-                      <TableColumn id="appointmentsTableOrderIDColumn" text="Order" />
-                      <TableColumn id="appointmentsTableDateAndTimeColumn" prefWidth="100.0" text="Date/Time" />
-                      <TableColumn id="appointmentsTableTechNameColumn" prefWidth="100.0" text="Technician" />
-                      <TableColumn id="appointmentsTableRadiologistColumn" prefWidth="100.0" text="Radiologist" />
-                      <TableColumn id="appointmentsTableModifyAppointmentColumn" prefWidth="75.0" />
-                    </columns>
-                  </TableView>
-               </children>
-            </Pane>
-            <Pane id="fileUploadsPane" layoutX="15.0" layoutY="1884.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
-               <children>
-                  <Label id="fileUploadsPaneLabel" layoutX="299.0" layoutY="17.0" text="File Uploads">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Line id="fileUploadsCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
-                  <Button id="newUploadButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
+                  <Pane id="systemUsersPane" layoutX="15.0" layoutY="75.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label id="systemUserLabel" layoutX="291.0" layoutY="14.0" text="System Users">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Line id="systemUsersCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
+                        <Button id="newUserButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Label id="searchUsersLabel" layoutX="519.0" layoutY="77.0" text="Search:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField id="searchUsersTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
+                        <TableView id="systemUsersTable" layoutX="16.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
+                          <columns>
+                            <TableColumn id="SUTableUserIDColumn" text="User ID" />
+                            <TableColumn id="SUTableUsernameColumn" prefWidth="120.0" text="Username" />
+                              <TableColumn id="SUTableDisplayNameColumn" prefWidth="140.0" text="Display Name" />
+                              <TableColumn id="SUTableEmailColumn" prefWidth="140.0" text="Email Address" />
+                              <TableColumn id="SUTableRoleColumn" prefWidth="100.0" text="System Role" />
+                              <TableColumn id="SUTableModifyUserColumn" prefWidth="78.0" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane id="modalitiesPane" layoutX="15.0" layoutY="374.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label id="modalitiesPaneLabel" layoutX="307.0" layoutY="17.0" text="Modalities">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Line id="systemUsersCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
+                        <Button id="newModalityButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Label id="searchModalitiesLabel" layoutX="519.0" layoutY="77.0" text="Search:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField id="searchModalitiesTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
+                        <TableView id="systemUsersTable" layoutX="13.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
+                          <columns>
+                            <TableColumn id="ModalityTableIDColumn" prefWidth="190.0" text="Modality ID" />
+                            <TableColumn id="ModalityTableModalityNameColumn" minWidth="9.33331298828125" prefWidth="190.0" text="Modality" />
+                              <TableColumn id="ModalityTableCostColumn" prefWidth="170.0" text="Cost" />
+                              <TableColumn id="ModalityTableModifyModalityColumn" prefWidth="99.3333740234375" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane id="patientAlertsPane" layoutX="15.0" layoutY="679.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label id="patientAlertsPaneLabel" layoutX="291.0" layoutY="17.0" text="Patient Alerts">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Line id="patientAlertsCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
+                        <Button id="newAlertButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Label id="searchAlertsLabel" layoutX="519.0" layoutY="77.0" text="Search:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField id="searchAlertsTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
+                        <TableView id="patientAlertsTable" layoutX="12.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
+                          <columns>
+                            <TableColumn id="AlertsTableAlertIDColumn" prefWidth="250.0" text="Patient Alert ID" />
+                            <TableColumn id="AlertsTableAlertNameColumn" minWidth="9.33331298828125" prefWidth="250.0" text="Patient Alert" />
+                              <TableColumn id="AlertsTableModifyAlertColumn" prefWidth="155.0" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane id="patientsPane" layoutX="15.0" layoutY="982.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label id="patientsPaneLabel" layoutX="318.0" layoutY="17.0" text="Patients">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Line id="patientsCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
+                        <Button id="newPatientButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Label id="searchPatientsLabel" layoutX="519.0" layoutY="77.0" text="Search:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField id="searchPatientsTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
+                        <TableView id="patientsTable" layoutX="13.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
+                          <columns>
+                            <TableColumn id="patientsTableIDColumn" prefWidth="140.0" text="Patient ID" />
+                            <TableColumn id="patientsTableDOBColumn" minWidth="9.33331298828125" prefWidth="140.0" text="Date of Birth" />
+                            <TableColumn id="patientsTableLastNameColumn" prefWidth="140.0" text="Last Name" />
+                            <TableColumn id="patientsTableFirstNameColumn" prefWidth="140.0" text="First Name" />
+                            <TableColumn id="patientsTableModifyPatientColumn" prefWidth="96.0" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane id="ordersPane" layoutX="15.0" layoutY="1581.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label id="ordersPaneLabel" layoutX="320.0" layoutY="17.0" text="Orders">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Line id="ordersCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
+                        <Button id="newOrderButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Label id="searchOrdersLabel" layoutX="519.0" layoutY="77.0" text="Search:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField id="searchOrdersTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
+                        <TableView id="ordersTable" layoutX="14.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
+                          <columns>
+                            <TableColumn id="ordersTableIDColumn" text="Order ID" />
+                            <TableColumn id="ordersTablePatientNameColumn" minWidth="9.33331298828125" prefWidth="100.0" text="Patient" />
+                            <TableColumn id="ordersTableReferralMDColumn" prefWidth="100.0" text="Referral MD" />
+                            <TableColumn id="ordersTableModalityColumn" prefWidth="100.0" text="Modality" />
+                            <TableColumn id="ordersTableNotesColumn" prefWidth="100.0" text="Notes" />
+                            <TableColumn id="ordersTableStatusColumn" prefWidth="100.0" text="Status" />
+                            <TableColumn id="ordersTableModifyOrderColumn" prefWidth="76.0" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane id="appointmentsPane" layoutX="15.0" layoutY="1280.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label id="appointmentsPaneLabel" layoutX="290.0" layoutY="17.0" text="Appointments">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Line id="appointmentsCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
+                        <Button id="newAppointmentButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Label id="searchAppointmentsLabel" layoutX="519.0" layoutY="77.0" text="Search:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField id="searchAppointmentsTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
+                        <TableView id="appointmentsTable" layoutX="14.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
+                          <columns>
+                            <TableColumn id="appointmentsTableIDColumn" prefWidth="108.0" text="Appointment ID" />
+                            <TableColumn id="appointmentsTablePatientNameColumn" minWidth="9.33331298828125" prefWidth="100.0" text="Patient" />
+                            <TableColumn id="appointmentsTableOrderIDColumn" text="Order" />
+                            <TableColumn id="appointmentsTableDateAndTimeColumn" prefWidth="100.0" text="Date/Time" />
+                            <TableColumn id="appointmentsTableTechNameColumn" prefWidth="100.0" text="Technician" />
+                            <TableColumn id="appointmentsTableRadiologistColumn" prefWidth="100.0" text="Radiologist" />
+                            <TableColumn id="appointmentsTableModifyAppointmentColumn" prefWidth="75.0" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane id="fileUploadsPane" layoutX="15.0" layoutY="1884.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label id="fileUploadsPaneLabel" layoutX="299.0" layoutY="17.0" text="File Uploads">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Line id="fileUploadsCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
+                        <Button id="newUploadButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Label id="searchUploadsLabel" layoutX="519.0" layoutY="77.0" text="Search:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField id="searchUploadsTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
+                        <TableView id="uploadsTable" layoutX="24.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
+                          <columns>
+                            <TableColumn id="uploadsTableIDColumn" prefWidth="131.0" text="File Upload ID" />
+                            <TableColumn id="uploadsTableFileNameColumn" prefWidth="131.0" text="File Name" />
+                            <TableColumn id="uploadsTableTypeColumn" prefWidth="131.0" text="File Type" />
+                            <TableColumn id="uploadsTableOrderIDColumn" prefWidth="131.0" text="Order" />
+                            <TableColumn id="uploadsTableDeleteFileColumn" prefWidth="131.0" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Pane id="diagnosticReportsPane" layoutX="15.0" layoutY="2190.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label id="diagnosticReportsPaneLabel" layoutX="266.0" layoutY="17.0" text="Diagnostic Reports">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Line id="diagnosticCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
+                        <Button id="newReportButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <Label id="searchReportsLabel" layoutX="519.0" layoutY="77.0" text="Search:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField id="searchReportsTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
+                        <TableView id="DRTable" layoutX="24.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
+                          <columns>
+                            <TableColumn id="DRTableIDColumn" prefWidth="131.0" text="Diagnostic Report ID" />
+                            <TableColumn id="DRTableRadiologistColumn" prefWidth="131.0" text="Radiologist" />
+                            <TableColumn id="DRTableOrderIDColumn" prefWidth="131.0" text="Order" />
+                            <TableColumn id="DRTableReportColumn" prefWidth="131.0" text="Report" />
+                            <TableColumn id="DRTableModifyReportColumn" prefWidth="131.0" />
+                          </columns>
+                        </TableView>
+                     </children>
+                  </Pane>
+                  <Button id="homeButton" fx:id="Adminbutton" layoutX="83.0" layoutY="14.0" mnemonicParsing="false" onAction="#AdminButton" style="-fx-background-color: white;" text="Admin" textFill="#462323">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Label id="searchUploadsLabel" layoutX="519.0" layoutY="77.0" text="Search:">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField id="searchUploadsTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
-                  <TableView id="uploadsTable" layoutX="24.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
-                    <columns>
-                      <TableColumn id="uploadsTableIDColumn" prefWidth="131.0" text="File Upload ID" />
-                      <TableColumn id="uploadsTableFileNameColumn" prefWidth="131.0" text="File Name" />
-                      <TableColumn id="uploadsTableTypeColumn" prefWidth="131.0" text="File Type" />
-                      <TableColumn id="uploadsTableOrderIDColumn" prefWidth="131.0" text="Order" />
-                      <TableColumn id="uploadsTableDeleteFileColumn" prefWidth="131.0" />
-                    </columns>
-                  </TableView>
                </children>
-            </Pane>
-            <Pane id="diagnosticReportsPane" layoutX="15.0" layoutY="2190.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
-               <children>
-                  <Label id="diagnosticReportsPaneLabel" layoutX="266.0" layoutY="17.0" text="Diagnostic Reports">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Line id="diagnosticCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
-                  <Button id="newReportButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Label id="searchReportsLabel" layoutX="519.0" layoutY="77.0" text="Search:">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-                  <TextField id="searchReportsTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
-                  <TableView id="DRTable" layoutX="24.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
-                    <columns>
-                      <TableColumn id="DRTableIDColumn" prefWidth="131.0" text="Diagnostic Report ID" />
-                      <TableColumn id="DRTableRadiologistColumn" prefWidth="131.0" text="Radiologist" />
-                      <TableColumn id="DRTableOrderIDColumn" prefWidth="131.0" text="Order" />
-                      <TableColumn id="DRTableReportColumn" prefWidth="131.0" text="Report" />
-                      <TableColumn id="DRTableModifyReportColumn" prefWidth="131.0" />
-                    </columns>
-                  </TableView>
-               </children>
-            </Pane>
-            <Button id="homeButton" fx:id="Adminbutton" layoutX="83.0" layoutY="14.0" mnemonicParsing="false" onAction="#AdminButton" style="-fx-background-color: white;" text="Admin" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-         </children>
-      </AnchorPane>
-   </center>
-</BorderPane>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </content>
+</ScrollPane>
