@@ -40,7 +40,7 @@
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="DeskOrders" layoutX="212.0" layoutY="45.0" mnemonicParsing="false" onAction="#OrderButton" style="-fx-background-color: yellow;" text="Orders" textFill="#462323">
+            <Button fx:id="DeskOrders" layoutX="212.0" layoutY="45.0" mnemonicParsing="false" onAction="#OrderButton" style="-fx-background-color: white;" text="Orders" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
