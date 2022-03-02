@@ -30,7 +30,7 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Button fx:id="DeskHome" layoutX="14.0" layoutY="45.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: yellow;" text="Home" textFill="#462323">
+            <Button fx:id="DeskHome" layoutX="14.0" layoutY="45.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: white;" text="Home" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
