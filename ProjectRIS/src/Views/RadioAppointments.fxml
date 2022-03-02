@@ -11,44 +11,39 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="386.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.RadioController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1460.0" prefWidth="750.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.RadioController">
    <center>
-      <AnchorPane prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="1460.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="LogOut" layoutX="503.0" layoutY="14.0" mnemonicParsing="false" onAction="#userLogOut" style="-fx-background-color: yellow;" text="Log Out" textFill="#462323">
+            <Button fx:id="LogOut" layoutX="657.0" layoutY="14.0" mnemonicParsing="false" onAction="#userLogOut" style="-fx-background-color: yellow;" text="Log Out" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Label layoutX="357.0" layoutY="19.0" text="Logged In: ">
+            <Label layoutX="516.0" layoutY="19.0" text="Logged In: ">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Label layoutX="436.0" layoutY="19.0" text=" Radio">
+            <Label layoutX="601.0" layoutY="19.0" text=" Radio">
                <font>
                   <Font size="17.0" />
                </font>
             </Label>
-            <Button fx:id="Orders" layoutX="218.0" layoutY="52.0" mnemonicParsing="false" onAction="#OrderButton" style="-fx-background-color: yellow;" text="Orders" textFill="#462323">
+            <Button fx:id="Orders" layoutX="207.0" layoutY="14.0" mnemonicParsing="false" onAction="#OrderButton" style="-fx-background-color: yellow;" text="Orders" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Label layoutX="41.0" layoutY="18.0" text="APPOINTMENTS">
-               <font>
-                  <Font size="19.0" />
-               </font>
-            </Label>
-            <Pane id="allAppointments" layoutX="10.0" layoutY="100.0" prefHeight="260.0" prefWidth="580.0" style="-fx-background-color: white;">
+            <Pane id="allAppointments" layoutX="15.0" layoutY="75.0" prefHeight="312.0" prefWidth="720.0" style="-fx-background-color: white;">
                <children>
-                  <Label id="allAppointmentsPaneLabel" layoutX="213.0" layoutY="14.0" text="All Appointments">
+                  <Label id="allAppointmentsPaneLabel" layoutX="288.0" layoutY="14.0" text="All Appointments">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Line id="allAppointmentsCosmeticLine" endX="276.0" endY="-1.52587890625E-5" layoutX="286.0" layoutY="50.0" startX="-269.0" startY="-1.52587890625E-5" />
-                  <TableView layoutX="15.0" layoutY="96.0" prefHeight="150.0" prefWidth="550.0">
+                  <Line id="allAppointmentsCosmeticLine" endX="423.0" endY="-1.52587890625E-5" layoutX="286.0" layoutY="50.0" startX="-269.0" startY="-1.52587890625E-5" />
+                  <TableView layoutX="15.0" layoutY="96.0" prefHeight="200.0" prefWidth="694.0">
                     <columns>
                       <TableColumn id="allApptPatientCol" prefWidth="110.0" text="Patient" />
                       <TableColumn id="allApptModalityCol" prefWidth="110.0" text="Modality" />
@@ -57,20 +52,20 @@
                         <TableColumn id="allApptTechCol" prefWidth="110.0" text="Technician" />
                     </columns>
                   </TableView>
-                  <TextField id="searchAllApptTextField" layoutX="416.0" layoutY="58.0" />
-                  <Label id="searchAllApptLabel" layoutX="366.0" layoutY="61.0" text="Search:">
+                  <TextField id="searchAllApptTextField" layoutX="554.0" layoutY="58.0" />
+                  <Label id="searchAllApptLabel" layoutX="506.0" layoutY="61.0" text="Search:">
                      <font>
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
                </children>
             </Pane>
-            <Button fx:id="Home" layoutX="14.0" layoutY="52.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: yellow;" text="Home" textFill="#462323">
+            <Button fx:id="Home" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: yellow;" text="Home" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="Appointments" layoutX="87.0" layoutY="52.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: white;" text="Appointments" textFill="#462323">
+            <Button fx:id="Appointments" layoutX="83.0" layoutY="14.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: white;" text="Appointments" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
