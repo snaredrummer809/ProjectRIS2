@@ -1,117 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1460.0" prefWidth="750.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.AdminController">
-   <top>
-      <AnchorPane prefHeight="1460.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="LogOut" layoutX="657.0" layoutY="14.0" mnemonicParsing="false" onAction="#userLogOut" style="-fx-background-color: yellow;" text="Log Out" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Label layoutX="516.0" layoutY="19.0" text="Logged In: ">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="601.0" layoutY="19.0" text="Admin">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Button fx:id="Admin" layoutX="83.0" layoutY="14.0" mnemonicParsing="false" onAction="#AdminButton" style="-fx-background-color: yellow;" text="Admin" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="Appointment" layoutX="154.0" layoutY="14.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: yellow;" text="Appointments" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="Home" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: yellow;" text="Home" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="Orders" layoutX="354.0" layoutY="14.0" mnemonicParsing="false" onAction="#OrderButton" style="-fx-background-color: yellow;" text="Orders" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="Referrals" layoutX="427.0" layoutY="14.0" mnemonicParsing="false" onAction="#ReferralsButton" style="-fx-background-color: yellow;" text="Referrals" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-             <Pane id="InvoicesPane" layoutX="15.0" layoutY="75.0" prefHeight="270.0" prefWidth="720.0" style="-fx-background-color: white;">
+<ScrollPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminController">
+   <content>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="669.0" prefWidth="750.0">
+         <top>
+            <AnchorPane prefHeight="830.0" prefWidth="750.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
                <children>
-                  <Label id="InvoicesPaneLabel" layoutX="335.0" layoutY="5.0" text="Invoices">
+                  <Button fx:id="LogOut" layoutX="657.0" layoutY="14.0" mnemonicParsing="false" onAction="#userLogOut" style="-fx-background-color: yellow;" text="Log Out" textFill="#462323">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="516.0" layoutY="19.0" text="Logged In: ">
+                     <font>
+                        <Font size="17.0" />
                      </font>
                   </Label>
-                  <Line id="InvoicesCosmeticLine" endX="418.507568359375" endY="-1.52587890625E-5" layoutX="286.0" layoutY="50.0" startX="-269.0" startY="-1.52587890625E-5" />
-                  <TableView layoutX="15.0" layoutY="96.0" prefHeight="160.0" prefWidth="694.0">
-                    <columns>
-                      <TableColumn id="invCostCol" prefWidth="95.0" text="Cost" />
-                      <TableColumn id="invModalityCol" prefWidth="95.0" text="Modality" />
-                        <TableColumn id="invDateTimeCol" prefWidth="95.0" text="Date and Time" />
-                        <TableColumn id="invRadioCol" prefWidth="95.0" text="Radiologist" />
-                        <TableColumn id="invTechCol" prefWidth="95.0" text="Technician" />
-                        <TableColumn id="invPatientCol" prefWidth="95.0" text="Patient" />
-                    </columns>
-                  </TableView>
-                  <TextField id="searchInvTextField" layoutX="554.0" layoutY="58.0" prefHeight="26.0" prefWidth="155.0" />
-                  <Label id="searchInvLabel" layoutX="506.0" layoutY="61.0" text="Search:">
+                  <Label layoutX="601.0" layoutY="19.0" text="Admin">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font size="17.0" />
                      </font>
                   </Label>
+                  <Button fx:id="Admin" layoutX="83.0" layoutY="14.0" mnemonicParsing="false" onAction="#AdminButton" style="-fx-background-color: yellow;" text="Admin" textFill="#462323">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="Appointment" layoutX="154.0" layoutY="14.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: yellow;" text="Appointments" textFill="#462323">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="Home" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: yellow;" text="Home" textFill="#462323">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="Orders" layoutX="354.0" layoutY="14.0" mnemonicParsing="false" onAction="#OrderButton" style="-fx-background-color: yellow;" text="Orders" textFill="#462323">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button fx:id="Referrals" layoutX="427.0" layoutY="14.0" mnemonicParsing="false" onAction="#ReferralsButton" style="-fx-background-color: yellow;" text="Referrals" textFill="#462323">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                   <Pane id="InvoicesPane" layoutX="15.0" layoutY="75.0" prefHeight="270.0" prefWidth="720.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label id="InvoicesPaneLabel" layoutX="335.0" layoutY="5.0" text="Invoices">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Line id="InvoicesCosmeticLine" endX="418.507568359375" endY="-1.52587890625E-5" layoutX="286.0" layoutY="50.0" startX="-269.0" startY="-1.52587890625E-5" />
+                        <TableView layoutX="15.0" layoutY="96.0" prefHeight="160.0" prefWidth="694.0">
+                          <columns>
+                            <TableColumn id="invCostCol" prefWidth="95.0" text="Cost" />
+                            <TableColumn id="invModalityCol" prefWidth="95.0" text="Modality" />
+                              <TableColumn id="invDateTimeCol" prefWidth="95.0" text="Date and Time" />
+                              <TableColumn id="invRadioCol" prefWidth="95.0" text="Radiologist" />
+                              <TableColumn id="invTechCol" prefWidth="95.0" text="Technician" />
+                              <TableColumn id="invPatientCol" prefWidth="95.0" text="Patient" />
+                          </columns>
+                        </TableView>
+                        <TextField id="searchInvTextField" layoutX="554.0" layoutY="58.0" prefHeight="26.0" prefWidth="155.0" />
+                        <Label id="searchInvLabel" layoutX="506.0" layoutY="61.0" text="Search:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Pane id="InvoicesAllAppointments" layoutX="15.0" layoutY="375.0" prefHeight="270.0" prefWidth="720.0" style="-fx-background-color: white;">
+                     <children>
+                        <Label id="InvoicesAllAppointmentsPaneLabel" layoutX="304.0" layoutY="8.0" text="All Appointments">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Line id="InvoicesAllAppointmentsCosmeticLine" endX="418.507568359375" endY="-3.0517578125E-5" layoutX="286.0" layoutY="50.0" startX="-269.0" startY="-1.52587890625E-5" />
+                        <TableView layoutX="15.0" layoutY="96.0" prefHeight="160.0" prefWidth="694.0">
+                          <columns>
+                            <TableColumn id="invAllApptPatientCol" prefWidth="110.0" text="Patient" />
+                            <TableColumn id="invAllApptModalityCol" prefWidth="110.0" text="Modality" />
+                              <TableColumn id="invAllApptDateTimeCol" prefWidth="110.0" text="Date and Time" />
+                              <TableColumn id="invAllApptRadioCol" prefWidth="110.0" text="Radiologist" />
+                              <TableColumn id="invAllApptTechCol" prefWidth="110.0" text="Technician" />
+                          </columns>
+                        </TableView>
+                        <TextField id="searchInvAllApptTextField" layoutX="554.0" layoutY="58.0" prefHeight="26.0" prefWidth="155.0" />
+                        <Label id="searchInvAllApptLabel" layoutX="506.0" layoutY="61.0" text="Search:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </Pane>
+                  <Button fx:id="InvoiceButton" layoutX="279.0" layoutY="14.0" mnemonicParsing="false" onAction="#InvoiceButton" style="-fx-background-color: white;" text="Invoice" textFill="#462323">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
                </children>
-            </Pane>
-            <Pane id="InvoicesAllAppointments" layoutX="15.0" layoutY="375.0" prefHeight="270.0" prefWidth="720.0" style="-fx-background-color: white;">
-               <children>
-                  <Label id="InvoicesAllAppointmentsPaneLabel" layoutX="304.0" layoutY="8.0" text="All Appointments">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
-                  <Line id="InvoicesAllAppointmentsCosmeticLine" endX="418.507568359375" endY="-3.0517578125E-5" layoutX="286.0" layoutY="50.0" startX="-269.0" startY="-1.52587890625E-5" />
-                  <TableView layoutX="15.0" layoutY="96.0" prefHeight="160.0" prefWidth="694.0">
-                    <columns>
-                      <TableColumn id="invAllApptPatientCol" prefWidth="110.0" text="Patient" />
-                      <TableColumn id="invAllApptModalityCol" prefWidth="110.0" text="Modality" />
-                        <TableColumn id="invAllApptDateTimeCol" prefWidth="110.0" text="Date and Time" />
-                        <TableColumn id="invAllApptRadioCol" prefWidth="110.0" text="Radiologist" />
-                        <TableColumn id="invAllApptTechCol" prefWidth="110.0" text="Technician" />
-                    </columns>
-                  </TableView>
-                  <TextField id="searchInvAllApptTextField" layoutX="554.0" layoutY="58.0" prefHeight="26.0" prefWidth="155.0" />
-                  <Label id="searchInvAllApptLabel" layoutX="506.0" layoutY="61.0" text="Search:">
-                     <font>
-                        <Font name="System Bold" size="14.0" />
-                     </font>
-                  </Label>
-               </children>
-            </Pane>
-            <Button fx:id="InvoiceButton" layoutX="279.0" layoutY="14.0" mnemonicParsing="false" onAction="#InvoiceButton" style="-fx-background-color: white;" text="Invoice" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-         </children>
-      </AnchorPane>
-   </top>
-</BorderPane>
+            </AnchorPane>
+         </top>
+      </BorderPane>
+   </content>
+</ScrollPane>
