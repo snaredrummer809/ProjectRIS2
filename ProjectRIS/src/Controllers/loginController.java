@@ -2,6 +2,11 @@ package Controllers;
 
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import application.Main;
 import javafx.event.ActionEvent;
@@ -14,67 +19,117 @@ import javafx.scene.control.TextField;
 public class loginController {
 
 	
-	@FXML private Button LoginButton;
-	@FXML private Label wrongLogin;
-	@FXML private TextField username;
-	@FXML private PasswordField password;
+	@FXML 
+	private Button loginButton;
+	@FXML
+	private Label wrongLogin;
+	@FXML 
+	private TextField username;
+	@FXML 
+	private PasswordField password;
 	
 	
-	public void userLogin(ActionEvent event) throws IOException {
-		
-		checkLogin();
-	}
+	
+	Connection con = null;
+	Statement stmt = null;
+	ResultSet rs = null;
 
-
-	private void checkLogin() throws IOException {
-		// TODO Auto-generated method stub
+	public void userLogin(ActionEvent event) throws IOException, SQLException {
 		
-		Main m = new Main();
-		if(username.getText().toString().equals("Doc") && password.getText().toString().equals("Doc")) {
+		if(username.getText().isEmpty() == false && password.getText().isEmpty() == false) {
 		
-			wrongLogin.setText("Success");
-			m.changeScene("../Views/Doctor.fxml");
-		}
-		else if(username.getText().toString().equals("Admin") && password.getText().toString().equals("Admin")) {
-			
-			wrongLogin.setText("Success");
-			m.changeScene("../Views/Admin.fxml");
-		}
-		else if(username.getText().toString().equals("Radio") && password.getText().toString().equals("Radio")) {
-			
-			wrongLogin.setText("Success");
-			m.changeScene("../Views/Radio.fxml");
-		}
-		else if(username.getText().toString().equals("Desk") && password.getText().toString().equals("Desk")) {
-	
-			wrongLogin.setText("Success");
-			m.changeScene("../Views/Desk.fxml");
-		}
-		else if(username.getText().toString().equals("Bill") && password.getText().toString().equals("Bill")) {
-			
-			wrongLogin.setText("Success");
-			m.changeScene("../Views/Bill.fxml");
-		}
-		else if(username.getText().toString().equals("Tech") && password.getText().toString().equals("Tech")) {
-			
-			wrongLogin.setText("Success");
-			m.changeScene("../Views/Tech.fxml");
-		}
-		else if(username.getText().toString().equals("User") && password.getText().toString().equals("User")) {
+		validateLogin();
 		
-			wrongLogin.setText("Success");
-			m.changeScene("../Views/User.fxml");
-		}
-		
-		else if(username.getText().isEmpty() && password.getText().isEmpty()) {
-			
-			wrongLogin.setText("Please enter your data.");
 		}
 		
 		else {
-			
-			wrongLogin.setText("wrong username or password");
+			wrongLogin.setText("please enter username and password ");
 		}
+	}
+	
+	
+
+	public void validateLogin() throws SQLException {
+		
+		
+		Main m = new Main();
+		
+		
+		try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/db_ris", "root", "REPLACE WITH YOUR PASSWORD");
+			Statement stmt = con.createStatement();
+			String verifyLogin = "select * from users where username='" + username.getText() + "' and password='" + password.getText() + "'" ;
+			ResultSet rs = stmt.executeQuery(verifyLogin);
+			
+			
+			if(rs.next()) {
+				
+				
+				wrongLogin.setText("success");
+				
+				
+				if(username.getText().toString().equals("admin")) {
+					
+				
+				m.changeScene("../Views/Admin.fxml");
+				
+				}
+				
+				else if(username.getText().toString().equals("bill")) {
+					
+					m.changeScene("../Views/Bill.fxml");
+					
+				}
+				
+				else if(username.getText().toString().equals("desk")) {
+					
+					m.changeScene("../Views/Desk.fxml");
+					
+				}
+				
+				else if(username.getText().toString().equals("doc")) {
+					
+					m.changeScene("../Views/Doctor.fxml");
+					
+				}
+				
+				else if(username.getText().toString().equals("radio")) {
+					
+					m.changeScene("../Views/Radio.fxml");
+					
+				}
+				else if(username.getText().toString().equals("tech")) {
+					
+					m.changeScene("../Views/Tech.fxml");
+					
+				}
+				else if(username.getText().toString().equals("user")) {
+					
+					m.changeScene("../Views/User.fxml");
+					
+				}
+			}
+			
+			
+			else {
+				
+				wrongLogin.setText("wrong username or password");
+			
+			}
+		
+			}
+		
+			catch(Exception e) {
+				
+				System.out.print(e);
+			}
+	
+	
+	
+	
+	
 	}
 	
 }
