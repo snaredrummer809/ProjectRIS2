@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Hyperlink?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
@@ -12,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1460.0" prefWidth="750.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.AdminController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1460.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminController">
    <center>
       <AnchorPane prefHeight="1460.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
          <children>
@@ -77,11 +76,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <Hyperlink id="newPatientLink" layoutX="615.0" layoutY="16.0" text="New Patient">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Hyperlink>
+                  <Button layoutX="628.0" layoutY="14.0" mnemonicParsing="false" onAction="#NewPatientButton" text="New Patient" />
                </children>
             </Pane>
             <Button fx:id="ReferralsButton" layoutX="427.0" layoutY="14.0" mnemonicParsing="false" onAction="#ReferralsButton" style="-fx-background-color: white;" text="Referrals" textFill="#462323">
