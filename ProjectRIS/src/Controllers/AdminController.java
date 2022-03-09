@@ -1,6 +1,10 @@
 package Controllers;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 
 import application.Main;
 import javafx.event.ActionEvent;
@@ -49,6 +53,12 @@ public class AdminController {
 		Main m = new Main();
 		m.changeScene("../Views/Admin.fxml");
 	}
+	public void NewPatientButton(ActionEvent event) throws IOException{
+		
+		Main m = new Main();
+		m.changeScene("../Views/NewPatient.fxml");
+	}
+	
 	public void addNewPatient(ActionEvent event) throws IOException {
 		String firstName = "'Kevin'";
 		String lastName = "'Cafferty'";
@@ -70,6 +80,8 @@ public class AdminController {
 	       stmt = (Statement) conn.createStatement();
 	       String query1 = "INSERT INTO patients " + "VALUES (1, " + firstName + ", " + lastName + ", " + dob + ", " + sex + ", " + race + ", " + ethnicity + ")";;
 	       stmt.executeUpdate(query1);
+	       //query1 = "INSERT INTO patients " + "VALUES (2, 'Carol', 42)";
+	       //stmt.executeUpdate(query1);
 	       System.out.println("Record is inserted in the table successfully..................");
 	       } catch (SQLException excep) {
 	          excep.printStackTrace();
@@ -89,4 +101,8 @@ public class AdminController {
 	       }
 	       System.out.println("Please check it in the MySQL Table......... ……..");
 	    }
-}
+	 
+	}
+
+
+
