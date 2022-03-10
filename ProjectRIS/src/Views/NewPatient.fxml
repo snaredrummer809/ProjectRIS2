@@ -63,20 +63,20 @@
                      </font>
                   </Label>
                   <Line id="referralPatientsCosmeticLine" endX="422.12945556640625" endY="-1.52587890625E-5" layoutX="286.0" layoutY="50.0" startX="-269.0" startY="-1.52587890625E-5" />
-                  <TextField id="firstName" layoutX="85.0" layoutY="64.0" />
-                  <Label layoutX="14.0" layoutY="68.0" text="First Name:" />
-                  <TextField id="lastName" layoutX="306.0" layoutY="64.0" />
-                  <Label layoutX="240.0" layoutY="68.0" text="Last Name:" />
+                  <TextField id="firstName" fx:id="PatientFirstName" layoutX="65.0" layoutY="64.0" />
+                  <Label layoutX="3.0" layoutY="68.0" text="First Name:" />
+                  <TextField id="lastName" fx:id="PatientLastName" layoutX="295.0" layoutY="64.0" />
+                  <Label layoutX="234.0" layoutY="68.0" text="Last Name:" />
                   <Button layoutX="654.0" layoutY="15.0" mnemonicParsing="false" onAction="#ReferralsButton" text="Cancel" />
-                  <Button layoutX="654.0" layoutY="250.0" mnemonicParsing="false" onAction="#addNewPatient" text="Submit" />
-                  <TextField id="race" layoutX="306.0" layoutY="120.0" />
-                  <DatePicker id="dob" layoutX="538.0" layoutY="64.0" />
-                  <Label layoutX="463.0" layoutY="68.0" text="Date of Birth:" />
+                  <Button fx:id="addNewPatientButton" layoutX="654.0" layoutY="250.0" mnemonicParsing="false" onAction="#addNewPatient" text="Submit" />
+                  <TextField id="race" fx:id="PatientRace" layoutX="306.0" layoutY="120.0" />
+                  <DatePicker id="dob" fx:id="DOB" layoutX="525.0" layoutY="64.0" />
+                  <Label layoutX="454.0" layoutY="68.0" text="Date of Birth:" />
                   <Label layoutX="53.0" layoutY="124.0" text="Sex:" />
                   <Label layoutX="255.0" layoutY="124.0" text="Race:" />
-                  <TextField id="ethnicity" layoutX="538.0" layoutY="120.0" />
+                  <TextField id="ethnicity" fx:id="PatientEthnicity" layoutX="538.0" layoutY="120.0" />
                   <Label layoutX="484.0" layoutY="124.0" text="Ethnicity" />
-                  <ChoiceBox id="sex" layoutX="84.0" layoutY="120.0" prefWidth="150.0" />
+                  <ChoiceBox id="sex" fx:id="sexChoiceBox" layoutX="84.0" layoutY="120.0" prefWidth="150.0" />
                </children>
             </Pane>
             <Button fx:id="ReferralsButton" layoutX="427.0" layoutY="14.0" mnemonicParsing="false" onAction="#ReferralsButton" style="-fx-background-color: white;" text="Referrals" textFill="#462323">
