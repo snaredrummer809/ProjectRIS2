@@ -36,6 +36,7 @@ public class AdminAdminController {
 	@FXML
 	TextField confirmPasswordTextField;
 	Alert errorAlert = new Alert(AlertType.ERROR);
+	Alert updateAlert = new Alert(AlertType.CONFIRMATION);
 	
 	public void userLogOut(ActionEvent event) throws IOException {
 		
@@ -177,6 +178,10 @@ public class AdminAdminController {
 		catch(Exception e) {
 			System.out.println("Error.");
 		}
+		newUserPane.setVisible(false);
+		updateAlert.setHeaderText("Success!");
+		updateAlert.setContentText("User has been successfully added.");
+		updateAlert.showAndWait();
 		
 	}
 	
