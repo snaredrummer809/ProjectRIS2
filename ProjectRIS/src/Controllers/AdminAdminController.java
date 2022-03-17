@@ -27,8 +27,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
-public class AdminAdminController implements Initializable{
-	
+public class AdminAdminController implements Initializable {
+
 	// Nav buttons
 	@FXML
 	Button HomeButton;
@@ -42,7 +42,7 @@ public class AdminAdminController implements Initializable{
 	Button ReferralsButton;
 	@FXML
 	Button LogOut;
-	
+
 	// Panes
 	@FXML
 	Pane systemUsersPane;
@@ -60,23 +60,24 @@ public class AdminAdminController implements Initializable{
 	Pane fileUploadsPane;
 	@FXML
 	Pane diagnosticReportsPane;
-	
+
 	// System User Pane
 	@FXML
 	TableView<ModelTable> usersTable;
 	@FXML
-	TableColumn<ModelTable,Integer> userIDCol;
+	TableColumn<ModelTable, Integer> userIDCol;
 	@FXML
-	TableColumn<ModelTable,String> usernameCol;
+	TableColumn<ModelTable, String> usernameCol;
 	@FXML
-	TableColumn<ModelTable,String> displayNameCol;
+	TableColumn<ModelTable, String> displayNameCol;
 	@FXML
-	TableColumn<ModelTable,String> emailCol;
+	TableColumn<ModelTable, String> emailCol;
 	@FXML
-	TableColumn<ModelTable,String> systemRoleCol;
+	TableColumn<ModelTable, String> systemRoleCol;
 	@FXML
-	TableColumn<ModelTable,String> modifyCol;
-	
+	TableColumn<ModelTable, String> modifyCol;
+	ObservableList<ModelTable> systemUsers = FXCollections.observableArrayList();
+
 	// newUserPane pane & controls
 	@FXML
 	Pane newUserPane;
@@ -100,8 +101,8 @@ public class AdminAdminController implements Initializable{
 	TextField confirmPasswordTextField;
 	Alert errorAlert = new Alert(AlertType.ERROR);
 	Alert updateAlert = new Alert(AlertType.CONFIRMATION);
-	ObservableList<ModelTable> oblist = FXCollections.observableArrayList();
-	
+	ObservableList<String> roles = FXCollections.observableArrayList();
+
 	// modUserPane
 	@FXML
 	Pane modUserPane;
@@ -123,44 +124,50 @@ public class AdminAdminController implements Initializable{
 	TextField modPasswordTextField;
 	@FXML
 	TextField modConfirmPasswordTextField;
-	
+
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		
+
+		populateSystemUsers();
+		paneInitialize();
+
+	}
+
+	public void populateSystemUsers() {
+		systemUsers.clear();
 		try {
-			Connection con = DatabaseConnection.getConnection();			
+			Connection con = DatabaseConnection.getConnection();
 			ResultSet rs = con.createStatement().executeQuery("select * from users");
-						
+
 			while (rs.next()) {
-				oblist.add(new ModelTable(rs.getInt("user_id"),rs.getString("username"),rs.getString("full_name"),rs.getString("email"), null));
+				systemUsers.add(new ModelTable(rs.getInt("user_id"), rs.getString("username"),
+						rs.getString("full_name"), rs.getString("email"), null));
 			}
-		} 
-		catch (SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		userIDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
 		usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
 		displayNameCol.setCellValueFactory(new PropertyValueFactory<>("displayName"));
 		emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
 		systemRoleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
-		
-		Callback<TableColumn<ModelTable, String>, TableCell<ModelTable, String>> cellFactory=(param) ->{
-			
-			final TableCell<ModelTable,String> cell = new TableCell<ModelTable,String>(){
-				
+
+		Callback<TableColumn<ModelTable, String>, TableCell<ModelTable, String>> cellFactory = (param) -> {
+
+			final TableCell<ModelTable, String> cell = new TableCell<ModelTable, String>() {
+
 				@Override
 				public void updateItem(String item, boolean empty) {
 					super.updateItem(item, empty);
-					
-					if(empty) {
+
+					if (empty) {
 						setText(null);
-					}
-					else {
+					} else {
 						final Button modButton = new Button("Modify");
-						modButton.setOnAction(event ->{
+						modButton.setOnAction(event -> {
 							ModelTable m = getTableView().getItems().get(getIndex());
-							
+
 							modUserPane.setVisible(true);
 							modalitiesPane.setDisable(true);
 							patientAlertsPane.setDisable(true);
@@ -175,66 +182,82 @@ public class AdminAdminController implements Initializable{
 							OrdersButton.setDisable(true);
 							ReferralsButton.setDisable(true);
 							LogOut.setDisable(true);
-							
+
 							modIDTextField.setText("" + m.getID());
 							modUsernameTextField.setText(m.getUsername());
 							modDisplayNameTextField.setText(m.getDisplayName());
 							modEmailAddressTextField.setText(m.getEmail());
-							
+
 						});
-						
+
 						setGraphic(modButton);
 						setText(null);
 					}
 				}
 			};
-			
+
 			return cell;
 		};
 		modifyCol.setCellFactory(cellFactory);
-		
-		usersTable.setItems(oblist);
+
+		usersTable.setItems(systemUsers);
+	}
+
+	public void paneInitialize() {
+		roles.removeAll(roles);
+		String a = "Admin";
+		String b = "Referral_Doctor";
+		String c = "Technician";
+		String d = "Radiologist";
+		String e = "Receptionist";
+		String f = "User";
+		String g = "Billing";
+		roles.addAll(a, b, c, d, e, f, g);
+		roleChoiceBox.setItems(roles);
+		modRoleChoiceBox.setItems(roles);
+		roleChoiceBox.setValue(a);
+		modRoleChoiceBox.setValue(a);
 	}
 
 	public void userLogOut(ActionEvent event) throws IOException {
-		
+
 		Main m = new Main();
-		
+
 		m.changeScene("../Views/Login.fxml");
 	}
-	
-	public void HomeButton(ActionEvent event) throws IOException{
-		
+
+	public void HomeButton(ActionEvent event) throws IOException {
+
 		Main m = new Main();
 		m.changeScene("../Views/Admin.fxml");
 	}
-	
-	public void AppointmentButton(ActionEvent event) throws IOException{
-		
+
+	public void AppointmentButton(ActionEvent event) throws IOException {
+
 		Main m = new Main();
 		m.changeScene("../Views/AdminAppointments.fxml");
 	}
 
-	public void InvoiceButton(ActionEvent event) throws IOException{
-	
+	public void InvoiceButton(ActionEvent event) throws IOException {
+
 		Main m = new Main();
 		m.changeScene("../Views/AdminInvoice.fxml");
 	}
-	
-	public void OrderButton(ActionEvent event) throws IOException{
-		
+
+	public void OrderButton(ActionEvent event) throws IOException {
+
 		Main m = new Main();
 		m.changeScene("../Views/AdminOrders.fxml");
 	}
 
-	public void ReferralsButton(ActionEvent event) throws IOException{
-	
+	public void ReferralsButton(ActionEvent event) throws IOException {
+
 		Main m = new Main();
 		m.changeScene("../Views/AdminReferrals.fxml");
 	}
-	
-	public void NewUserButton(ActionEvent event) throws IOException{
-		
+
+	public void NewUserButton(ActionEvent event) throws IOException {
+
 		createUserLabel.setText("Create New User");
 		newUserPane.setVisible(true);
 		modalitiesPane.setDisable(true);
@@ -250,106 +273,126 @@ public class AdminAdminController implements Initializable{
 		OrdersButton.setDisable(true);
 		ReferralsButton.setDisable(true);
 		LogOut.setDisable(true);
-		
+
 	}
-	
+
 	@SuppressWarnings("deprecation")
-	public void createUserButton(ActionEvent event) throws IOException{
+	public void createUserButton(ActionEvent event) throws IOException {
 		int ID;
 		String username = null;
 		String displayName = null;
 		String email = null;
+		String password = null;
+		String role = null;
 		boolean enabled = enabledCheckBox.isSelected();
 		int enableCheck = 0;
-		String password = null;
-		
+		int c = 0;
+
 		// Set username
-		if(usernameTextField.getText().isBlank()) {
+		if (usernameTextField.getText().isBlank()) {
 			errorAlert.setHeaderText("Invalid input");
 			errorAlert.setContentText("Username cannot be blank.");
 			errorAlert.showAndWait();
-		}
-		else if(!Character.isLetter(usernameTextField.getText().charAt(0))) {
+		} else if (!Character.isLetter(usernameTextField.getText().charAt(0))) {
 			errorAlert.setHeaderText("Invalid input");
 			errorAlert.setContentText("Username must start with a letter.");
 			errorAlert.showAndWait();
-		}
-		else {
+		} else {
 			username = usernameTextField.getText();
 		}
-		
+
 		// Set display name
-		for(int i = 0; i < displayNameTextField.getText().length(); i++) {
-			if(!Character.isLetter(displayNameTextField.getText().charAt(i))&& !Character.isSpace(displayNameTextField.getText().charAt(i))) {
+		for (int i = 0; i < displayNameTextField.getText().length(); i++) {
+			if (!Character.isLetter(displayNameTextField.getText().charAt(i))
+					&& !Character.isSpace(displayNameTextField.getText().charAt(i))) {
 				errorAlert.setHeaderText("Invalid input");
 				errorAlert.setContentText("Display Name must contain only letters.");
-				errorAlert.showAndWait();				
+				errorAlert.showAndWait();
 				i = displayNameTextField.getText().length();
 			}
 		}
-		if(displayNameTextField.getText().isBlank()){
+		if (displayNameTextField.getText().isBlank()) {
 			errorAlert.setHeaderText("Invalid input");
 			errorAlert.setContentText("Display Name cannot be blank");
 			errorAlert.showAndWait();
-		}
-		else {
+		} else {
 			displayName = displayNameTextField.getText();
 		}
 		// Set email
-		if(emailAddressTextField.getText().isBlank()) {
+		if (emailAddressTextField.getText().isBlank()) {
 			errorAlert.setHeaderText("Invalid input");
 			errorAlert.setContentText("Email cannot be blank.");
 			errorAlert.showAndWait();
-		}
-		else {
+		} else {
 			email = emailAddressTextField.getText();
 		}
 		// Set password
-		if(passwordTextField.getText().isBlank()) {
+		if (passwordTextField.getText().isBlank()) {
 			errorAlert.setHeaderText("Invalid input");
 			errorAlert.setContentText("Password cannot be blank.");
 			errorAlert.showAndWait();
-		}
-		else {
-			if(passwordTextField.getText().equals(confirmPasswordTextField.getText())) {
+		} else {
+			if (passwordTextField.getText().equals(confirmPasswordTextField.getText())) {
 				password = passwordTextField.getText();
-			}
-			else {
+			} else {
 				errorAlert.setHeaderText("Invalid input");
 				errorAlert.setContentText("Passwords do not match.");
 				errorAlert.showAndWait();
 			}
 		}
 		// Set enabled
-		if(enabled == true) {
+		if (enabled == true) {
 			enableCheck = 1;
-		}
-		else {
+		} else {
 			enableCheck = 0;
 		}
-		
+		role = roleChoiceBox.getValue();
+		role = role.toUpperCase();
+
 		try {
 			Connection con = DatabaseConnection.getConnection();
 			Statement stmt = con.createStatement();
-			String IDCheck = "select * from users" ;
+			String IDCheck = "select * from users";
 			ResultSet rs = stmt.executeQuery(IDCheck);
-			
-			int num = 0;
-			
+
+			int idNum = 0;
+			int idNum2 = 0;
+
 			while (rs.next()) {
-				num = rs.getInt("user_id");
+				c = rs.getInt("user_id");
 			}
-			ID = num + 1;
-			
-			String newUser = "INSERT INTO users (user_id, email, full_name, username, password, enabled) "
-					+ "VALUES (" + ID + ", \'" + email + "\', \'" + displayName + "\', \'" + username + "\', \'" + password
-					+ "\', " + enableCheck + ")";
-			
+			ID = c + 1;
+
+			String getRoleID = "select * from roles where name=\'" + role + "\'";
+			rs = stmt.executeQuery(getRoleID);
+
+			while (rs.next()) {
+				idNum = rs.getInt("role_id");
+			}
+
+			String getUserAndRoleID = "select * from users_roles";
+			rs = stmt.executeQuery(getUserAndRoleID);
+
+			while (rs.next()) {
+				c = rs.getInt("id");
+			}
+			idNum2 = c + 1;
+
+			String newUser = "INSERT INTO users (user_id, email, full_name, username, password, enabled) " + "VALUES ("
+					+ ID + ", \'" + email + "\', \'" + displayName + "\', \'" + username + "\', \'" + password + "\', "
+					+ enableCheck + ")";
+
+			String addUserRole = "INSERT INTO users_roles (user_id, role_id, id) " + "VALUES (" + ID + ", " + idNum
+					+ ", " + idNum2 + ")";
+
 			stmt.executeUpdate(newUser);
-			
+			stmt.executeUpdate(addUserRole);
+
 			con.close();
-		}
-		catch(Exception e) {
+			updateAlert.setHeaderText("Success!");
+			updateAlert.setContentText("User has been successfully added.");
+			updateAlert.showAndWait();
+		} catch (Exception e) {
 			System.out.println("Error: Failed to add new user.");
 		}
 		newUserPane.setVisible(false);
@@ -366,14 +409,13 @@ public class AdminAdminController implements Initializable{
 		OrdersButton.setDisable(false);
 		ReferralsButton.setDisable(false);
 		LogOut.setDisable(false);
-		updateAlert.setHeaderText("Success!");
-		updateAlert.setContentText("User has been successfully added.");
-		updateAlert.showAndWait();
-		
+		populateSystemUsers();
+
 	}
-	
-	public void cancelUserButton(ActionEvent event) throws IOException{
+
+	public void cancelUserButton(ActionEvent event) throws IOException {
 		newUserPane.setVisible(false);
+		modUserPane.setVisible(false);
 		IDTextField.clear();
 		usernameTextField.clear();
 		displayNameTextField.clear();
@@ -382,97 +424,107 @@ public class AdminAdminController implements Initializable{
 		passwordTextField.clear();
 		confirmPasswordTextField.clear();
 	}
-	
+
 	@SuppressWarnings("deprecation")
-	public void modUserButton(ActionEvent event) throws IOException{
+	public void modUserButton(ActionEvent event) throws IOException {
 		int ID;
 		String username = null;
 		String displayName = null;
 		String email = null;
+		String password = null;
+		String role = null;
 		boolean enabled = modEnabledCheckBox.isSelected();
 		int enableCheck = 0;
-		String password = null;
-		
+		int idNum = 0;
+		int c = 0;
+
 		// Set username
-		if(modUsernameTextField.getText().isBlank()) {
+		if (modUsernameTextField.getText().isBlank()) {
 			errorAlert.setHeaderText("Invalid input");
 			errorAlert.setContentText("Username cannot be blank.");
 			errorAlert.showAndWait();
-		}
-		else if(!Character.isLetter(modUsernameTextField.getText().charAt(0))) {
+		} else if (!Character.isLetter(modUsernameTextField.getText().charAt(0))) {
 			errorAlert.setHeaderText("Invalid input");
 			errorAlert.setContentText("Username must start with a letter.");
 			errorAlert.showAndWait();
-		}
-		else {
+		} else {
 			username = modUsernameTextField.getText();
 		}
-		
+
 		// Set display name
-		for(int i = 0; i < modDisplayNameTextField.getText().length(); i++) {
-			if(!Character.isLetter(modDisplayNameTextField.getText().charAt(i))&& !Character.isSpace(modDisplayNameTextField.getText().charAt(i))) {
+		for (int i = 0; i < modDisplayNameTextField.getText().length(); i++) {
+			if (!Character.isLetter(modDisplayNameTextField.getText().charAt(i))
+					&& !Character.isSpace(modDisplayNameTextField.getText().charAt(i))) {
 				errorAlert.setHeaderText("Invalid input");
 				errorAlert.setContentText("Display Name must contain only letters.");
-				errorAlert.showAndWait();				
+				errorAlert.showAndWait();
 				i = modDisplayNameTextField.getText().length();
 			}
 		}
-		if(modDisplayNameTextField.getText().isBlank()){
+		if (modDisplayNameTextField.getText().isBlank()) {
 			errorAlert.setHeaderText("Invalid input");
 			errorAlert.setContentText("Display Name cannot be blank");
 			errorAlert.showAndWait();
-		}
-		else {
+		} else {
 			displayName = modDisplayNameTextField.getText();
 		}
 		// Set email
-		if(modEmailAddressTextField.getText().isBlank()) {
+		if (modEmailAddressTextField.getText().isBlank()) {
 			errorAlert.setHeaderText("Invalid input");
 			errorAlert.setContentText("Email cannot be blank.");
 			errorAlert.showAndWait();
-		}
-		else {
+		} else {
 			email = modEmailAddressTextField.getText();
 		}
 		// Set password
-		if(modPasswordTextField.getText().isBlank()) {
+		if (modPasswordTextField.getText().isBlank()) {
 			errorAlert.setHeaderText("Invalid input");
 			errorAlert.setContentText("Password cannot be blank.");
 			errorAlert.showAndWait();
-		}
-		else {
-			if(modPasswordTextField.getText().equals(modConfirmPasswordTextField.getText())) {
+		} else {
+			if (modPasswordTextField.getText().equals(modConfirmPasswordTextField.getText())) {
 				password = modPasswordTextField.getText();
-			}
-			else {
+			} else {
 				errorAlert.setHeaderText("Invalid input");
 				errorAlert.setContentText("Passwords do not match.");
 				errorAlert.showAndWait();
 			}
 		}
 		// Set enabled
-		if(enabled == true) {
+		if (enabled == true) {
 			enableCheck = 1;
-		}
-		else {
+		} else {
 			enableCheck = 0;
 		}
 		
+		role = modRoleChoiceBox.getValue();
+		role = role.toUpperCase();
 		ID = Integer.parseInt(modIDTextField.getText());
-		
+
 		try {
 			Connection con = DatabaseConnection.getConnection();
-			
-			String modUser = "update users "
-					+ " set username=\'" + username + "\'"
-					+ " where user_id=" + ID + "";
-			
 			Statement stmt = con.createStatement();
-			stmt.executeUpdate(modUser);
+			ResultSet rs;
 			
+			String getUserAndRoleID = "select * from roles where name=\'" + role + "\'";
+			rs = stmt.executeQuery(getUserAndRoleID);
+
+			while (rs.next()) {
+				idNum = rs.getInt("role_id");
+			}
+
+			String modUser = "update users set username=\'" + username + "\'" + " where user_id=" + ID + "";
+			String modUserRole = "update users_roles set role_id=" + idNum + " where user_id=" + ID + "";
+
+			stmt.executeUpdate(modUser);
+			stmt.executeUpdate(modUserRole);
+
 			con.close();
-		}
-		catch(Exception e) {
+			updateAlert.setHeaderText("Success!");
+			updateAlert.setContentText("User has been successfully modified.");
+			updateAlert.showAndWait();
+		} 
+		catch (Exception e) {
 			System.out.println("Error: Failed to add new user.");
 		}
 		modUserPane.setVisible(false);
@@ -489,11 +541,8 @@ public class AdminAdminController implements Initializable{
 		OrdersButton.setDisable(false);
 		ReferralsButton.setDisable(false);
 		LogOut.setDisable(false);
-		updateAlert.setHeaderText("Success!");
-		updateAlert.setContentText("User has been successfully modified.");
-		updateAlert.showAndWait();
-		
+		populateSystemUsers();
+
 	}
 
 }
-
