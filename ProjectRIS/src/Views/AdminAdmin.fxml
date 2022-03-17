@@ -65,9 +65,9 @@
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Pane id="systemUsersPane" layoutX="15.0" layoutY="75.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
+                  <Pane id="systemUsersPane" fx:id="systemUsersPane" disable="false" layoutX="15.0" layoutY="75.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;" visible="true">
                      <children>
-                        <Label id="systemUserLabel" layoutX="291.0" layoutY="14.0" text="System Users">
+                        <Label id="systemUserLabel" fx:id="createUserLabel" layoutX="291.0" layoutY="14.0" text="System Users">
                            <font>
                               <Font size="20.0" />
                            </font>
@@ -84,19 +84,19 @@
                            </font>
                         </Label>
                         <TextField id="searchUsersTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
-                        <TableView id="systemUsersTable" layoutX="16.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
+                        <TableView id="systemUsersTable" fx:id="usersTable" layoutX="16.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
                           <columns>
-                            <TableColumn id="SUTableUserIDColumn" text="User ID" />
-                            <TableColumn id="SUTableUsernameColumn" prefWidth="120.0" text="Username" />
-                              <TableColumn id="SUTableDisplayNameColumn" prefWidth="140.0" text="Display Name" />
-                              <TableColumn id="SUTableEmailColumn" prefWidth="140.0" text="Email Address" />
-                              <TableColumn id="SUTableRoleColumn" prefWidth="100.0" text="System Role" />
-                              <TableColumn id="SUTableModifyUserColumn" prefWidth="78.0" />
+                            <TableColumn id="SUTableUserIDColumn" fx:id="userIDCol" text="User ID" />
+                            <TableColumn id="SUTableUsernameColumn" fx:id="usernameCol" prefWidth="120.0" text="Username" />
+                              <TableColumn id="SUTableDisplayNameColumn" fx:id="displayNameCol" prefWidth="140.0" text="Display Name" />
+                              <TableColumn id="SUTableEmailColumn" fx:id="emailCol" prefWidth="140.0" text="Email Address" />
+                              <TableColumn id="SUTableRoleColumn" fx:id="systemRoleCol" prefWidth="100.0" text="System Role" />
+                              <TableColumn id="SUTableModifyUserColumn" fx:id="modifyCol" prefWidth="78.0" />
                           </columns>
                         </TableView>
                         <Pane id="newUserPane" fx:id="newUserPane" layoutX="5.0" layoutY="-10.0" prefHeight="311.0" prefWidth="688.0" style="-fx-background-color: white;" visible="false">
                            <children>
-                              <Label id="newUserLabel" layoutX="28.0" layoutY="23.0" text="Create New User">
+                              <Label id="newUserLabel" fx:id="createUserLabel" layoutX="28.0" layoutY="23.0" text="Create New User">
                                  <font>
                                     <Font size="22.0" />
                                  </font>
@@ -166,16 +166,88 @@
                               </Button>
                             </children>
                         </Pane>
+                        <Pane id="modUserPane" fx:id="modUserPane" layoutX="5.0" layoutY="-10.0" prefHeight="311.0" prefWidth="688.0" style="-fx-background-color: white;" visible="false">
+                           <children>
+                              <Label id="modUserLabel" fx:id="modUserLabel" layoutX="28.0" layoutY="23.0" text="Modify User">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <Line id="modUserCosmeticLine" fx:id="modUserCosmeticLine" endX="527.6666870117188" endY="1.52587890625E-5" layoutX="129.0" layoutY="68.0" startX="-100.0" />
+                              <Label id="IDLabel" layoutX="28.0" layoutY="81.0" text="ID:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label id="usernameLabel" layoutX="80.0" layoutY="83.0" text="Username:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label id="displayNameLabel" layoutX="219.0" layoutY="81.0" text="Display Name:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label id="emailAddressLabel" layoutX="396.0" layoutY="81.0" text="Email Address:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label id="enabledLabel" layoutX="564.0" layoutY="81.0" text="Enabled:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="IDTextField" fx:id="modIDTextField" editable="false" layoutX="28.0" layoutY="108.0" prefHeight="25.0" prefWidth="25.0" />
+                              <TextField id="usernameTextField" fx:id="modUsernameTextField" layoutX="80.0" layoutY="108.0" prefHeight="25.0" prefWidth="127.0" />
+                              <TextField id="displayNameTextField" fx:id="modDisplayNameTextField" layoutX="219.0" layoutY="108.0" prefHeight="25.0" prefWidth="163.0" />
+                              <TextField id="emailAddressTextField" fx:id="modEmailAddressTextField" layoutX="396.0" layoutY="108.0" />
+                              <CheckBox id="enabledCheckBox" fx:id="modEnabledCheckBox" layoutX="582.0" layoutY="108.0" mnemonicParsing="false" prefHeight="19.0" prefWidth="13.0">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </CheckBox>
+                              <Label id="userRoleLabel" layoutX="27.0" layoutY="156.0" text="Add User Role:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label id="passwordLabel" layoutX="234.0" layoutY="160.0" text="Password:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <Label id="confirmPasswordLabel" layoutX="381.0" layoutY="160.0" text="Confirm Password:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <ChoiceBox id="rolesChoiceBox" fx:id="modRoleChoiceBox" layoutX="27.0" layoutY="185.0" prefWidth="150.0" />
+                              <TextField id="passwordTextField" fx:id="modPasswordTextField" layoutX="234.0" layoutY="185.0" prefHeight="25.0" prefWidth="132.0" />
+                              <TextField id="confirmPasswordTextField" fx:id="modConfirmPasswordTextField" layoutX="381.0" layoutY="185.0" />
+                              <Button id="modUserButton" fx:id="modUserButton" layoutX="234.0" layoutY="237.0" mnemonicParsing="false" onAction="#modUserButton" style="-fx-background-color: #1a7fd7;" text="Modify User" textFill="WHITE">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <Button id="cancelUserButton" fx:id="cancelUserButton" layoutX="366.0" layoutY="237.0" mnemonicParsing="false" onAction="#cancelUserButton" style="-fx-background-color: red;" text="Cancel">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                            </children>
+                        </Pane>
                      </children>
                   </Pane>
-                  <Pane id="modalitiesPane" layoutX="15.0" layoutY="374.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
+                  <Pane id="modalitiesPane" fx:id="modalitiesPane" disable="false" layoutX="15.0" layoutY="374.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;" visible="true">
                      <children>
                         <Label id="modalitiesPaneLabel" layoutX="307.0" layoutY="17.0" text="Modalities">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Line id="systemUsersCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
+                        <Line id="modalitiesCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
                         <Button id="newModalityButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
                            <font>
                               <Font size="16.0" />
@@ -197,7 +269,7 @@
                         </TableView>
                      </children>
                   </Pane>
-                  <Pane id="patientAlertsPane" layoutX="15.0" layoutY="679.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
+                  <Pane id="patientAlertsPane" fx:id="patientAlertsPane" disable="false" layoutX="15.0" layoutY="679.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;" visible="true">
                      <children>
                         <Label id="patientAlertsPaneLabel" layoutX="291.0" layoutY="17.0" text="Patient Alerts">
                            <font>
@@ -225,7 +297,7 @@
                         </TableView>
                      </children>
                   </Pane>
-                  <Pane id="patientsPane" layoutX="15.0" layoutY="982.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
+                  <Pane id="patientsPane" fx:id="patientsPane" disable="false" layoutX="15.0" layoutY="982.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;" visible="true">
                      <children>
                         <Label id="patientsPaneLabel" layoutX="318.0" layoutY="17.0" text="Patients">
                            <font>
@@ -255,7 +327,7 @@
                         </TableView>
                      </children>
                   </Pane>
-                  <Pane id="ordersPane" layoutX="15.0" layoutY="1581.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
+                  <Pane id="ordersPane" fx:id="ordersPane" disable="false" layoutX="15.0" layoutY="1581.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;" visible="true">
                      <children>
                         <Label id="ordersPaneLabel" layoutX="320.0" layoutY="17.0" text="Orders">
                            <font>
@@ -287,7 +359,7 @@
                         </TableView>
                      </children>
                   </Pane>
-                  <Pane id="appointmentsPane" layoutX="15.0" layoutY="1280.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
+                  <Pane id="appointmentsPane" fx:id="appointmentsPane" disable="false" layoutX="15.0" layoutY="1280.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;" visible="true">
                      <children>
                         <Label id="appointmentsPaneLabel" layoutX="290.0" layoutY="17.0" text="Appointments">
                            <font>
@@ -319,7 +391,7 @@
                         </TableView>
                      </children>
                   </Pane>
-                  <Pane id="fileUploadsPane" layoutX="15.0" layoutY="1884.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
+                  <Pane id="fileUploadsPane" fx:id="fileUploadsPane" disable="false" layoutX="15.0" layoutY="1884.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;" visible="true">
                      <children>
                         <Label id="fileUploadsPaneLabel" layoutX="299.0" layoutY="17.0" text="File Uploads">
                            <font>
@@ -349,7 +421,7 @@
                         </TableView>
                      </children>
                   </Pane>
-                  <Pane id="diagnosticReportsPane" layoutX="15.0" layoutY="2190.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;">
+                  <Pane id="diagnosticReportsPane" fx:id="diagnosticReportsPane" disable="false" layoutX="15.0" layoutY="2190.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;" visible="true">
                      <children>
                         <Label id="diagnosticReportsPaneLabel" layoutX="266.0" layoutY="17.0" text="Diagnostic Reports">
                            <font>
