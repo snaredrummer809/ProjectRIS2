@@ -26,6 +26,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
+import javafx.scene.control.DatePicker;
 
 public class AdminAdminController implements Initializable {
 
@@ -125,10 +126,53 @@ public class AdminAdminController implements Initializable {
 	@FXML
 	TextField modConfirmPasswordTextField;
 
+	
+	//Patients Pane	
+	@FXML
+	TableView<PatientTableModel> patientsTable;
+	@FXML
+	TableColumn<PatientTableModel, Integer> patientIDCol; //these are by fx:id found in fxml
+	@FXML
+	TableColumn<PatientTableModel, String> patientDOBCol;
+	@FXML
+	TableColumn<PatientTableModel, String> patientLastNameCol;
+	@FXML
+	TableColumn<PatientTableModel, String> patientFirstNameCol;
+	@FXML
+	TableColumn<PatientTableModel, String> modPatientCol;
+	@FXML
+	ObservableList<PatientTableModel> patients = FXCollections.observableArrayList();
+	
+	//newPatientPane
+	@FXML Pane createPatientPane;
+	@FXML TextField PatientFirstName;
+	@FXML TextField PatientLastName;
+	@FXML TextField PatientRace;
+	@FXML Button addNewPatientButton;
+	@FXML Button cancelNewPatientButton;
+	@FXML DatePicker DOB;
+	@FXML TextField PatientEthnicity;
+	@FXML ChoiceBox sexChoiceBox;
+	ObservableList<String> sexChoices = FXCollections.observableArrayList();
+	
+	//modPatientPane
+	@FXML Pane modPatientPane;
+	@FXML TextField modPatientFirstName;
+	@FXML TextField modPatientLastName;
+	@FXML TextField modPatientRace;
+	@FXML TextField modPatientEthnicity;
+	@FXML Button cancelModPatientButton;
+	@FXML Button submitModPatientButton;
+	@FXML DatePicker modDOB;
+	@FXML ChoiceBox modsexChoiceBox;
+	@FXML TextField modPatientIDTextField;
+	
+	 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		populateSystemUsers();
+		populatePatients();
 		paneInitialize();
 
 	}
@@ -202,6 +246,78 @@ public class AdminAdminController implements Initializable {
 
 		usersTable.setItems(systemUsers);
 	}
+	
+	public void populatePatients() {
+		patients.clear();
+		try {
+			Connection con = DatabaseConnection.getConnection();
+			ResultSet rs = con.createStatement().executeQuery("select * from patients");
+
+			while (rs.next()) {
+				patients.add(new PatientTableModel(rs.getInt("patient_id"), rs.getString("dob"),
+						rs.getString("last_name"), rs.getString("first_name")));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		patientIDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
+		patientDOBCol.setCellValueFactory(new PropertyValueFactory<>("DOB"));
+		patientLastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+		patientFirstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));	
+		modPatientCol.setCellValueFactory(new PropertyValueFactory<>(""));
+
+		Callback<TableColumn<PatientTableModel, String>, TableCell<PatientTableModel, String>> cellFactory = (param) -> {
+
+			final TableCell<PatientTableModel, String> cell = new TableCell<PatientTableModel, String>() {
+
+				@Override
+				public void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+
+					if (empty) {
+						setText(null);
+					} else {
+						final Button modPatientButton = new Button("Modify");
+						modPatientButton.setOnAction(event -> {
+							PatientTableModel m = getTableView().getItems().get(getIndex());
+							
+
+							modPatientPane.setVisible(true);
+							systemUsersPane.setDisable(true);
+							modalitiesPane.setDisable(true);
+							patientAlertsPane.setDisable(true);
+							appointmentsPane.setDisable(true);
+							ordersPane.setDisable(true);
+							fileUploadsPane.setDisable(true);
+							diagnosticReportsPane.setDisable(true);
+							HomeButton.setDisable(true);
+							AppointmentButton.setDisable(true);
+							InvoiceButton.setDisable(true);
+							OrdersButton.setDisable(true);
+							ReferralsButton.setDisable(true);
+							LogOut.setDisable(true);
+
+							modPatientFirstName.setText("" + m.getFirstName());
+							modPatientLastName.setText("" + m.getLastName());
+							modPatientRace.setText("" + m.getRace());
+							modPatientEthnicity.setText("" + m.getEthnicity());
+							modPatientIDTextField.setText(""+ m.getID());
+							modPatientRace.setText("");
+							modPatientEthnicity.setText("");
+						});
+
+						setGraphic(modPatientButton);
+						setText(null);
+					}
+				}
+			};
+
+			return cell;
+		};
+		modPatientCol.setCellFactory(cellFactory);
+		patientsTable.setItems(patients);
+	}
 
 	public void paneInitialize() {
 		roles.removeAll(roles);
@@ -217,6 +333,13 @@ public class AdminAdminController implements Initializable {
 		modRoleChoiceBox.setItems(roles);
 		roleChoiceBox.setValue(a);
 		modRoleChoiceBox.setValue(a);
+		
+		
+		//adding newPatientSex choicebox options
+		sexChoices.removeAll(sexChoices);
+		sexChoices.addAll("Male", "Female", "Other");
+		modsexChoiceBox.setItems(sexChoices);
+		sexChoiceBox.setItems(sexChoices);
 	}
 
 	public void userLogOut(ActionEvent event) throws IOException {
@@ -528,6 +651,7 @@ public class AdminAdminController implements Initializable {
 			System.out.println("Error: Failed to add new user.");
 		}
 		modUserPane.setVisible(false);
+		systemUsersPane.setDisable(false);
 		modalitiesPane.setDisable(false);
 		patientAlertsPane.setDisable(false);
 		patientsPane.setDisable(false);
@@ -544,5 +668,264 @@ public class AdminAdminController implements Initializable {
 		populateSystemUsers();
 
 	}
+	
+	
+	
+//Patients pane controls
+	
+	//new Patient controls
+	public void NewPatientButton(ActionEvent event) throws IOException {
+	
+			createPatientPane.setVisible(true);
+			systemUsersPane.setDisable(true);
+			modalitiesPane.setDisable(true);
+			patientAlertsPane.setDisable(true);
+			appointmentsPane.setDisable(true);
+			ordersPane.setDisable(true);
+			fileUploadsPane.setDisable(true);
+			diagnosticReportsPane.setDisable(true);
+			HomeButton.setDisable(true);
+			AppointmentButton.setDisable(true);
+			InvoiceButton.setDisable(true);
+			OrdersButton.setDisable(true);
+			ReferralsButton.setDisable(true);
+			LogOut.setDisable(true);
+	
+		}
+	
+	//cancel create new patient
+		//also cancel modify patient
+	public void cancelNewPatientButton(ActionEvent event) throws IOException {
+		createPatientPane.setVisible(false);
+		modPatientPane.setVisible(false);
+		PatientFirstName.clear();
+		PatientLastName.clear();
+		PatientRace.clear();
+		PatientEthnicity.clear();
+		DOB.setValue(null);
+		
+		//re-enable all other panes
+		systemUsersPane.setDisable(false);
+		modalitiesPane.setDisable(false);
+		patientAlertsPane.setDisable(false);
+		appointmentsPane.setDisable(false);
+		ordersPane.setDisable(false);
+		fileUploadsPane.setDisable(false);
+		diagnosticReportsPane.setDisable(false);
+		HomeButton.setDisable(false);
+		AppointmentButton.setDisable(false);
+		InvoiceButton.setDisable(false);
+		OrdersButton.setDisable(false);
+		ReferralsButton.setDisable(false);
+		LogOut.setDisable(false);
+		
+	}
+	
+	//submit New Patient
+	@SuppressWarnings("deprecation")
+	public void addNewPatientButton(ActionEvent event) throws IOException {
+		int ID;
+		String firstName = "";
+		String lastName = "";
+		String patientDOB = "";
+		String race = "";
+		String ethnicity = "";
+		String sex = "";
+		
 
+		// Set firstName
+		if(PatientFirstName.getText().isBlank()) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText("First name cannot be blank.");
+			errorAlert.showAndWait();
+		}else if (!Character.isLetter(PatientFirstName.getText().charAt(0))) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText(" must start with a letter.");
+			errorAlert.showAndWait();
+		}else {
+			firstName = PatientFirstName.getText();
+		}
+		
+		//set lastName
+		if (PatientLastName.getText().isBlank()) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText("Last name cannot be blank.");
+			errorAlert.showAndWait();
+		}else {
+			lastName = PatientLastName.getText();
+		}
+		
+		//set DOB
+		if (DOB.getValue().toString().isBlank()) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText("DOB cannot be blank.");
+			errorAlert.showAndWait();
+		}else {
+			patientDOB = DOB.getValue().toString();
+		}
+				
+		//set race
+		if (PatientRace.getText().isBlank()) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText("Race cannot be blank.");
+			errorAlert.showAndWait();
+		}else {
+			race = PatientRace.getText();
+		}
+		//set ethnicity
+		if (PatientEthnicity.getText().isBlank()) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText("Ethnicity cannot be blank.");
+			errorAlert.showAndWait();
+		}else {
+			ethnicity = PatientEthnicity.getText();
+		}	
+		//set sex
+		sex = sexChoiceBox.getValue().toString();
+		
+		try {
+			Connection con = DatabaseConnection.getConnection();
+			Statement stmt = con.createStatement();
+			String IDCheck = "select * from patients";
+			ResultSet rs = stmt.executeQuery(IDCheck);
+
+			//assign patient next ID #
+			int c = 0;
+			while (rs.next()) {
+				c = rs.getInt("patient_id");
+			}
+			ID = c + 1;
+
+			String newPatient = "INSERT INTO patients (patient_id, first_name, last_name, dob, sex, race, ethnicity) " + "VALUES ("
+					+ ID + ", \'" + firstName + "\', \'" + lastName + "\', \'" + patientDOB + "\', \'" + sex + "\', \'"
+					+ race + "\', \'"+ethnicity+ "\')";
+			
+
+			stmt.executeUpdate(newPatient);
+
+			con.close();
+			updateAlert.setHeaderText("Success!");
+			updateAlert.setContentText("Patient has been successfully added.");
+			updateAlert.showAndWait();
+		} catch (Exception e) {
+			System.out.println("Error: Failed to add new user.");
+		}
+		
+		createPatientPane.setVisible(false);
+		systemUsersPane.setDisable(false);
+		modalitiesPane.setDisable(false);
+		patientAlertsPane.setDisable(false);
+		patientsPane.setDisable(false);
+		appointmentsPane.setDisable(false);
+		ordersPane.setDisable(false);
+		fileUploadsPane.setDisable(false);
+		diagnosticReportsPane.setDisable(false);
+		HomeButton.setDisable(false);
+		AppointmentButton.setDisable(false);
+		InvoiceButton.setDisable(false);
+		OrdersButton.setDisable(false);
+		ReferralsButton.setDisable(false);
+		LogOut.setDisable(false);
+		populatePatients();
+	}
+	
+	//modify Patient
+	@SuppressWarnings("deprecation")
+	public void modPatientButton(ActionEvent event) throws IOException {
+		String firstName = null;
+		String lastName = null;
+		String patientDOB = null;
+		String race = null;
+		String ethnicity = null;
+		String sex = null;
+		
+		
+		int patientID = Integer.parseInt(modPatientIDTextField.getText());
+		
+		
+		// Set firstName
+		if (modPatientFirstName.getText().isBlank()) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText("First name cannot be blank.");
+			errorAlert.showAndWait();
+		}else if (!Character.isLetter(PatientFirstName.getText().charAt(0))) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText(" must start with a letter.");
+			errorAlert.showAndWait();
+		}else {
+			firstName = modPatientFirstName.getText();
+		}
+		
+		//set lastName
+		if (modPatientLastName.getText().isBlank()) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText("Last name cannot be blank.");
+			errorAlert.showAndWait();
+		}else {
+			lastName = modPatientLastName.getText();
+		}
+		
+		//set DOB
+		if (modDOB.getValue().toString().isBlank()) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText("DOB cannot be blank.");
+			errorAlert.showAndWait();
+		}else {
+			patientDOB = modDOB.getValue().toString();
+		}
+		
+				
+		//set race
+		if (modPatientRace.getText().isBlank()) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText("Race cannot be blank.");
+			errorAlert.showAndWait();
+		}else {
+			race = modPatientRace.getText();
+		}
+		//set ethnicity
+		if (modPatientEthnicity.getText().isBlank()) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText("Ethnicity cannot be blank.");
+			errorAlert.showAndWait();
+		}else {
+			ethnicity = modPatientEthnicity.getText();
+		}	
+		//set sex
+		sex = modsexChoiceBox.getValue().toString();
+		
+		try {
+			Connection con = DatabaseConnection.getConnection();
+			Statement stmt = con.createStatement();
+			ResultSet rs;
+			 
+			String modPatient = "update patients set first_name= \'" + firstName + "\', last_name= \'"+lastName+"\', dob=\'"+patientDOB+"\', sex=\'"+sex+"\', race=\'"+race+"\', ethnicity=\'"+ethnicity+ "' WHERE patient_id= \'" + patientID + "\';";
+			stmt.executeUpdate(modPatient);
+						
+			con.close();
+			updateAlert.setHeaderText("Success!");
+			updateAlert.setContentText("Patient has been successfully modified.");
+			updateAlert.showAndWait();
+		} 
+		catch (Exception e) {
+			System.out.println("Error: Failed to update patient.");
+		}
+		modPatientPane.setVisible(false);
+		systemUsersPane.setDisable(false);
+		modalitiesPane.setDisable(false);
+		patientAlertsPane.setDisable(false);
+		patientsPane.setDisable(false);
+		appointmentsPane.setDisable(false);
+		ordersPane.setDisable(false);
+		fileUploadsPane.setDisable(false);
+		diagnosticReportsPane.setDisable(false);
+		HomeButton.setDisable(false);
+		AppointmentButton.setDisable(false);
+		InvoiceButton.setDisable(false);
+		OrdersButton.setDisable(false);
+		ReferralsButton.setDisable(false);
+		LogOut.setDisable(false);
+		populatePatients();
+
+	}
 }

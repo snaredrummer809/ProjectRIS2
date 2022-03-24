@@ -1,18 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
 <ScrollPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminAdminController">
    <content>
@@ -305,7 +296,8 @@
                            </font>
                         </Label>
                         <Line id="patientsCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
-                        <Button id="newPatientButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
+                        
+                        <Button id="newPatientButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" onAction="#NewPatientButton" style="-fx-background-color: white;" text="New" textFill="BLUE">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -316,15 +308,65 @@
                            </font>
                         </Label>
                         <TextField id="searchPatientsTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
-                        <TableView id="patientsTable" layoutX="13.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
+                        <TableView id="patientsTable" fx:id="patientsTable" layoutX="13.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
                           <columns>
-                            <TableColumn id="patientsTableIDColumn" prefWidth="140.0" text="Patient ID" />
-                            <TableColumn id="patientsTableDOBColumn" minWidth="9.33331298828125" prefWidth="140.0" text="Date of Birth" />
-                            <TableColumn id="patientsTableLastNameColumn" prefWidth="140.0" text="Last Name" />
-                            <TableColumn id="patientsTableFirstNameColumn" prefWidth="140.0" text="First Name" />
-                            <TableColumn id="patientsTableModifyPatientColumn" prefWidth="96.0" />
+                            <TableColumn id="patientsTableIDColumn" fx:id="patientIDCol" prefWidth="140.0" text="Patient ID" />
+                            <TableColumn id="patientsTableDOBColumn" fx:id="patientDOBCol" minWidth="9.33331298828125" prefWidth="140.0" text="Date of Birth" />
+                            <TableColumn id="patientsTableLastNameColumn" fx:id="patientLastNameCol" prefWidth="140.0" text="Last Name" />
+                            <TableColumn id="patientsTableFirstNameColumn" fx:id="patientFirstNameCol" prefWidth="140.0" text="First Name" />
+                            <TableColumn id="patientsTableModifyPatientColumn" fx:id="modPatientCol" prefWidth="96.0" />
                           </columns>
                         </TableView>
+                        <Pane id="newPatientPane" fx:id="createPatientPane" layoutX="-9.0" layoutY="-2.0" prefHeight="289.0" prefWidth="717.0" style="-fx-background-color: white;;" visible="false">
+                           <children>
+                              <Label id="newPatientPaneLabel" layoutX="285.0" layoutY="12.0" text=" Add New Patient">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Line id="referralPatientsCosmeticLine" endX="422.12945556640625" endY="-1.52587890625E-5" layoutX="286.0" layoutY="50.0" startX="-269.0" startY="-1.52587890625E-5" />
+                              <TextField id="firstNameTextField" fx:id="PatientFirstName" layoutX="65.0" layoutY="64.0" />
+                              <Label id="newPatientFirstLabel" layoutX="3.0" layoutY="68.0" text="First Name:" />
+                              <TextField id="lastNameTextField" fx:id="PatientLastName" layoutX="295.0" layoutY="64.0" />
+                              <Label id="newPatientLastLabel" layoutX="234.0" layoutY="68.0" text="Last Name:" />
+                              <Button id="cancelNewPatient" fx:id="cancelNewPatientButton" layoutX="654.0" layoutY="15.0" mnemonicParsing="false" onAction="#cancelNewPatientButton" text="Cancel" />
+                              <Button id="submitNewPatient" fx:id="addNewPatientButton" layoutX="654.0" layoutY="250.0" mnemonicParsing="false" onAction="#addNewPatientButton" text="Submit" />
+                              <TextField id="raceText" fx:id="PatientRace" layoutX="306.0" layoutY="120.0" />
+                              <DatePicker id="dobSelect" fx:id="DOB" layoutX="525.0" layoutY="64.0" />
+                              <Label id="newPatientDOBLabel" layoutX="454.0" layoutY="68.0" text="Date of Birth:" />
+                              <Label id="newPatientSexLabel" layoutX="53.0" layoutY="124.0" text="Sex:" />
+                              <Label id="newPatientRaceLabel" layoutX="271.0" layoutY="124.0" text="Race:" />
+                              <TextField id="ethnicityText" fx:id="PatientEthnicity" layoutX="538.0" layoutY="120.0" />
+                              <Label id="newPatientEthnicLabel" layoutX="484.0" layoutY="124.0" text="Ethnicity:" />
+                              <ChoiceBox id="sexChoice" fx:id="sexChoiceBox" layoutX="84.0" layoutY="120.0" prefWidth="150.0" value="-- Select sex --" />
+                           </children>
+                        </Pane>
+                        <Pane id="modPatientPane" fx:id="modPatientPane" prefHeight="289.0" prefWidth="717.0" style="-fx-background-color: white;;" visible="false">
+                           <children>
+                              <Label id="modPatientPaneLabel" layoutX="285.0" layoutY="12.0" text="Modify Patient">
+                                 <font>
+                                    <Font size="20.0" />
+                                 </font>
+                              </Label>
+                              <Line id="modPatientCosmeticLine" endX="422.12945556640625" endY="-1.52587890625E-5" layoutX="286.0" layoutY="50.0" startX="-269.0" startY="-1.52587890625E-5" />
+                              <TextField id="firstNameTextField" fx:id="modPatientFirstName" layoutX="65.0" layoutY="64.0" />
+                              <Label id="modPatientFirstLabel" layoutX="3.0" layoutY="68.0" text="First Name:" />
+                              <TextField id="lastNameTextField" fx:id="modPatientLastName" layoutX="295.0" layoutY="64.0" />
+                              <Label id="modPatientLastLabel" layoutX="234.0" layoutY="68.0" text="Last Name:" />
+                              <Button id="cancelModPatient" fx:id="cancelModPatientButton" layoutX="654.0" layoutY="15.0" mnemonicParsing="false" onAction="#cancelNewPatientButton" text="Cancel" />
+                              <Button id="submitModPatient" fx:id="submitModPatientButton" layoutX="654.0" layoutY="250.0" mnemonicParsing="false" onAction="#modPatientButton" text="Submit" />
+                              <TextField id="raceText" fx:id="modPatientRace" layoutX="306.0" layoutY="120.0" />
+                              <DatePicker id="dobSelect" fx:id="modDOB" layoutX="525.0" layoutY="64.0" />
+                              <Label id="modPatientDOBLabel" layoutX="454.0" layoutY="68.0" text="Date of Birth:" />
+                              <Label id="modPatientSexLabel" layoutX="53.0" layoutY="124.0" text="Sex:" />
+                              <Label id="modPatientRaceLabel" layoutX="271.0" layoutY="124.0" text="Race:" />
+                              <TextField id="ethnicityText" fx:id="modPatientEthnicity" layoutX="538.0" layoutY="120.0" />
+                              <Label id="newPatientEthnicLabel" layoutX="484.0" layoutY="124.0" text="Ethnicity:" />
+                              <ChoiceBox id="sexChoice" fx:id="modsexChoiceBox" layoutX="84.0" layoutY="120.0" prefWidth="150.0" value="-- Select sex --" />
+                              <TextField id="modPatientIdTextField" fx:id="modPatientIDTextField" editable="false" layoutX="320.0" layoutY="160.0" prefHeight="23.0" prefWidth="87.0" />
+                              <Label id="modPatientID" layoutX="280.0" layoutY="160.0" prefHeight="27.0" prefWidth="25.0" text="ID:" />
+                           </children>
+                        </Pane>
                      </children>
                   </Pane>
                   <Pane id="ordersPane" fx:id="ordersPane" disable="false" layoutX="15.0" layoutY="1581.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;" visible="true">
