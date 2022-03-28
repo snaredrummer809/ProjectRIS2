@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -40,27 +38,27 @@
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <Button id="homeButton" fx:id="HomeButton" layoutX="138.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: yellow;" text="Home" textFill="#462323">
+                  <Button id="homeButton" fx:id="HomeButton" layoutX="83.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: yellow;" text="Home" textFill="#462323">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button id="adminButton" fx:id="AdminButton" layoutX="207.0" layoutY="14.0" mnemonicParsing="false" onAction="#AdminButton" style="-fx-background-color: yellow;" text="Admin" textFill="#462323">
+                  <Button id="adminButton" fx:id="AdminButton" layoutX="155.0" layoutY="14.0" mnemonicParsing="false" onAction="#AdminButton" style="-fx-background-color: yellow;" text="Admin" textFill="#462323">
               	   	 <font>
               	   	 	<Font size="16.0" />
           	   	 	 </font>
           	   	  </Button>
-          	   	  <Button id="appointmentsButton" fx:id="AppointmentButton" layoutX="279.0" layoutY="14.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: yellow;" text="Appointment" textFill="#462323">
+          	   	  <Button id="appointmentsButton" fx:id="AppointmentButton" layoutX="229.0" layoutY="14.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: yellow;" text="Appointments" textFill="#462323">
           	   	  	 <font>
           	   	  	 	<Font size="16.0" />
       	   	  	 	 </font>
       	   	  	  </Button>
-                  <Button id="invoiceButton" fx:id="InvoiceButton" layoutX="354.0" layoutY="14.0" mnemonicParsing="false" onAction="#InvoiceButton" style="-fx-background-color: yellow;" text="Invoice" textFill="#462323">
+                  <Button id="invoiceButton" fx:id="InvoiceButton" layoutX="355.0" layoutY="14.0" mnemonicParsing="false" onAction="#InvoiceButton" style="-fx-background-color: yellow;" text="Invoice" textFill="#462323">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button id="referralsButton" fx:id="ReferralsButton" layoutX="427.0" layoutY="14.0" mnemonicParsing="false" onAction="#ReferralsButton" style="-fx-background-color: yellow;" text="Referrals" textFill="#462323">
+                  <Button id="referralsButton" fx:id="ReferralsButton" layoutX="432.0" layoutY="14.0" mnemonicParsing="false" onAction="#ReferralsButton" style="-fx-background-color: yellow;" text="Referrals" textFill="#462323">
                      <font>
                         <Font size="16.0" />
                      </font>
