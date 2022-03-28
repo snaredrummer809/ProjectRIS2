@@ -78,6 +78,36 @@ public class AdminAdminController implements Initializable {
 	@FXML
 	TableColumn<ModelTable, String> modifyCol;
 	ObservableList<ModelTable> systemUsers = FXCollections.observableArrayList();
+	
+	// Modality Pane
+	@FXML
+	TableView<ModelTable> modalitiesTable;
+	@FXML
+	TableColumn<ModelTable, Integer> modalitiesTableIDColumn;
+	@FXML
+	TableColumn<ModelTable, String> modalitiesTableNameColumn;
+	@FXML
+	TableColumn<ModelTable, String> modalitiesTableCostColumn;
+	@FXML
+	TableColumn<ModelTable, String> modalitiesTableModifyColumn;
+	ObservableList<ModelTable> modalities = FXCollections.observableArrayList();
+	
+	// Appointment Pane
+	@FXML
+	TableView<ModelTable> appointmentsTable;
+	@FXML
+	TableColumn<ModelTable, String> appPatientNameColumn;
+	@FXML
+	TableColumn<ModelTable, String> appModalityColumn;
+	@FXML
+	TableColumn<ModelTable, String> appDateAndTimeColumn;
+	@FXML
+	TableColumn<ModelTable, String> appTechNameColumn;
+	@FXML
+	TableColumn<ModelTable, String> appRadiologistColumn;
+	@FXML
+	TableColumn<ModelTable, String> appDeleteColumn;
+	ObservableList<ModelTable> appointments = FXCollections.observableArrayList();
 
 	// newUserPane pane & controls
 	@FXML
