@@ -1,119 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.shape.*?>
-<?import javafx.scene.text.*?>
-
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
 
 <ScrollPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DeskController">
    <content>
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="802.0" prefWidth="750.0">
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2600.0" prefWidth="750.0">
          <center>
-            <AnchorPane prefHeight="1460.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="2600.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
                <children>
+                  <Label id="deskPaneLabel" layoutX="28.0" layoutY="19.0" text="Receptionist">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Label>
                   <Button fx:id="LogOut" layoutX="657.0" layoutY="14.0" mnemonicParsing="false" onAction="#userLogOut" style="-fx-background-color: yellow;" text="Log Out" textFill="#462323">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Label layoutX="497.0" layoutY="19.0" text="Logged In: ">
+                  <Label layoutX="516.0" layoutY="19.0" text="Logged In: ">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <Label layoutX="576.0" layoutY="19.0" text="Front Desk">
+                  <Label layoutX="601.0" layoutY="19.0" text="Desk">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <Button fx:id="DeskHome" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: white;" text="Home" textFill="#462323">
+                  <Button id="deskAppButton" fx:id="deskAppButton" layoutX="132.0" layoutY="14.0" mnemonicParsing="false" onAction="#deskAppButton" style="-fx-background-color: yellow;" text="Appointments" textFill="#462323">
+              	   	 <font>
+              	   	 	<Font size="16.0" />
+          	   	 	 </font>
+          	   	  </Button>
+                  <Button id="deskOrdersButton" fx:id="deskOrdersButton" layoutX="258.0" layoutY="14.0" mnemonicParsing="false" onAction="#deskOrdersButton" style="-fx-background-color: yellow;" text="Orders" textFill="#462323">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </Button>
-                  <Button fx:id="DeskAppointments" layoutX="83.0" layoutY="14.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: yellow;" text="Appointments" textFill="#462323">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Button fx:id="DeskOrders" layoutX="206.0" layoutY="14.0" mnemonicParsing="false" onAction="#OrderButton" style="-fx-background-color: yellow;" text="Orders" textFill="#462323">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Button>
-                  <Pane id="checkedInAppointmentsPane" layoutX="15.0" layoutY="75.0" prefHeight="215.0" prefWidth="720.0" style="-fx-background-color: white;">
+                  <Pane id="deskCheckedInAppPane" fx:id="deskCheckedInAppPane" disable="false" layoutX="15.0" layoutY="100.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;" visible="true">
                      <children>
-                        <Label id="checkedInAppointmentsPaneLabel" layoutX="241.0" layoutY="14.0" text="Checked-In Appointments">
+                        <Label id="deskCheckedInAppPaneLabel" layoutX="237.0" layoutY="14.0" text="Checked-In Appointments">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Line id="checkedInAppointmentsCosmeticLine" endX="410.0" endY="1.52587890625E-5" layoutX="284.0" layoutY="55.0" startX="-264.6666564941406" startY="1.52587890625E-5" />
-                        <TableView id="checkedInAppointmentsTable" layoutX="14.0" layoutY="115.0" prefHeight="90.0" prefWidth="694.0">
-                           <columns>
-                              <TableColumn id="CIATablePatientColumn" prefWidth="138.5" text="Patient" />
-                              <TableColumn id="CIATableModalityColumn" prefWidth="138.5" text="Modality" />
-                              <TableColumn id="CIATableDateAndTimeColumn" prefWidth="138.5" text="Date and Time" />
-                              <TableColumn id="CIATableRadiologistColumn" prefWidth="138.5" text="Radiologist" />
-                              <TableColumn id="CIATableTechnicianColumn" prefWidth="138.5" text="Technician" />
-                           </columns>
-                        </TableView>
-                        <Label id="searchCIALabel" layoutX="506.0" layoutY="74.0" text="Search:">
+                        <Line id="deskCheckedInAppCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
+                        <Label id="searchCheckedInAppLabel" layoutX="519.0" layoutY="77.0" text="Search:">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField id="searchCIATextField" layoutX="554.0" layoutY="71.0" prefHeight="25.0" prefWidth="141.0" />
+                        <TextField id="searchCheckedInAppTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
+                        <TableView id="checkedInAppTable" fx:id="checkedInAppTable" layoutX="14.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
+                          <columns>
+                            <TableColumn id="patientCol" fx:id="patientCol" prefWidth="115.0" text="Patient" />
+                            <TableColumn id="modalityCol" fx:id="modalityCol" prefWidth="115.0" text="Modality" />
+                            <TableColumn id="dateAndTimeCol" fx:id="dateAndTimeCol" prefWidth="115.0" text="Date/Time" />
+                            <TableColumn id="radiologistCol" fx:id="radiologistCol" prefWidth="115.0" text="Radiologist" />
+                            <TableColumn id="techCol" fx:id="techCol" prefWidth="115.0" text="Technician" />
+                            <TableColumn id="statusCol" fx:id="statusCol" prefWidth="115.0" />
+                          </columns>
+                        </TableView>          
                      </children>
                   </Pane>
-                  <Pane id="todaysAppointmentsPane" layoutX="15.0" layoutY="311.0" prefHeight="215.0" prefWidth="720.0" style="-fx-background-color: white;">
+                  <Pane id="deskTodaysAppPane" fx:id="deskTodaysAppPane" disable="false" layoutX="15.0" layoutY="400.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;" visible="true">
                      <children>
-                        <Label id="todaysAppointmentsPaneLabel" layoutX="258.0" layoutY="14.0" text="Today's Appointments">
+                        <Label id="deskTodaysAppPaneLabel" layoutX="254.0" layoutY="14.0" text="Today's Appointments">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Line id="todaysAppointmentsCosmeticLine" endX="410.0" endY="1.52587890625E-5" layoutX="284.0" layoutY="55.0" startX="-264.6666564941406" startY="1.52587890625E-5" />
-                        <TableView id="todaysAppointmentsTable" layoutX="14.0" layoutY="115.0" prefHeight="90.0" prefWidth="694.0">
-                           <columns>
-                              <TableColumn id="TATablePatientColumn" prefWidth="138.5" text="Patient" />
-                              <TableColumn id="TATableModalityColumn" prefWidth="138.5" text="Modality" />
-                              <TableColumn id="TATableDateAndTimeColumn" prefWidth="138.5" text="Date and Time" />
-                              <TableColumn id="TATableRadiologistColumn" prefWidth="138.5" text="Radiologist" />
-                              <TableColumn id="TATableTechnicianColumn" prefWidth="138.5" text="Technician" />
-                           </columns>
-                        </TableView>
-                        <Label id="searchTALabel" layoutX="506.0" layoutY="74.0" text="Search:">
+                        <Line id="deskTodaysAppCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
+                        <Label id="searchTodaysAppLabel" layoutX="519.0" layoutY="77.0" text="Search:">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField id="searchTATextField" layoutX="554.0" layoutY="71.0" prefHeight="25.0" prefWidth="141.0" />
+                        <TextField id="searchTodaysAppTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
+                        <TableView id="todaysAppTable" fx:id="todaysAppTable" layoutX="14.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
+                          <columns>
+                            <TableColumn id="patientCol" fx:id="todaysPatientCol" prefWidth="115.0" text="Patient" />
+                            <TableColumn id="modalityCol" fx:id="todaysModalityCol" prefWidth="115.0" text="Modality" />
+                            <TableColumn id="dateAndTimeCol" fx:id="todaysDateAndTimeCol" prefWidth="115.0" text="Date/Time" />
+                            <TableColumn id="radiologistCol" fx:id="todaysRadiologistCol" prefWidth="115.0" text="Radiologist" />
+                            <TableColumn id="techCol" fx:id="todaysTechCol" prefWidth="115.0" text="Technician" />
+                            <TableColumn id="checkInCol" fx:id="checkInCol" prefWidth="115.0" />
+                          </columns>
+                        </TableView>          
                      </children>
                   </Pane>
-                  <Pane id="unscheduledOrdersPane" layoutX="15.0" layoutY="552.0" prefHeight="215.0" prefWidth="720.0" style="-fx-background-color: white;">
+                  <Pane id="deskTodaysAppPane" fx:id="deskTodaysAppPane" disable="false" layoutX="15.0" layoutY="400.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;" visible="true">
                      <children>
-                        <Label id="unscheduledOrdersPaneLabel" layoutX="270.0" layoutY="14.0" text="Unscheduled Orders">
+                        <Label id="deskUnscheduledOrdersPaneLabel" layoutX="254.0" layoutY="14.0" text="Today's Appointments">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Line id="unscheduledOrdersCosmeticLine" endX="410.0" endY="1.52587890625E-5" layoutX="284.0" layoutY="55.0" startX="-264.6666564941406" startY="1.52587890625E-5" />
-                        <TableView id="unscheduledOrdersTable" layoutX="14.0" layoutY="115.0" prefHeight="90.0" prefWidth="694.0">
-                           <columns>
-                              <TableColumn id="UOTablePatientColumn" prefWidth="173.0" text="Patient" />
-                              <TableColumn id="UOTableReferralMDColumn" prefWidth="173.0" text="Referral MD" />
-                              <TableColumn id="UOTableModalityColumn" prefWidth="173.0" text="Modality" />
-                              <TableColumn id="UOTableNotesColumn" prefWidth="173.0" text="Notes" />
-                           </columns>
-                        </TableView>
-                        <Label id="searchUOLabel" layoutX="506.0" layoutY="74.0" text="Search:">
+                        <Line id="deskUnscheduledOrderssmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
+                        <Label id="searchUnscheduledOrdersLabel" layoutX="519.0" layoutY="77.0" text="Search:">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField id="searchUOTextField" layoutX="554.0" layoutY="71.0" prefHeight="25.0" prefWidth="141.0" />
+                        <TextField id="searchUnscheduledOrdersTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
+                        <TableView id="unscheduledOrdersTable" fx:id="unscheduledOrdersTable" layoutX="14.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
+                          <columns>
+                            <TableColumn id="UOPatientCol" fx:id="UOPatientCol" prefWidth="115.0" text="Patient" />
+                            <TableColumn id="UODocCol" fx:id="UODocCol" prefWidth="115.0" text="Referral MD" />
+                            <TableColumn id="UOModalityCol" fx:id="UOModalityCol" prefWidth="115.0" text="Modality" />
+                            <TableColumn id="UONotesCol" fx:id="UONotesCol" prefWidth="115.0" text="Notes" />
+                            <TableColumn id="scheduleCol" fx:id="scheduleCol" prefWidth="115.0" />
+                          </columns>
+                        </TableView>          
                      </children>
                   </Pane>
                </children>
