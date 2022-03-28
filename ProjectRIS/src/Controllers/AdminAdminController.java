@@ -216,18 +216,18 @@ public class AdminAdminController implements Initializable {
 			ResultSet rs = con.createStatement().executeQuery("select * from users");
 
 			while (rs.next()) {
-				systemUsers.add(new ModelTable(rs.getInt("user_id"), rs.getString("username"),
-						rs.getString("full_name"), rs.getString("email"), null));
+				systemUsers.add(new ModelTable(rs.getInt("user_id"), 0, 0, rs.getString("username"),
+						rs.getString("full_name"), rs.getString("email"), null, null, null));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		userIDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
-		usernameCol.setCellValueFactory(new PropertyValueFactory<>("username"));
-		displayNameCol.setCellValueFactory(new PropertyValueFactory<>("displayName"));
-		emailCol.setCellValueFactory(new PropertyValueFactory<>("email"));
-		systemRoleCol.setCellValueFactory(new PropertyValueFactory<>("role"));
+		userIDCol.setCellValueFactory(new PropertyValueFactory<>("num1"));
+		usernameCol.setCellValueFactory(new PropertyValueFactory<>("s1"));
+		displayNameCol.setCellValueFactory(new PropertyValueFactory<>("s2"));
+		emailCol.setCellValueFactory(new PropertyValueFactory<>("s3"));
+		systemRoleCol.setCellValueFactory(new PropertyValueFactory<>("s4"));
 
 		Callback<TableColumn<ModelTable, String>, TableCell<ModelTable, String>> cellFactory = (param) -> {
 
@@ -259,10 +259,10 @@ public class AdminAdminController implements Initializable {
 							ReferralsButton.setDisable(true);
 							LogOut.setDisable(true);
 
-							modIDTextField.setText("" + m.getID());
-							modUsernameTextField.setText(m.getUsername());
-							modDisplayNameTextField.setText(m.getDisplayName());
-							modEmailAddressTextField.setText(m.getEmail());
+							modIDTextField.setText("" + m.getNum1());
+							modUsernameTextField.setText(m.getS1());
+							modDisplayNameTextField.setText(m.getS2());
+							modEmailAddressTextField.setText(m.getS3());
 
 						});
 
