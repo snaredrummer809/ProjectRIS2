@@ -239,7 +239,7 @@
                            </font>
                         </Label>
                         <Line id="modalitiesCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
-                        <Button id="newModalityButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
+                        <Button id="newModalityButton" fx:id="newModalityButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" onAction="#newModalityButton" style="-fx-background-color: white;" text="New" textFill="BLUE">
                            <font>
                               <Font size="16.0" />
                            </font>
@@ -250,14 +250,90 @@
                            </font>
                         </Label>
                         <TextField id="searchModalitiesTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
-                        <TableView id="systemUsersTable" layoutX="13.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
+                        <TableView id="modalitiesTable" fx:id="modalitiesTable" layoutX="13.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
                           <columns>
-                            <TableColumn id="ModalityTableIDColumn" prefWidth="190.0" text="Modality ID" />
-                            <TableColumn id="ModalityTableModalityNameColumn" minWidth="9.33331298828125" prefWidth="190.0" text="Modality" />
-                              <TableColumn id="ModalityTableCostColumn" prefWidth="170.0" text="Cost" />
-                              <TableColumn id="ModalityTableModifyModalityColumn" prefWidth="99.3333740234375" />
+                            <TableColumn id="modalityTableIDColumn" fx:id="modalitiesTableIDColumn" prefWidth="190.0" text="Modality ID" />
+                            <TableColumn id="modalityTableModalityNameColumn" fx:id="modalitiesTableNameColumn" minWidth="9.33331298828125" prefWidth="190.0" text="Modality" />
+                              <TableColumn id="modalityTableCostColumn" fx:id="modalitiesTableCostColumn" prefWidth="170.0" text="Cost" />
+                              <TableColumn id="modalityTableModifyColumn" fx:id="modalitiesTableModifyColumn" prefWidth="99.3333740234375" />
                           </columns>
                         </TableView>
+                        <Pane id="createModalityPane" fx:id="createModalityPane" layoutX="5.0" layoutY="-10.0" prefHeight="311.0" prefWidth="688.0" style="-fx-background-color: white;" visible="false">
+                           <children>
+                              <Label id="createModalityLabel" fx:id="createModalityLabel" layoutX="28.0" layoutY="23.0" text="Create Modality">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <Line id="createModalityCosmeticLine" fx:id="createModalityCosmeticLine" endX="527.6666870117188" endY="1.52587890625E-5" layoutX="129.0" layoutY="68.0" startX="-100.0" />
+                              <Label id="IDLabel" layoutX="96.0" layoutY="120.0" text="ID:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="modalityIDTextField" fx:id="modalityIDTextField" editable="false" layoutX="97.0" layoutY="143.0" prefHeight="25.0" prefWidth="35.0" />
+                              <Button id="cancelButton" fx:id="cancelButton" layoutX="366.0" layoutY="237.0" mnemonicParsing="false" onAction="#cancelButton" style="-fx-background-color: red;" text="Cancel">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <Label id="modalityNameLabel" layoutX="254.0" layoutY="120.0" text="Name:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="modalityNameTextField" fx:id="modalityNameTextField" layoutX="254.0" layoutY="143.0" prefHeight="25.0" prefWidth="133.0" />
+                              <Button id="createModalityButton" fx:id="createModalityButton" layoutX="210.0" layoutY="237.0" mnemonicParsing="false" onAction="#createModalityButton" style="-fx-background-color: #1a7fd7;" text="Create Modality" textFill="WHITE">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <Label id="modalityCostLabel" layoutX="474.0" layoutY="120.0" text="Cost:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="modalityCostTextField" fx:id="modalityCostTextField" layoutX="474.0" layoutY="143.0" prefHeight="25.0" prefWidth="119.0" />
+                            </children>
+                        </Pane>
+                        <Pane id="modModalityPane" fx:id="modModalityPane" layoutX="5.0" layoutY="-10.0" prefHeight="311.0" prefWidth="688.0" style="-fx-background-color: white;" visible="false">
+                           <children>
+                              <Label id="modModalityLabel" fx:id="modModalityLabel" layoutX="28.0" layoutY="23.0" text="Modify Modality">
+                                 <font>
+                                    <Font size="22.0" />
+                                 </font>
+                              </Label>
+                              <Line id="modModalityCosmeticLine" fx:id="modModalityCosmeticLine" endX="527.6666870117188" endY="1.52587890625E-5" layoutX="129.0" layoutY="68.0" startX="-100.0" />
+                              <Label id="modIDLabel" layoutX="96.0" layoutY="120.0" text="ID:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="modModalityIDTextField" fx:id="modModalityIDTextField" editable="false" layoutX="97.0" layoutY="143.0" prefHeight="25.0" prefWidth="35.0" />
+                              <Button id="cancelButton" fx:id="cancelButton" layoutX="366.0" layoutY="237.0" mnemonicParsing="false" onAction="#cancelButton" style="-fx-background-color: red;" text="Cancel">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <Label id="modModalityNameLabel" layoutX="254.0" layoutY="120.0" text="Name:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="modModalityNameTextField" fx:id="modModalityNameTextField" layoutX="254.0" layoutY="143.0" prefHeight="25.0" prefWidth="133.0" />
+                              <Button id="modModalityButton" fx:id="modModalityButton" layoutX="210.0" layoutY="237.0" mnemonicParsing="false" onAction="#modModalityButton" style="-fx-background-color: #1a7fd7;" text="Modify Modality" textFill="WHITE">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <Label id="modModalityCostLabel" layoutX="474.0" layoutY="120.0" text="Cost:">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                              <TextField id="modModalityCostTextField" fx:id="modModalityCostTextField" layoutX="474.0" layoutY="143.0" prefHeight="25.0" prefWidth="119.0" />
+                            </children>
+                        </Pane>
                      </children>
                   </Pane>
                   <Pane id="patientAlertsPane" fx:id="patientAlertsPane" disable="false" layoutX="15.0" layoutY="679.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;" visible="true">
@@ -409,28 +485,47 @@
                            </font>
                         </Label>
                         <Line id="appointmentsCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
-                        <Button id="newAppointmentButton" layoutX="623.0" layoutY="14.0" mnemonicParsing="false" style="-fx-background-color: white;" text="New" textFill="BLUE">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Button>
                         <Label id="searchAppointmentsLabel" layoutX="519.0" layoutY="77.0" text="Search:">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
                         <TextField id="searchAppointmentsTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
-                        <TableView id="appointmentsTable" layoutX="14.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
+                        <TableView id="appointmentsTable" fx:id="appointmentsTable" layoutX="14.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
                           <columns>
-                            <TableColumn id="appointmentsTableIDColumn" prefWidth="108.0" text="Appointment ID" />
-                            <TableColumn id="appointmentsTablePatientNameColumn" minWidth="9.33331298828125" prefWidth="100.0" text="Patient" />
-                            <TableColumn id="appointmentsTableOrderIDColumn" text="Order" />
-                            <TableColumn id="appointmentsTableDateAndTimeColumn" prefWidth="100.0" text="Date/Time" />
-                            <TableColumn id="appointmentsTableTechNameColumn" prefWidth="100.0" text="Technician" />
-                            <TableColumn id="appointmentsTableRadiologistColumn" prefWidth="100.0" text="Radiologist" />
-                            <TableColumn id="appointmentsTableModifyAppointmentColumn" prefWidth="75.0" />
+                            <TableColumn id="appPatientNameColumn" fx:id="appPatientNameColumn" prefWidth="115.0" text="Patient" />
+                            <TableColumn id="appModalityColumn" fx:id="appModalityColumn" prefWidth="115.0" text="Modality" />
+                            <TableColumn id="appDateAndTimeColumn" fx:id="appDateAndTimeColumn" prefWidth="115.0" text="Date/Time" />
+                            <TableColumn id="appTechNameColumn" fx:id="appTechNameColumn" prefWidth="115.0" text="Technician" />
+                            <TableColumn id="appRadiologistColumn" fx:id="appRadiologistColumn" prefWidth="115.0" text="Radiologist" />
+                            <TableColumn id="appDeleteColumn" fx:id="appDeleteColumn" prefWidth="80.0" />
                           </columns>
                         </TableView>
+                        <Pane id="confirmationPane" fx:id="appDeleteConfirmationPane" layoutX="172.0" layoutY="32.0" prefHeight="205.0" prefWidth="361.0" style="-fx-background-color: White;" visible="false">
+                           <children>
+                              <Label id="warningLabel" layoutX="136.0" layoutY="21.0" text="WARNING">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label id="contentLabel" layoutX="24.0" layoutY="66.0" text="Are you sure you want to delete this appointment?">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Button id="appConfirmDeleteButton" fx:id="appConfirmDeleteButton" layoutX="110.0" layoutY="128.0" mnemonicParsing="false" onAction="#appConfirmDelete" text="Yes">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <Button id="appCancelDeleteButton" fx:id="cancelButton" layoutX="199.0" layoutY="128.0" mnemonicParsing="false" onAction="#cancelButton" style="-fx-background-color: Red;" text="Cancel">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <TextField id="appIDTextField" fx:id="appIDTextField" editable="false" layoutX="106.0" layoutY="90.0" opacity="0.0" visible="true" />
+                           </children>
+                        </Pane>             
                      </children>
                   </Pane>
                   <Pane id="fileUploadsPane" fx:id="fileUploadsPane" disable="false" layoutX="15.0" layoutY="1884.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;" visible="true">
