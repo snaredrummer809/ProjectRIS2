@@ -125,8 +125,31 @@ public class AdminAdminController implements Initializable {
 	TextField modPasswordTextField;
 	@FXML
 	TextField modConfirmPasswordTextField;
-
 	
+	// createModalityPane
+	@FXML
+	Pane createModalityPane;
+	@FXML
+	Button createModalityButton;
+	@FXML
+	TextField modalityIDTextField;
+	@FXML
+	TextField modalityNameTextField;
+	@FXML
+	TextField modalityCostTextField;
+	
+	// modModalityPane
+	@FXML
+	Pane modModalityPane;
+	@FXML
+	Button modModalityButton;
+	@FXML
+	TextField modModalityIDTextField;
+	@FXML
+	TextField modModalityNameTextField;
+	@FXML
+	TextField modModalityCostTextField;
+
 	//Patients Pane	
 	@FXML
 	TableView<PatientTableModel> patientsTable;
@@ -167,11 +190,20 @@ public class AdminAdminController implements Initializable {
 	@FXML ChoiceBox modsexChoiceBox;
 	@FXML TextField modPatientIDTextField;
 	
+	// appDeleteConfirmationPane
+	@FXML
+	Pane appDeleteConfirmationPane;
+	@FXML
+	TextField appIDTextField;
+	@FXML
+	Button appConfirmDeleteButton;	
 	 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
 
 		populateSystemUsers();
+		populateModalities();
+		populateAppointments();
 		populatePatients();
 		paneInitialize();
 
@@ -245,6 +277,173 @@ public class AdminAdminController implements Initializable {
 		modifyCol.setCellFactory(cellFactory);
 
 		usersTable.setItems(systemUsers);
+	}
+	
+	public void populateModalities() {
+		modalities.clear();
+		try {
+			Connection con = DatabaseConnection.getConnection();
+			ResultSet rs = con.createStatement().executeQuery("select * from modalities");
+
+			while (rs.next()) {
+				modalities.add(new ModelTable(rs.getInt("modality_id"), 0, 0, rs.getString("name"),
+						rs.getString("cost"), null, null, null, null));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		modalitiesTableIDColumn.setCellValueFactory(new PropertyValueFactory<>("num1"));
+		modalitiesTableNameColumn.setCellValueFactory(new PropertyValueFactory<>("s1"));
+		modalitiesTableCostColumn.setCellValueFactory(new PropertyValueFactory<>("s2"));
+		Callback<TableColumn<ModelTable, String>, TableCell<ModelTable, String>> cellFactory = (param) -> {
+
+			final TableCell<ModelTable, String> cell = new TableCell<ModelTable, String>() {
+
+				@Override
+				public void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+
+					if (empty) {
+						setText(null);
+					} else {
+						final Button modButton = new Button("Modify");
+						modButton.setOnAction(event -> {
+							ModelTable m = getTableView().getItems().get(getIndex());
+
+							modModalityPane.setVisible(true);
+							systemUsersPane.setDisable(true);
+							patientAlertsPane.setDisable(true);
+							patientsPane.setDisable(true);
+							appointmentsPane.setDisable(true);
+							ordersPane.setDisable(true);
+							fileUploadsPane.setDisable(true);
+							diagnosticReportsPane.setDisable(true);
+							HomeButton.setDisable(true);
+							AppointmentButton.setDisable(true);
+							InvoiceButton.setDisable(true);
+							OrdersButton.setDisable(true);
+							ReferralsButton.setDisable(true);
+							LogOut.setDisable(true);
+
+							modModalityIDTextField.setText("" + m.getNum1());
+							modModalityNameTextField.setText(m.getS1());
+							modModalityCostTextField.setText(m.getS2());
+
+						});
+
+						setGraphic(modButton);
+						setText(null);
+					}
+				}
+			};
+
+			return cell;
+		};
+		modalitiesTableModifyColumn.setCellFactory(cellFactory);
+
+		modalitiesTable.setItems(modalities);
+	}
+	
+	public void populateAppointments() {
+		appointments.clear();
+		int patient = 0;
+		int modality = 0;
+		int tech = 0;
+		int radio = 0;
+		String patientName = null;
+		String modalityName = null;
+		String techName = null;
+		String radioName = null;
+		try {
+			Connection con = DatabaseConnection.getConnection();
+			ResultSet rs = con.createStatement().executeQuery("select * from appointments");
+
+			while (rs.next()) {
+				patient = rs.getInt("patient");
+				System.out.println(patient);
+				modality = rs.getInt("modality");
+				System.out.println(modality);
+				tech = rs.getInt("technician");
+				System.out.println(tech);
+				radio = rs.getInt("radiologist");
+				System.out.println(radio);
+				ResultSet rs2 = con.createStatement().executeQuery("select * from patients where patient_id=" + patient);
+				while(rs2.next()) {
+					patientName = rs2.getString("first_name") + " " + rs2.getString("last_name");
+				}
+				rs2 = con.createStatement().executeQuery("select * from modalities where modality_id=" + modality);
+				while(rs2.next()) {
+					modalityName = rs2.getString("name");
+				}
+				rs2 = con.createStatement().executeQuery("select * from users where user_id=" + tech);
+				while(rs2.next()) {
+					techName = rs2.getString("full_name");
+				}
+				rs2 = con.createStatement().executeQuery("select * from users where user_id=" + radio);
+				while(rs2.next()) {
+					radioName = rs2.getString("full_name");
+				}				
+				
+				appointments.add(new ModelTable(patient, 0, 0, patientName,
+						modalityName, rs.getString("date_time"), techName, 
+						radioName, null));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		appPatientNameColumn.setCellValueFactory(new PropertyValueFactory<>("s1"));
+		appModalityColumn.setCellValueFactory(new PropertyValueFactory<>("s2"));
+		appDateAndTimeColumn.setCellValueFactory(new PropertyValueFactory<>("s3"));
+		appTechNameColumn.setCellValueFactory(new PropertyValueFactory<>("s4"));
+		appRadiologistColumn.setCellValueFactory(new PropertyValueFactory<>("s5"));
+		Callback<TableColumn<ModelTable, String>, TableCell<ModelTable, String>> cellFactory = (param) -> {
+
+			final TableCell<ModelTable, String> cell = new TableCell<ModelTable, String>() {
+
+				@Override
+				public void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+
+					if (empty) {
+						setText(null);
+					} else {
+						final Button modButton = new Button("Delete");
+						modButton.setOnAction(event -> {
+							ModelTable m = getTableView().getItems().get(getIndex());
+
+							appDeleteConfirmationPane.setVisible(true);
+							systemUsersPane.setDisable(true);
+							modalitiesPane.setDisable(true);
+							patientAlertsPane.setDisable(true);
+							patientsPane.setDisable(true);
+							ordersPane.setDisable(true);
+							fileUploadsPane.setDisable(true);
+							diagnosticReportsPane.setDisable(true);
+							HomeButton.setDisable(true);
+							AppointmentButton.setDisable(true);
+							InvoiceButton.setDisable(true);
+							OrdersButton.setDisable(true);
+							ReferralsButton.setDisable(true);
+							LogOut.setDisable(true);
+							
+							System.out.println(m.getNum1());
+							appIDTextField.setText(m.getNum1()+"");
+
+						});
+
+						setGraphic(modButton);
+						setText(null);
+					}
+				}
+			};
+
+			return cell;
+		};
+		appDeleteColumn.setCellFactory(cellFactory);
+
+		appointmentsTable.setItems(appointments);
 	}
 	
 	public void populatePatients() {
@@ -669,7 +868,157 @@ public class AdminAdminController implements Initializable {
 
 	}
 	
+	public void newModalityButton (ActionEvent event) throws IOException {
+		createModalityPane.setVisible(true);
+		systemUsersPane.setDisable(true);
+		patientAlertsPane.setDisable(true);
+		patientsPane.setDisable(true);
+		appointmentsPane.setDisable(true);
+		ordersPane.setDisable(true);
+		fileUploadsPane.setDisable(true);
+		diagnosticReportsPane.setDisable(true);
+		HomeButton.setDisable(true);
+		AppointmentButton.setDisable(true);
+		InvoiceButton.setDisable(true);
+		OrdersButton.setDisable(true);
+		ReferralsButton.setDisable(true);
+		LogOut.setDisable(true);
+		
+	}
 	
+	public void createModalityButton(ActionEvent event) throws IOException {
+		int id = 0;
+		int c = 0;
+		String name = "";
+		String cost = "";
+		
+		if(modalityNameTextField.getText().isBlank()) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText("Name cannot be blank.");
+			errorAlert.showAndWait();
+		}
+		else {
+			name = modalityNameTextField.getText();
+			modalityNameTextField.clear();
+		}
+		try {
+			Double.parseDouble(modalityCostTextField.getText());
+			cost = modalityCostTextField.getText();
+			modalityCostTextField.clear();
+		}
+		catch(Exception e) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText("Input must be in form X.XX");
+			errorAlert.showAndWait();
+		}
+		
+		try {
+			Connection con = DatabaseConnection.getConnection();
+			Statement stmt = con.createStatement();
+			ResultSet rs;
+			
+			String getModalityID = "select * from modalities";
+			rs = stmt.executeQuery(getModalityID);
+
+			while (rs.next()) {
+				c = rs.getInt("modality_id");
+			}
+			id = c + 1;
+			
+			String updateModality = "insert into modalities (modality_id, name, cost) " 
+					+ "values (" + id + ", \'" + name + "\', \'" + cost + "\')";
+			stmt.executeUpdate(updateModality);
+			
+			con.close();
+			updateAlert.setHeaderText("Success!");
+			updateAlert.setContentText("Modality has been successfully created.");
+			updateAlert.showAndWait();
+		}
+		catch(SQLException e) {
+			errorAlert.setHeaderText("Error");
+			errorAlert.setContentText("Modality could not be created.");
+			errorAlert.showAndWait();
+		}
+		
+		createModalityPane.setVisible(false);
+		systemUsersPane.setDisable(false);
+		modalitiesPane.setDisable(false);
+		patientAlertsPane.setDisable(false);
+		patientsPane.setDisable(false);
+		appointmentsPane.setDisable(false);
+		ordersPane.setDisable(false);
+		fileUploadsPane.setDisable(false);
+		diagnosticReportsPane.setDisable(false);
+		HomeButton.setDisable(false);
+		AppointmentButton.setDisable(false);
+		InvoiceButton.setDisable(false);
+		OrdersButton.setDisable(false);
+		ReferralsButton.setDisable(false);
+		LogOut.setDisable(false);
+		populateModalities();
+		
+	}
+	
+	public void modModalityButton (ActionEvent event) throws IOException {
+		int id = 0;
+		String name = null;
+		String cost = null;
+
+		// Set name
+		if (modModalityNameTextField.getText().isBlank()) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText("Username cannot be blank.");
+			errorAlert.showAndWait();
+		} 
+		else {
+			name = modModalityNameTextField.getText();
+		}
+
+		// Set cost
+		if (modModalityCostTextField.getText().isBlank()) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText("Display Name cannot be blank");
+			errorAlert.showAndWait();
+		} else {
+			cost = modModalityCostTextField.getText();
+		}
+		
+		id = Integer.parseInt(modModalityIDTextField.getText());
+
+		try {
+			Connection con = DatabaseConnection.getConnection();
+			Statement stmt = con.createStatement();
+
+			String modModality = "update modalities set name=\'" + name + "\', cost=\'" + cost + "\' where modality_id=" + id + "";
+
+			stmt.executeUpdate(modModality);
+
+			con.close();
+			updateAlert.setHeaderText("Success!");
+			updateAlert.setContentText("Modality has been successfully modified.");
+			updateAlert.showAndWait();
+		} 
+		catch (Exception e) {
+			errorAlert.setHeaderText("Error");
+			errorAlert.setContentText("Failed to modify modality.");
+			errorAlert.showAndWait();
+		}
+		modModalityPane.setVisible(false);
+		systemUsersPane.setDisable(false);
+		patientAlertsPane.setDisable(false);
+		patientsPane.setDisable(false);
+		appointmentsPane.setDisable(false);
+		ordersPane.setDisable(false);
+		fileUploadsPane.setDisable(false);
+		diagnosticReportsPane.setDisable(false);
+		HomeButton.setDisable(false);
+		AppointmentButton.setDisable(false);
+		InvoiceButton.setDisable(false);
+		OrdersButton.setDisable(false);
+		ReferralsButton.setDisable(false);
+		LogOut.setDisable(false);
+		populateModalities();
+	}	
 	
 //Patients pane controls
 	
@@ -927,5 +1276,23 @@ public class AdminAdminController implements Initializable {
 		LogOut.setDisable(false);
 		populatePatients();
 
+	}
+	
+	public void appConfirmDelete(ActionEvent event) throws IOException {
+		try {
+			Connection con = DatabaseConnection.getConnection();
+			Statement stmt = con.createStatement();
+			String deleteApp = "delete from appointments where appointment_id=" + appIDTextField.getText();
+			
+			stmt.executeUpdate(deleteApp);
+			con.close();
+			appDeleteConfirmationPane.setVisible(false);
+			populateAppointments();
+		}
+		catch(SQLException e) {
+			errorAlert.setHeaderText("Error");
+			errorAlert.setContentText("Unable to delete appointment.");
+			errorAlert.showAndWait();
+		}
 	}
 }
