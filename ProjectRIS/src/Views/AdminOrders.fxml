@@ -112,7 +112,8 @@
                               </Button>
                               <TextField id="allOrdersIDTextField" fx:id="allOrdersIDTextField" editable="false" layoutX="106.0" layoutY="90.0" opacity="0.0" visible="true" />
                            </children>
-                        </Pane>             
+                        </Pane>
+                        <Button layoutX="602.0" layoutY="20.0" mnemonicParsing="false" text="Place Order" onAction="#newOrderButton"/>             
                      </children>
                   </Pane>
                </children>
