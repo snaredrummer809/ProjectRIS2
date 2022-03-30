@@ -150,7 +150,7 @@
                                     <Font size="16.0" />
                                  </font>
                               </Button>
-                              <Button id="cancelUserButton" fx:id="cancelUserButton" layoutX="366.0" layoutY="237.0" mnemonicParsing="false" onAction="#cancelUserButton" style="-fx-background-color: red;" text="Cancel">
+                              <Button id="cancelUserButton" fx:id="cancelUserButton" layoutX="366.0" layoutY="237.0" mnemonicParsing="false" onAction="#cancelButton" style="-fx-background-color: red;" text="Cancel">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
@@ -222,7 +222,7 @@
                                     <Font size="16.0" />
                                  </font>
                               </Button>
-                              <Button id="cancelUserButton" fx:id="cancelUserButton" layoutX="366.0" layoutY="237.0" mnemonicParsing="false" onAction="#cancelUserButton" style="-fx-background-color: red;" text="Cancel">
+                              <Button id="cancelUserButton" fx:id="cancelUserButton" layoutX="366.0" layoutY="237.0" mnemonicParsing="false" onAction="#cancelButton" style="-fx-background-color: red;" text="Cancel">
                                  <font>
                                     <Font size="16.0" />
                                  </font>
