@@ -765,7 +765,7 @@ public class AdminAdminController implements Initializable {
 
 	}
 
-	public void cancelUserButton(ActionEvent event) throws IOException {
+	public void cancelButton(ActionEvent event) throws IOException {
 		newUserPane.setVisible(false);
 		modUserPane.setVisible(false);
 		IDTextField.clear();
