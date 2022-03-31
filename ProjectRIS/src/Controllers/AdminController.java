@@ -16,7 +16,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextArea;
 
 public class AdminController {
 	
@@ -37,15 +36,19 @@ public class AdminController {
 	@FXML 
 	ChoiceBox<String> sexChoiceBox;
 	
-	//orders
 	@FXML
-	private TextField OrderPatientName;
+	private Button AddNewAppointmentButton;
 	@FXML
-	private TextField OrderReferralMD;
+	private DatePicker AppointmentDate;
 	@FXML
-	private TextField OrderModalityNeeded;
+	private TextField AppointmentTime;
 	@FXML
-	private TextArea OrderNotes;
+	private TextField PhoneNumber;
+	@FXML
+	private TextField EmailAddress;
+	@FXML
+	private TextField PatientLastNameCommaFirst;
+
 	
 	public void userLogOut(ActionEvent event) throws IOException {
 		
@@ -97,6 +100,57 @@ public class AdminController {
 	
 	
 	
+	
+	
+public void addNewAppointment(ActionEvent event) throws IOException {
+				
+		
+		 Connection conn = null;
+	      Statement stmt = null;
+	      
+	      
+	      try {
+	          try {
+	             Class.forName("com.mysql.cj.jdbc.Driver");
+	          } catch (Exception e) {
+	             System.out.println(e);
+	       }
+	       conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/db_ris", "root", "roscojack1997");
+	       System.out.println("Connection is created successfully:");
+	       stmt = (Statement) conn.createStatement();
+	       
+	       
+	       String query1 = "INSERT INTO appointments(patient,date_time,phone_number,email_address) VALUES  ('" +PatientLastNameCommaFirst.getText()+"', '"+AppointmentDate.getValue()+" "+AppointmentTime.getText()+"' ,'"+PhoneNumber.getText()+"', '"+EmailAddress.getText()+"');";
+	       stmt.executeUpdate(query1);
+	       
+	       
+	       
+	       System.out.println("Record is inserted in the table successfully..................");
+	       } catch (SQLException excep) {
+	          excep.printStackTrace();
+	       } catch (Exception excep) {
+	          excep.printStackTrace();
+	       } finally {
+	          try {
+	             if (stmt != null)
+	                conn.close();
+	          } catch (SQLException se) {}
+	          try {
+	             if (conn != null)
+	                conn.close();
+	          } catch (SQLException se) {
+	             se.printStackTrace();
+	          }  
+	       }
+	       System.out.println("Please check it in the MySQL Table......... ……..");
+	    }
+	 
+	
+	
+	
+	
+	
+	
 	public void addNewPatient(ActionEvent event) throws IOException {
 		
 		
@@ -113,7 +167,7 @@ public class AdminController {
 	          } catch (Exception e) {
 	             System.out.println(e);
 	       }
-	       conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/db_ris", "root", "YOUR PASSWORD HERE");
+	       conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/db_ris", "root", "roscojack1997");
 	       System.out.println("Connection is created successfully:");
 	       stmt = (Statement) conn.createStatement();
 	       
@@ -146,43 +200,4 @@ public class AdminController {
 	       System.out.println("Please check it in the MySQL Table......... ……..");
 	    }
 	 
-	public void addNewOrder(ActionEvent event) throws IOException {
-		 Connection conn = null;
-	      Statement stmt = null;
-	      
-	      
-	      try {
-	          try {
-	             Class.forName("com.mysql.cj.jdbc.Driver");
-	          } catch (Exception e) {
-	             System.out.println(e);
-	       }
-	       conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/db_ris", "root", "YOUR PASSWORD HERE");
-	       System.out.println("Connection is created successfully:");
-	       stmt = (Statement) conn.createStatement();
-	       
-	       
-	       String query1 = "INSERT INTO orders(patient, referral_md, modality, notes) VALUES('"+OrderPatientName.getText()+"', '"+OrderReferralMD.getText()+"', '"+OrderModalityNeeded.getText()+"', '"+OrderNotes.getText()+"');";
-	       System.out.println(query1);
-	       stmt.executeUpdate(query1);
-	       System.out.println("Record is inserted in the table successfully..................");
-	       } catch (SQLException excep) {
-	          excep.printStackTrace();
-	       } catch (Exception excep) {
-	          excep.printStackTrace();
-	       } finally {
-	          try {
-	             if (stmt != null)
-	                conn.close();
-	          } catch (SQLException se) {}
-	          try {
-	             if (conn != null)
-	                conn.close();
-	          } catch (SQLException se) {
-	             se.printStackTrace();
-	          }  
-	       }
-	       System.out.println("Please check it in the MySQL Table......... ……..");
-	       OrderButton(event);
-	      }
 	}
