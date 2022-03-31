@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1460.0" prefWidth="750.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.RadioController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1460.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.RadioOrdersController">
    <center>
       <AnchorPane prefHeight="1460.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
          <children>
@@ -30,12 +30,12 @@
                   <Font size="17.0" />
                </font>
             </Label>
-            <Button fx:id="Appointment" layoutX="83.0" layoutY="14.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: yellow;" text="Appointments" textFill="#462323">
+            <Button fx:id="AppointmentButton" layoutX="83.0" layoutY="14.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: yellow;" text="Appointments" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="Home" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: yellow;" text="Home" textFill="#462323">
+            <Button fx:id="HomeButton" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: yellow;" text="Home" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
@@ -48,12 +48,12 @@
                      </font>
                   </Label>
                   <Line id="allOrdersCosmeticLine" endX="424.0" endY="-1.52587890625E-5" layoutX="286.0" layoutY="50.0" startX="-269.0" startY="-1.52587890625E-5" />
-                  <TableView layoutX="15.0" layoutY="96.0" prefHeight="200.0" prefWidth="694.0">
+                  <TableView fx:id="allOrdersTable" layoutX="31.0" layoutY="98.0" prefHeight="200.0" prefWidth="659.0">
                     <columns>
-                      <TableColumn id="allOrdersPatientCol" prefWidth="137.5" text="Patient" />
-                      <TableColumn id="allOrdersModalityCol" prefWidth="137.5" text="Modality" />
-                        <TableColumn id="allOrdersNotesCol" prefWidth="137.5" text="Notes" />
-                        <TableColumn id="allOrdersStatusCol" prefWidth="137.5" text="Status" />
+                      <TableColumn id="allOrdersPatientCol" fx:id="allOrdersPatientCol" prefWidth="137.5" text="Patient" />
+                      <TableColumn id="allOrdersModalityCol" fx:id="allOrdersModalityCol" prefWidth="200.5" text="Modality" />
+                        <TableColumn id="allOrdersNotesCol" fx:id="allOrdersNotesCol" prefWidth="153.5" text="Notes" />
+                        <TableColumn id="allOrdersStatusCol" fx:id="allOrdersStatusCol" prefWidth="166.5" text="Status" />
                     </columns>
                   </TableView>
                   <TextField id="searchAllOrdersTextField" layoutX="554.0" layoutY="58.0" />
