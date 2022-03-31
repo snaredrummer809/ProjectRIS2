@@ -39,6 +39,8 @@ public class AdminAppointmentsController implements Initializable {
 	Button ReferralsButton;
 	@FXML
 	Button LogOut;
+	@FXML
+	Button NewAppointmentButton;
 	
 	// Appointment Pane
 	@FXML
@@ -103,6 +105,12 @@ public class AdminAppointmentsController implements Initializable {
 
 		Main m = new Main();
 		m.changeScene("../Views/AdminReferrals.fxml");
+	}
+	
+	public void NewAppointmentButton(ActionEvent event) throws IOException{
+		
+		Main m = new Main();
+		m.changeScene("../Views/NewAppointment.fxml");
 	}
 	
 	public void initialize(URL arg0, ResourceBundle arg1) {
