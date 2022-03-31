@@ -11,9 +11,9 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1460.0" prefWidth="750.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.RadioController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1460.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.RadioAppointmentsController">
    <center>
-      <AnchorPane prefHeight="1460.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+      <AnchorPane prefHeight="1079.0" prefWidth="750.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="LogOut" layoutX="657.0" layoutY="14.0" mnemonicParsing="false" onAction="#userLogOut" style="-fx-background-color: yellow;" text="Log Out" textFill="#462323">
                <font>
@@ -43,13 +43,13 @@
                      </font>
                   </Label>
                   <Line id="allAppointmentsCosmeticLine" endX="423.0" endY="-1.52587890625E-5" layoutX="286.0" layoutY="50.0" startX="-269.0" startY="-1.52587890625E-5" />
-                  <TableView layoutX="15.0" layoutY="96.0" prefHeight="200.0" prefWidth="694.0">
+                  <TableView fx:id="appointmentsTable" layoutX="15.0" layoutY="96.0" prefHeight="200.0" prefWidth="694.0">
                     <columns>
-                      <TableColumn id="allApptPatientCol" prefWidth="110.0" text="Patient" />
-                      <TableColumn id="allApptModalityCol" prefWidth="110.0" text="Modality" />
-                        <TableColumn id="allApptDateTimeCol" prefWidth="110.0" text="Date and Time" />
-                        <TableColumn id="allApptRadioCol" prefWidth="110.0" text="Radiologist" />
-                        <TableColumn id="allApptTechCol" prefWidth="110.0" text="Technician" />
+                      <TableColumn id="allApptPatientCol" fx:id="appPatientNameColumn" prefWidth="110.0" text="Patient" />
+                      <TableColumn id="allApptModalityCol" fx:id="appModalityColumn" prefWidth="110.0" text="Modality" />
+                        <TableColumn id="allApptDateTimeCol" fx:id="appDateAndTimeColumn" prefWidth="167.0" text="Date and Time" />
+                        <TableColumn id="allApptRadioCol" fx:id="appRadioColumn" prefWidth="143.0" text="Radiologist" />
+                        <TableColumn id="allApptTechCol" fx:id="appTechNameColumn" prefWidth="163.0" text="Technician" />
                     </columns>
                   </TableView>
                   <TextField id="searchAllApptTextField" layoutX="554.0" layoutY="58.0" />
