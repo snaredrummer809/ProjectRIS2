@@ -11,7 +11,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1460.0" prefWidth="750.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.TechController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1460.0" prefWidth="750.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.TechAppointmentsController">
    <center>
       <AnchorPane prefHeight="1460.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
          <children>
@@ -35,26 +35,26 @@
                   <Font size="16.0" />
                </font>
             </Button>
-            <Button fx:id="TechAppointments" layoutX="83.0" layoutY="14.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: white;" text="Appointments" textFill="#462323">
+            <Button layoutX="83.0" layoutY="14.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: white;" text="Appointments" textFill="#462323">
                <font>
                   <Font size="16.0" />
                </font>
             </Button>
-            <Pane id="checkedInAppointmentsPane" layoutX="15.0" layoutY="75.0" prefHeight="312.0" prefWidth="720.0" style="-fx-background-color: white;">
+            <Pane id="AppointmentsPane" fx:id="ApptPane" layoutX="15.0" layoutY="75.0" prefHeight="312.0" prefWidth="720.0" style="-fx-background-color: white;">
                <children>
-                  <Label id="checkedInAppointmentsPaneLabel" layoutX="284.0" layoutY="14.0" text="All Appointments">
+                  <Label id="AppointmentsPaneLabel" layoutX="284.0" layoutY="14.0" text="All Appointments">
                      <font>
                         <Font size="20.0" />
                      </font>
                   </Label>
-                  <Line id="checkedInAppointmentsCosmeticLine" endX="410.0" endY="1.52587890625E-5" layoutX="284.0" layoutY="55.0" startX="-264.6666564941406" startY="1.52587890625E-5" />
-                  <TableView id="checkedInAppointmentsTable" layoutX="14.0" layoutY="96.0" prefHeight="200.0" prefWidth="694.0">
+                  <Line id="AppointmentsCosmeticLine" endX="410.0" endY="1.52587890625E-5" layoutX="284.0" layoutY="55.0" startX="-264.6666564941406" startY="1.52587890625E-5" />
+                  <TableView id="AppointmentsTable" fx:id="ApptTable" layoutX="14.0" layoutY="96.0" prefHeight="200.0" prefWidth="694.0">
                      <columns>
-                        <TableColumn id="CIATablePatientColumn" prefWidth="138.5" text="Patient" />
-                        <TableColumn id="CIATableModalityColumn" prefWidth="138.5" text="Modality" />
-                        <TableColumn id="CIATableDateAndTimeColumn" prefWidth="138.5" text="Date and Time" />
-                        <TableColumn id="CIATableRadiologistColumn" prefWidth="138.5" text="Radiologist" />
-                        <TableColumn id="CIATableTechnicianColumn" prefWidth="138.5" text="Technician" />
+                        <TableColumn id="CIATablePatientColumn" fx:id="ApptTablePatientCol" prefWidth="138.5" text="Patient" />
+                        <TableColumn id="CIATableModalityColumn" fx:id="ApptTableModalityCol" prefWidth="138.5" text="Modality" />
+                        <TableColumn id="CIATableDateAndTimeColumn" fx:id="ApptTableDateTimeCol" prefWidth="138.5" text="Date and Time" />
+                        <TableColumn id="CIATableRadiologistColumn" fx:id="ApptTableRadioCol" prefWidth="138.5" text="Radiologist" />
+                        <TableColumn id="CIATableTechnicianColumn" fx:id="ApptTableTechCol" prefWidth="138.5" text="Technician" />
                      </columns>
                   </TableView>
                   <Label id="searchCIALabel" layoutX="505.0" layoutY="65.0" text="Search:">
@@ -62,7 +62,7 @@
                         <Font name="System Bold" size="14.0" />
                      </font>
                   </Label>
-                  <TextField id="searchCIATextField" layoutX="550.0" layoutY="61.0" prefHeight="26.0" prefWidth="152.0" />
+                  <TextField id="searchApptTextField" layoutX="550.0" layoutY="61.0" prefHeight="26.0" prefWidth="152.0" />
                </children>
             </Pane>
          </children>
