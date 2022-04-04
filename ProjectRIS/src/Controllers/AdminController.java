@@ -115,7 +115,7 @@ public void addNewAppointment(ActionEvent event) throws IOException {
 	          } catch (Exception e) {
 	             System.out.println(e);
 	       }
-	       conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/db_ris", "root", "roscojack1997");
+	       conn = (Connection) DriverManager.getConnection("jdbc:mysql://localhost:3306/db_ris", "root", "YOUR PASSWORD HERE");
 	       System.out.println("Connection is created successfully:");
 	       stmt = (Statement) conn.createStatement();
 	       
