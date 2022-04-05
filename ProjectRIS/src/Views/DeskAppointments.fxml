@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -11,66 +12,96 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1460.0" prefWidth="750.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.DeskController">
-   <center>
-      <AnchorPane prefHeight="1460.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="LogOut" layoutX="657.0" layoutY="14.0" mnemonicParsing="false" onAction="#userLogOut" style="-fx-background-color: yellow;" text="Log Out" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Label layoutX="497.0" layoutY="19.0" text="Logged In: ">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="576.0" layoutY="19.0" text="Front Desk">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Button fx:id="DeskHome" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: yellow;" text="Home" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="DeskAppointments" layoutX="83.0" layoutY="14.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: white;" text="Appointments" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="DeskOrders" layoutX="206.0" layoutY="14.0" mnemonicParsing="false" onAction="#OrderButton" style="-fx-background-color: yellow;" text="Orders" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Pane id="checkedInAppointmentsPane" layoutX="15.0" layoutY="75.0" prefHeight="389.0" prefWidth="720.0" style="-fx-background-color: white;">
+<ScrollPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DeskAppointmentsController">
+   <content>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2600.0" prefWidth="750.0">
+         <center>
+            <AnchorPane prefHeight="2600.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
                <children>
-                  <Label id="checkedInAppointmentsPaneLabel" layoutX="284.0" layoutY="14.0" text="All Appointments">
+                  <Label id="deskAppsPaneLabel" layoutX="28.0" layoutY="19.0" text="Appointments">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="16.0" />
                      </font>
                   </Label>
-                  <Line id="checkedInAppointmentsCosmeticLine" endX="410.0" endY="1.52587890625E-5" layoutX="284.0" layoutY="55.0" startX="-264.6666564941406" startY="1.52587890625E-5" />
-                  <TableView id="checkedInAppointmentsTable" layoutX="14.0" layoutY="115.0" prefHeight="255.0" prefWidth="694.0">
-                     <columns>
-                        <TableColumn id="CIATablePatientColumn" prefWidth="138.5" text="Patient" />
-                        <TableColumn id="CIATableModalityColumn" prefWidth="138.5" text="Modality" />
-                        <TableColumn id="CIATableDateAndTimeColumn" prefWidth="138.5" text="Date and Time" />
-                        <TableColumn id="CIATableRadiologistColumn" prefWidth="138.5" text="Radiologist" />
-                        <TableColumn id="CIATableTechnicianColumn" prefWidth="138.5" text="Technician" />
-                     </columns>
-                  </TableView>
-                  <Label id="searchCIALabel" layoutX="506.0" layoutY="74.0" text="Search:">
+                  <Button fx:id="LogOut" layoutX="657.0" layoutY="14.0" mnemonicParsing="false" onAction="#userLogOut" style="-fx-background-color: yellow;" text="Log Out" textFill="#462323">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="469.0" layoutY="19.0" text="Logged In: ">
+                     <font>
+                        <Font size="17.0" />
                      </font>
                   </Label>
-                  <TextField id="searchCIATextField" layoutX="554.0" layoutY="71.0" prefHeight="25.0" prefWidth="141.0" />
+                  <Label layoutX="554.0" layoutY="19.0" text="Receptionist">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Button id="homeButton" fx:id="HomeButton" layoutX="138.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: yellow;" text="Home" textFill="#462323">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button id="ordersButton" fx:id="ordersButton" layoutX="207.0" layoutY="14.0" mnemonicParsing="false" onAction="#OrderButton" style="-fx-background-color: yellow;" text="Orders" textFill="#462323">
+              	   	 <font>
+              	   	 	<Font size="16.0" />
+          	   	 	 </font>
+          	   	  </Button>
+                  <Pane id="deskAppsPane" fx:id="deskAppsPane" disable="false" layoutX="15.0" layoutY="100.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;" visible="true">
+                     <children>
+                        <Label id="deskAppsPaneLabel" layoutX="290.0" layoutY="17.0" text="All Appointments">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Line id="deskAppsCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
+                        <Label id="searchAppsLabel" layoutX="519.0" layoutY="77.0" text="Search:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField id="searchAppsTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
+                        <TableView id="deskAppsTable" fx:id="deskAppsTable" layoutX="14.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
+                          <columns>
+                            <TableColumn id="deskAppsPatientColumn" fx:id="deskAppsPatientColumn" prefWidth="115.0" text="Patient" />
+                            <TableColumn id="deskAppsModalityColumn" fx:id="deskAppsModalityColumn" prefWidth="115.0" text="Modality" />
+                            <TableColumn id="deskAppsDateAndTimeColumn" fx:id="deskAppsDateAndTimeColumn" prefWidth="115.0" text="Date/Time" />
+                            <TableColumn id="deskAppsTechNameColumn" fx:id="deskAppsTechNameColumn" prefWidth="115.0" text="Technician" />
+                            <TableColumn id="deskAppsRadiologistColumn" fx:id="deskAppsRadiologistColumn" prefWidth="115.0" text="Radiologist" />
+                            <TableColumn id="appDeleteColumn" fx:id="deskAppsDeleteColumn" prefWidth="80.0" />
+                          </columns>
+                        </TableView>
+                        <Pane id="confirmationPane" fx:id="appDeleteConfirmationPane" layoutX="172.0" layoutY="32.0" prefHeight="205.0" prefWidth="361.0" style="-fx-background-color: White;" visible="false">
+                           <children>
+                              <Label id="warningLabel" layoutX="136.0" layoutY="21.0" text="WARNING">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label id="contentLabel" layoutX="24.0" layoutY="66.0" text="Are you sure you want to delete this appointment?">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Button id="appConfirmDeleteButton" fx:id="appConfirmDeleteButton" layoutX="110.0" layoutY="128.0" mnemonicParsing="false" onAction="#appConfirmDelete" text="Yes">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <Button id="appCancelDeleteButton" fx:id="cancelButton" layoutX="199.0" layoutY="128.0" mnemonicParsing="false" onAction="#cancelButton" style="-fx-background-color: Red;" text="Cancel">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <TextField id="appIDTextField" fx:id="appIDTextField" editable="false" layoutX="106.0" layoutY="90.0" opacity="0.0" visible="true" />
+                           </children>
+                        </Pane>             
+                     </children>
+                  </Pane>
                </children>
-            </Pane>
-         </children>
-      </AnchorPane>
-   </center>
-</BorderPane>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </content>
+</ScrollPane>
