@@ -35,6 +35,10 @@ public class DeskAppointmentsController implements Initializable{
 		Button ordersButton;
 		@FXML
 		Button LogOut;
+		@FXML
+		Button UserHomeButton;
+		@FXML
+		Button UserResourcesButton;
 		
 		// Appointment Pane
 		@FXML
@@ -63,6 +67,18 @@ public class DeskAppointmentsController implements Initializable{
 		
 		//Alerts
 		Alert updateAlert = new Alert(AlertType.CONFIRMATION);
+		
+		public void UserResourcesButton(ActionEvent event) throws IOException {
+
+			Main m = new Main();
+			m.changeScene("../Views/UserResources.fxml");
+		}
+		
+		public void UserHomeButton(ActionEvent event) throws IOException {
+
+			Main m = new Main();
+			m.changeScene("../Views/User.fxml");
+		}
 		
 		public void userLogOut(ActionEvent event) throws IOException {
 
