@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
 <ScrollPane prefHeight="800.0" prefWidth="752.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.TechController">
    <content>
@@ -172,17 +165,17 @@
   			            </Label>
   			            <TextField id="imagingLastNameTextField" fx:id="imagingLastNameTextField" layoutX="243.0" layoutY="113.0" prefHeight="25.0" prefWidth="215.0" />
   			            <TextArea id="imagingMDNotesTextArea" fx:id="imagingMDNotesTextArea" layoutX="14.0" layoutY="210.0" prefHeight="121.0" prefWidth="413.0" />
-  			            <Button id="backButton" fx:id="backButton" layoutX="626.0" layoutY="420.0" mnemonicParsing="false" onAction="#backButton" style="-fx-background-color: red;" text="Back" textFill="WHITE">
+  			            <Button id="backButton" fx:id="backButton" layoutX="626.0" layoutY="424.0" mnemonicParsing="false" onAction="#backButton" style="-fx-background-color: red;" text="Back" textFill="WHITE">
   			               <font>
   			                  <Font name="System Bold" size="14.0" />
   			               </font>
   			            </Button>
-  			            <Button id="compOrderButton" fx:id="compOrderButton" layoutX="484.0" layoutY="420.0" mnemonicParsing="false" onAction="#completeOrderButton" style="-fx-background-color: blue;" text="Complete Order" textFill="WHITE">
+  			            <Button id="compOrderButton" fx:id="compOrderButton" layoutX="484.0" layoutY="424.0" mnemonicParsing="false" onAction="#completeOrderButton" style="-fx-background-color: blue;" text="Complete Order" textFill="WHITE">
   			               <font>
   			                  <Font name="System Bold" size="14.0" />
   			               </font>
   			            </Button>
-  			            <Button id="chooseFileButton" fx:id="chooseFileButton" layoutX="14.0" layoutY="349.0" mnemonicParsing="false" text="Choose File" />
+  			            <Button id="chooseFileButton" fx:id="chooseFileButton" layoutX="14.0" layoutY="349.0" mnemonicParsing="false" onAction="#selectFile" text="Choose File" />
                         <Label id="imagingOrderNotesLabel" layoutX="16.0" layoutY="180.0" text="Notes:">
                            <font>
                               <Font size="14.0" />
@@ -193,7 +186,8 @@
                               <Font size="14.0" />
                            </font>
                         </Label>
-                        <TextField id="imagingModalityTextField" fx:id="imagingModalityTextField" layoutX="470.0" layoutY="113.0" prefHeight="25.0" prefWidth="211.0" /> 
+                        <TextField id="imagingModalityTextField" fx:id="imagingModalityTextField" layoutX="470.0" layoutY="113.0" prefHeight="25.0" prefWidth="211.0" />
+                        <ImageView fx:id="scanImageView" fitHeight="205.0" fitWidth="222.0" layoutX="458.0" layoutY="211.0" pickOnBounds="true" preserveRatio="true" /> 
   			         </children>
   			      </Pane>
                </children>
