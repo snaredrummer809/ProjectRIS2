@@ -2,7 +2,11 @@ package Controllers;
 
 public class ModelTable {
 	String s1,s2,s3,s4,s5,s6;
-	int num1, num2, num3, num4;
+	int num1, num2, num3, num4, num5;
+
+	
+
+
 
 	public ModelTable() {
 		super();
@@ -101,6 +105,15 @@ public class ModelTable {
 
 	public void setNum4(int num4) {
 		this.num4 = num4;
+	}
+	public int getNum5() {
+		return num5;
+	}
+
+
+
+	public void setNum5(int num5) {
+		this.num5 = num5;
 	}
 }
 
