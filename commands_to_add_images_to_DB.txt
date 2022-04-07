@@ -1,0 +1,19 @@
+DROP TABLE imaging_info;
+-- -----------------------------------------------------
+-- Table `db_ris`.`imaging_info`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `db_ris`.`imaging_info` (
+  `imaging_id` BIGINT NOT NULL AUTO_INCREMENT,
+  `image_url` VARCHAR(255) NULL DEFAULT NULL,
+  `imaging`  longblob DEFAULT NULL,
+  `modality` BIGINT NULL DEFAULT NULL,
+  `notes` VARCHAR(255) NULL DEFAULT NULL,
+  `patient` BIGINT NULL DEFAULT NULL,
+  `technician` BIGINT NULL DEFAULT NULL,
+  PRIMARY KEY (`imaging_id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8mb4
+COLLATE = utf8mb4_0900_ai_ci;
+
+
+ALTER TABLE orders ADD COLUMN image int;
