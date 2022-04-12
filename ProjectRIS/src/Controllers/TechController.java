@@ -224,7 +224,7 @@ public class TechController implements Initializable{
 									ethnicity = rs.getString("ethnicity");
 									phone = rs.getString("phone_number");
 									email = rs.getString("email_address");
-									allergies = rs.getString("allergies");
+									allergies = rs.getString("patientNotes");
 									
 								}
 								con.close();
@@ -235,12 +235,13 @@ public class TechController implements Initializable{
 							
 							try {
 								Connection con = DatabaseConnection.getConnection();
+								//System.out.println("select * from orders where status=1 and patient=" + m.getNum1());
 								ResultSet rs = con.createStatement().executeQuery("select * from orders where status=1 and patient=" + m.getNum1());
 								
 								while(rs.next()) {
 									int order_id = rs.getInt("order_id");
-									instance.setNum4(order_id);
-									
+									instance.setNum5(order_id);
+									//System.out.println("order id is "+order_id);								
 								}
 								con.close();
 							}
@@ -287,7 +288,7 @@ public class TechController implements Initializable{
 							//get order number to get notes
 							try {
 								Connection con = DatabaseConnection.getConnection();
-								ResultSet rs = con.createStatement().executeQuery("select * from orders where order_id=" + instance.getNum4());
+								ResultSet rs = con.createStatement().executeQuery("select * from orders where order_id=" + instance.getNum5());
 								
 								while(rs.next()) {
 									String notes = rs.getString("notes");						
@@ -384,11 +385,11 @@ public class TechController implements Initializable{
 					
 					
 					
-					System.out.println("image inserted successfully");
+					//System.out.println("image inserted successfully");
 					
 					//update order status to imaging complete
-					String updateOrderStatus = "UPDATE orders SET status=2,image="+imaging_id +" where order_id="+instance.getNum4()+";";
-					System.out.println(updateOrderStatus);
+					String updateOrderStatus = "UPDATE orders SET status=2,image="+imaging_id +" where order_id="+instance.getNum5()+";";
+					//System.out.println(updateOrderStatus);
 					try{
 						stmt.executeUpdate(updateOrderStatus);
 					}
@@ -447,7 +448,7 @@ public class TechController implements Initializable{
 		}
 		*/
 		if(file != null) {
-			System.out.println(""+file.getAbsolutePath());
+			//System.out.println(""+file.getAbsolutePath());
 			image = new Image(file.getAbsoluteFile().toURI().toString(), scanImageView.getFitWidth(), scanImageView.getFitHeight(), true, true);
 			scanImageView.setImage(image);
 			scanImageView.setPreserveRatio(true);
