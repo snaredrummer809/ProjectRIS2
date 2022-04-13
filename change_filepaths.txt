@@ -1,0 +1,4 @@
+DoctorController.java 
+lines 465 and 469 -- must change filepath to your desired location for saving reports and images
+
+I recommend a creating a parent folder and two subfolders (one for images one for reports)
