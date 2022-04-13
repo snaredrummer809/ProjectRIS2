@@ -354,6 +354,15 @@ public class DeskController implements Initializable{
 								String checkInPatient = "update appointments set checked_in=1 where appointment_id=" + appNum;
 								stmt.executeUpdate(checkInPatient);
 								
+								int order_id = 0;
+								String getOrderId = "select * from appointments where appointment_id=" + appNum;
+								ResultSet rs = stmt.executeQuery(getOrderId);
+								while(rs.next())
+								{
+									order_id = rs.getInt("order_id");
+								}
+								String changeStatus = "update orders SET status=1 where order_id="+order_id+";";
+								stmt.executeUpdate(changeStatus);
 								populateCheckedInApps();
 								populateTodaysApps();
 								

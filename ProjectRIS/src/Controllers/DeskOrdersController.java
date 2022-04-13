@@ -110,32 +110,32 @@ public class DeskOrdersController implements Initializable{
 
 			while (rs.next()) {
 				orderID = rs.getInt("order_id");
-				System.out.println(orderID);
+				//System.out.println(orderID);
 				patient = rs.getInt("patient");
-				System.out.println(patient);
+				//System.out.println(patient);
 				doc = rs.getInt("referral_md");
-				System.out.println(doc);
+				//System.out.println(doc);
 				notes = rs.getString("notes");
-				System.out.println(notes);
+				//System.out.println(notes);
 				modality = rs.getInt("modality");
-				System.out.println(modality);
+				//System.out.println(modality);
 				status = rs.getInt("status");
-				System.out.println(status);
+				//System.out.println(status);
 				ResultSet rs2 = con.createStatement().executeQuery("select * from patients where patient_id=" + patient);
 				while(rs2.next()) {
 					patientName = rs2.getString("first_name") + " " + rs2.getString("last_name");
 				}
-				System.out.println(patientName);
+				//System.out.println(patientName);
 				rs2 = con.createStatement().executeQuery("select * from modalities where modality_id=" + modality);
 				while(rs2.next()) {
 					modalityName = rs2.getString("name");
 				}
-				System.out.println(modalityName);
+				//System.out.println(modalityName);
 				rs2 = con.createStatement().executeQuery("select * from users where user_id=" + doc);
 				while(rs2.next()) {
 					docName = rs2.getString("full_name");
 				}
-				System.out.println(docName);
+				//System.out.println(docName);
 				rs2 = con.createStatement().executeQuery("select * from order_status where order_status_id=" + status);
 				while(rs2.next()) {
 					statusName = rs2.getString("name");
@@ -175,7 +175,7 @@ public class DeskOrdersController implements Initializable{
 							AppointmentButton.setDisable(true);
 							LogOut.setDisable(true);
 							
-							System.out.println(m.getNum1());
+							//System.out.println(m.getNum1());
 							allOrdersIDTextField.setText(m.getNum1()+"");
 
 						});

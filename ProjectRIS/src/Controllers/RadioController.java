@@ -116,12 +116,12 @@ public class RadioController implements Initializable{
 				//checkedIn = rs.getInt("checked_in");
 				//closed = rs.getInt("closed");
 				status = rs.getInt("status");
-				System.out.println(patient);
-				System.out.println(modality);
-				System.out.println(refDoc);
-				System.out.println(order);
+				//System.out.println(patient);
+				//System.out.println(modality);
+				//System.out.println(refDoc);
+				//System.out.println(order);
 				//System.out.println(closed);
-				System.out.println(status);
+				//System.out.println(status);
 				
 				// Check to make sure appointment has been checked in
 				//added check to make sure appt is not closed
@@ -154,7 +154,7 @@ public class RadioController implements Initializable{
 					rs2 = con.createStatement().executeQuery("select * from appointments where order_id=" + order);
 					while(rs2.next()) {
 						radio = rs2.getInt("radiologist");
-						System.out.println("radio is: "+radio);
+						//System.out.println("radio is: "+radio);
 						instance.setNum1(radio);
 					}
 					
@@ -216,7 +216,7 @@ public class RadioController implements Initializable{
 									ethnicity = rs.getString("ethnicity");
 									phone = rs.getString("phone_number");
 									email = rs.getString("email_address");
-									allergies = rs.getString("allergies");
+									allergies = rs.getString("patientNotes");
 									
 								}
 								con.close();
@@ -256,31 +256,9 @@ public class RadioController implements Initializable{
 								e.printStackTrace();
 							}
 							
-							//find appt_id where patient_id = m.getNum1() and checked_in=1 and closed = 0
-							/*						
-							try {
-								Connection con = DatabaseConnection.getConnection();
-								ResultSet rs = con.createStatement().executeQuery("select * from appointments where patient=" + m.getNum1()+" and checked_in=1 and closed=0");
-								
-								while(rs.next()) {
-									int appt_id = rs.getInt("appointment_id");
-									int patient = rs.getInt("patient");
-									int modality = rs.getInt("modality");
-									int tech = rs.getInt("technician");
-																	
-									instance.setNum1(modality);
-									instance.setNum2(patient);
-									instance.setNum3(tech);
-								}
-								con.close();
-								
-							}
-							catch(SQLException e) {
-								e.printStackTrace();
-							}
-							*/
 							
-							System.out.println("order id is:"+ instance.getNum4());
+							
+							//System.out.println("order id is:"+ instance.getNum4());
 							//get order number to get notes
 							try {
 								Connection con = DatabaseConnection.getConnection();
@@ -310,7 +288,7 @@ public class RadioController implements Initializable{
 							FirstNameTextField.setText(firstName);
 							LastNameTextField.setText(lastName);
 							DOBTextField.setText(DOB);
-							System.out.println(modalityName);
+							//System.out.println(modalityName);
 							ModalityTextField.setText(modalityName);
 							MDNotesTextArea.setText(instance.getS1());
 							
@@ -405,7 +383,7 @@ public class RadioController implements Initializable{
 			
 			//update order status to imaging complete
 			String updateOrderStatus = "UPDATE orders SET status=3 where order_id="+order_id+";";
-			System.out.println(updateOrderStatus);
+			//System.out.println(updateOrderStatus);
 			try{
 				stmt.executeUpdate(updateOrderStatus);
 			}

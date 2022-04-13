@@ -2,69 +2,159 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.image.*?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1460.0" prefWidth="750.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="Controllers.DoctorController">
-   <center>
-      <AnchorPane prefHeight="1460.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="LogOut" layoutX="657.0" layoutY="14.0" mnemonicParsing="false" onAction="#userLogOut" style="-fx-background-color: yellow;" text="Log Out" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Label layoutX="516.0" layoutY="19.0" text="Logged In: ">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="601.0" layoutY="19.0" text=" Doctor">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Button fx:id="Home" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: white;" text="Home" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="Referrals" layoutX="83.0" layoutY="14.0" mnemonicParsing="false" onAction="#ReferralsButton" style="-fx-background-color: yellow;" text="Referrals" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Pane id="placedOrders" layoutX="15.0" layoutY="75.0" prefHeight="312.0" prefWidth="720.0" style="-fx-background-color: white;">
+<ScrollPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DoctorController">
+   <content>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2600.0" prefWidth="750.0">
+         <center>
+            <AnchorPane prefHeight="2600.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
                <children>
-                  <Label id="placedOrdersPaneLabel" layoutX="303.0" layoutY="14.0" text="Placed Orders">
+                  <Button fx:id="LogOut" layoutX="657.0" layoutY="14.0" mnemonicParsing="false" onAction="#userLogOut" style="-fx-background-color: yellow;" text="Log Out" textFill="#462323">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="516.0" layoutY="19.0" text="Logged In: ">
+                     <font>
+                        <Font size="17.0" />
                      </font>
                   </Label>
-                  <Line id="placedOrdersCosmeticLine" endX="420.5" endY="-1.52587890625E-5" layoutX="286.0" layoutY="50.0" startX="-269.0" startY="-1.52587890625E-5" />
-                  <TableView layoutX="15.0" layoutY="96.0" prefHeight="200.0" prefWidth="694.0">
-                    <columns>
-                      <TableColumn id="placedOrdersPatientCol" prefWidth="137.5" text="Patient" />
-                      <TableColumn id="placedOrdersModalityCol" prefWidth="137.5" text="Modality" />
-                        <TableColumn id="placedOrdersNotesCol" prefWidth="137.5" text="Notes" />
-                        <TableColumn id="placedOrdersStatusCol" prefWidth="137.5" text="Status" />
-                    </columns>
-                  </TableView>
-                  <TextField id="searchplacedOrdersTextField" layoutX="554.0" layoutY="58.0" />
-                  <Label id="searchplacedOrdersLabel" layoutX="506.0" layoutY="61.0" text="Search:">
+                  <Label layoutX="601.0" layoutY="19.0" text="Doctor">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font size="17.0" />
                      </font>
                   </Label>
+                  <Button id="homeButton" fx:id="HomeButton" layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: white;" text="Home" textFill="#462323">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button id="referralsButton" fx:id="ReferralsButton" layoutX="85.0" layoutY="15.0" mnemonicParsing="false" onAction="#ReferralsButton" style="-fx-background-color: yellow;" text="Referrals" textFill="#462323">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Pane id="allOrdersPane" fx:id="allOrdersPane" disable="false" layoutX="15.0" layoutY="100.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;" visible="true">
+                     <children>
+                        <Label id="allOrdersPaneLabel" layoutX="290.0" layoutY="17.0" text="All Orders">
+                           <font>
+                              <Font size="20.0" />
+                           </font>
+                        </Label>
+                        <Line id="allOrdersCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
+                        <Label id="searchOrdersLabel" layoutX="519.0" layoutY="77.0" text="Search:">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                        </Label>
+                        <TextField id="searchOrdersTextField" fx:id="searchAllOrdersTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
+                        <TableView id="allOrdersTable" fx:id="allOrdersTable" layoutX="14.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
+                          <columns>
+                          	<TableColumn id="allOrdersOrderIDCol" fx:id="allOrdersOrderIDCol" prefWidth="100.0" text="ID" />
+                            <TableColumn id="allOrdersPatientCol" fx:id="allOrdersPatientCol" prefWidth="100.0" text="Patient" />
+                            <TableColumn id="allOrdersReferralDocCol" fx:id="allOrdersReferralDocCol" prefWidth="100.0" text="Referral Doctor" />
+                            <TableColumn id="allOrdersModalityCol" fx:id="allOrdersModalityCol" prefWidth="100.0" text="Modality" />
+                            <TableColumn id="allOrdersNotesCol" fx:id="allOrdersNotesCol" prefWidth="100.0" text="Notes" />
+                            <TableColumn id="allOrdersStatusCol" fx:id="allOrdersStatusCol" prefWidth="100.0" text="Status" />
+                            <TableColumn id="allOrdersReportCol" fx:id="allOrdersReportCol" prefWidth="100.0" />
+                          </columns>
+                        </TableView>
+                        <Pane id="confirmationPane" fx:id="allOrdersDeleteConfirmationPane" layoutX="172.0" layoutY="32.0" prefHeight="205.0" prefWidth="361.0" style="-fx-background-color: White;" visible="false">
+                           <children>
+                              <Label id="warningLabel" layoutX="136.0" layoutY="21.0" text="WARNING">
+                                 <font>
+                                    <Font name="System Bold" size="18.0" />
+                                 </font>
+                              </Label>
+                              <Label id="contentLabel" layoutX="24.0" layoutY="66.0" text="Are you sure you want to delete this order?">
+                                 <font>
+                                    <Font size="14.0" />
+                                 </font>
+                              </Label>
+                              <Button id="orderConfirmDeleteButton" fx:id="allOrdersConfirmDeleteButton" layoutX="110.0" layoutY="128.0" mnemonicParsing="false" text="Yes">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <Button id="allOrdersCancelDeleteButton" fx:id="cancelButton" layoutX="199.0" layoutY="128.0" mnemonicParsing="false" style="-fx-background-color: Red;" text="Cancel">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Button>
+                              <TextField id="allOrdersIDTextField" fx:id="allOrdersIDTextField" editable="false" layoutX="106.0" layoutY="90.0" opacity="0.0" visible="true" />
+                           </children>
+                        </Pane> 
+                        <Button layoutX="602.0" layoutY="20.0" mnemonicParsing="false" onAction="#newOrderButton" text="Place Order" />
+                        <Pane fx:id="reportPane" layoutX="50.0" layoutY="15.0" prefHeight="429.0" prefWidth="643.0" style="-fx-background-color: White;" visible="false">
+					         <children>
+					            <Label layoutX="242.0" layoutY="14.0" text="Diagnostic Report">
+					               <font>
+					                  <Font size="20.0" />
+					               </font>
+					            </Label>
+					            <TextField fx:id="reportPatientTextField" editable="false" layoutX="74.0" layoutY="99.0" prefHeight="25.0" prefWidth="225.0" />
+					            <TextField fx:id="reportRadioTextField" editable="false" layoutX="392.0" layoutY="100.0" prefHeight="25.0" prefWidth="225.0" />
+					            <Label layoutX="26.0" layoutY="101.0" text="Patient:">
+					               <font>
+					                  <Font size="14.0" />
+					               </font>
+					            </Label>
+					            <Label layoutX="316.0" layoutY="102.0" text="Radiologist:">
+					               <font>
+					                  <Font size="14.0" />
+					               </font>
+					            </Label>
+					            <TextField fx:id="reportOrderIDTextField" layoutX="315.0" layoutY="55.0" prefHeight="25.0" prefWidth="62.0" />
+					            <Label layoutX="256.0" layoutY="57.0" text="Order ID:">
+					               <font>
+					                  <Font size="14.0" />
+					               </font>
+					            </Label>
+					            <Button fx:id="closeReportButton" layoutX="570.0" layoutY="377.0" mnemonicParsing="false" style="-fx-background-color: red;" text="Close" textFill="WHITE" onAction="#closeReport">
+					               <font>
+					                  <Font name="System Bold" size="12.0" />
+					               </font>
+					            </Button>
+					            <Button fx:id="viewImageButton" layoutX="26.0" layoutY="151.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" text="View Image" onAction="#viewImage"/>
+					            <TextArea fx:id="reportTextArea" layoutX="26.0" layoutY="208.0" prefHeight="157.0" prefWidth="591.0" />
+					            <Label layoutX="26.0" layoutY="188.0" text="Report:">
+					               <font>
+					                  <Font size="14.0" />
+					               </font>
+					            </Label>
+					         </children>
+					      </Pane>
+                         <Pane fx:id="scanPane" layoutX="50.0" layoutY="65.0" prefHeight="657.0" prefWidth="657.0" style="-fx-background-color: white;" visible="false">
+					         <children>
+					            <ImageView fx:id="imageView" fitHeight="562.0" fitWidth="627.0" layoutX="17.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true" />
+					            <Button fx:id="closeImage" layoutX="590.0" layoutY="619.0" mnemonicParsing="false" onAction="#closeImagePane" style="-fx-background-color: red;" text="Close" textFill="WHITE">
+					               <font>
+					                  <Font name="System Bold" size="14.0" />
+					               </font>
+					            </Button>
+					            <Label layoutX="274.0" layoutY="14.0" text="Patient Scan">
+					               <font>
+					                  <Font size="20.0" />
+					               </font>
+					            </Label>
+					         </children>
+					      </Pane>           
+                     </children>
+                  </Pane>
                </children>
-            </Pane>
-         </children>
-      </AnchorPane>
-   </center>
-</BorderPane>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </content>
+</ScrollPane>

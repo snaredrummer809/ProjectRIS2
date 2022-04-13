@@ -121,13 +121,13 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 
 				while (rs.next()) {
 					patient = rs.getInt("patient");
-					System.out.println(patient);
+					//System.out.println(patient);
 					modality = rs.getInt("modality");
-					System.out.println(modality);
+					//System.out.println(modality);
 					tech = rs.getInt("technician");
-					System.out.println(tech);
+					//System.out.println(tech);
 					radio = rs.getInt("radiologist");
-					System.out.println(radio);
+					//System.out.println(radio);
 					
 					ResultSet rs2 = con.createStatement().executeQuery("select * from patients where patient_id=" + patient);
 					

@@ -63,13 +63,13 @@ public class TechAppointmentsController implements Initializable{
 
 				while (rs.next()) {
 					patient = rs.getInt("patient");
-					System.out.println(patient);
+					//System.out.println(patient);
 					modality = rs.getInt("modality");
-					System.out.println(modality);
+					//System.out.println(modality);
 					radio = rs.getInt("radiologist");
-					System.out.println(radio);
+					//System.out.println(radio);
 					tech = rs.getInt("technician");
-					System.out.println(tech);
+					//System.out.println(tech);
 					ResultSet rs2 = con.createStatement().executeQuery("select * from patients where patient_id=" + patient);
 					while(rs2.next()) {
 						patientName = rs2.getString("first_name") + " " + rs2.getString("last_name");

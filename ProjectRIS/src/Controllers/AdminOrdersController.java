@@ -77,6 +77,7 @@ public class AdminOrdersController implements Initializable{
 		TextField allOrdersIDTextField;
 		@FXML
 		Button allOrdersConfirmDeleteButton;
+		ModelTable m;
 		
 		//Alerts
 		Alert errorAlert = new Alert(AlertType.ERROR);

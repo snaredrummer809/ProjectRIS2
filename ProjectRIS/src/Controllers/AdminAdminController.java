@@ -391,13 +391,13 @@ public class AdminAdminController implements Initializable {
 
 			while (rs.next()) {
 				patient = rs.getInt("patient");
-				System.out.println(patient);
+				//System.out.println(patient);
 				modality = rs.getInt("modality");
-				System.out.println(modality);
+				//System.out.println(modality);
 				tech = rs.getInt("technician");
-				System.out.println(tech);
+				//System.out.println(tech);
 				radio = rs.getInt("radiologist");
-				System.out.println(radio);
+				//System.out.println(radio);
 				ResultSet rs2 = con.createStatement().executeQuery("select * from patients where patient_id=" + patient);
 				while(rs2.next()) {
 					patientName = rs2.getString("first_name") + " " + rs2.getString("last_name");
@@ -458,7 +458,7 @@ public class AdminAdminController implements Initializable {
 							ReferralsButton.setDisable(true);
 							LogOut.setDisable(true);
 							
-							System.out.println(m.getNum1());
+							//System.out.println(m.getNum1());
 							appIDTextField.setText(m.getNum1()+"");
 
 						});

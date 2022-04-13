@@ -1,3 +1,12 @@
+UPDATE users SET password = 'admin' WHERE user_id = 8;
+UPDATE users SET password = 'doc' WHERE user_id = 9;
+UPDATE users SET password = 'tech' WHERE user_id = 10;
+UPDATE users SET password = 'radio' WHERE user_id = 11;
+UPDATE users SET password = 'desk' WHERE user_id = 12;
+UPDATE users SET password = 'user' WHERE user_id = 13;
+UPDATE users SET password = 'bill' WHERE user_id = 14;
+
+#fixing table to store images
 DROP TABLE imaging_info;
 -- -----------------------------------------------------
 -- Table `db_ris`.`imaging_info`
@@ -15,5 +24,9 @@ ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb4
 COLLATE = utf8mb4_0900_ai_ci;
 
-
 ALTER TABLE orders ADD COLUMN image int;
+
+#adding phone_number, email, and notes to patient table
+ALTER TABLE patients add COLUMN phone_number varchar(13);
+ALTER TABLE patients add COLUMN email_address varchar(50);
+ALTER TABLE patients add COLUMN patientNotes varchar(50);

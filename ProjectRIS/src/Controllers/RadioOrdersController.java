@@ -127,9 +127,10 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 	public void populateOrders() {
 		orders.clear();
 		int orderID = 0;
-		int patient = 0;
-		int modality = 0;
+		int patient_id = 0;
+		int doc_id=0;
 		int status = 0;
+		int modality = 0;
 		String patientName = null;
 		String docName = null;
 		String modalityName = null;
@@ -141,13 +142,78 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 
 			while (rs.next()) {
 				orderID = rs.getInt("order_id");
-				patientName = rs.getString("patient");
-				docName = rs.getString("referral_md");
+				patient_id = rs.getInt("patient");
+				doc_id = rs.getInt("referral_md");
 				notes = rs.getString("notes");
-				modalityName = rs.getString("modality");
-				statusName = rs.getString("status");
+				modality = rs.getInt("modality");
+				status = rs.getInt("status");
+				//getting values we need to populate table with textual info
 				
-				orders.add(new ModelTable(0,0,0, patientName, modalityName, notes, statusName, null, null));
+				
+				//get patient name
+				try {
+					Connection con1 = DatabaseConnection.getConnection();
+					ResultSet rs1 = con1.createStatement().executeQuery("select * from patients where patient_id=" + patient_id);
+					
+					while(rs1.next()) {
+						String firstName = rs1.getString("first_name");
+						String lastName = rs1.getString("last_name");
+						patientName = firstName +" "+ lastName;
+						
+					}
+					con1.close();
+				}
+				catch(SQLException e) {
+					e.printStackTrace();
+				}
+				
+				
+				//get referral doc
+				try {
+					Connection con2 = DatabaseConnection.getConnection();
+					ResultSet rs2 = con2.createStatement().executeQuery("select * from users where user_id=" + doc_id);
+					
+					while(rs2.next()) {
+						docName = rs2.getString("full_name");						
+					}
+					con2.close();
+				}
+				catch(SQLException e) {
+					e.printStackTrace();
+				}
+				
+				//get modality name
+				try {
+					Connection con3 = DatabaseConnection.getConnection();
+					ResultSet rs3 = con3.createStatement().executeQuery("select * from modalities where modality_id=" + modality);
+					
+					while(rs3.next()) {
+						modalityName = rs3.getString("name");						
+					}
+					con3.close();
+				}
+				catch(SQLException e) {
+					e.printStackTrace();
+				}
+				
+				//get status name
+				//get patient name
+				try {
+					Connection con4 = DatabaseConnection.getConnection();
+					ResultSet rs4 = con4.createStatement().executeQuery("select * from order_status where name=" + status);
+					
+					while(rs4.next()) {
+						statusName = rs4.getString("name");
+						
+						
+					}
+					con4.close();
+				}
+				catch(SQLException e) {
+					e.printStackTrace();
+				}
+				
+				orders.add(new ModelTable(orderID, 0, 0, patientName, docName, modalityName, notes, statusName, null));
 			}
 		} 
 		catch (SQLException e) {
@@ -157,9 +223,9 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 		//allOrdersOrderIDCol.setCellValueFactory(new PropertyValueFactory<>("num1"));
 		allOrdersPatientCol.setCellValueFactory(new PropertyValueFactory<>("s1"));
 		//allOrdersReferralDocCol.setCellValueFactory(new PropertyValueFactory<>("s2"));
-		allOrdersModalityCol.setCellValueFactory(new PropertyValueFactory<>("s2"));
-		allOrdersNotesCol.setCellValueFactory(new PropertyValueFactory<>("s3"));
-		allOrdersStatusCol.setCellValueFactory(new PropertyValueFactory<>("s4"));
+		allOrdersModalityCol.setCellValueFactory(new PropertyValueFactory<>("s3"));
+		allOrdersNotesCol.setCellValueFactory(new PropertyValueFactory<>("s4"));
+		allOrdersStatusCol.setCellValueFactory(new PropertyValueFactory<>("s5"));
 		
 	
 
