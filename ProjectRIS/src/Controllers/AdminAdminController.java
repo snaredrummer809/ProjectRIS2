@@ -3,6 +3,7 @@ package Controllers;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 import application.DatabaseConnection;
@@ -27,6 +28,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
 
 public class AdminAdminController implements Initializable {
 
@@ -182,19 +184,19 @@ public class AdminAdminController implements Initializable {
 
 	//Patients Pane	
 	@FXML
-	TableView<PatientTableModel> patientsTable;
+	TableView<ModelTable> patientsTable;
 	@FXML
-	TableColumn<PatientTableModel, Integer> patientIDCol; //these are by fx:id found in fxml
+	TableColumn<ModelTable, Integer> patientIDCol; //these are by fx:id found in fxml
 	@FXML
-	TableColumn<PatientTableModel, String> patientDOBCol;
+	TableColumn<ModelTable, String> patientDOBCol;
 	@FXML
-	TableColumn<PatientTableModel, String> patientLastNameCol;
+	TableColumn<ModelTable, String> patientLastNameCol;
 	@FXML
-	TableColumn<PatientTableModel, String> patientFirstNameCol;
+	TableColumn<ModelTable, String> patientFirstNameCol;
 	@FXML
-	TableColumn<PatientTableModel, String> modPatientCol;
+	TableColumn<ModelTable, String> modPatientCol;
 	@FXML
-	ObservableList<PatientTableModel> patients = FXCollections.observableArrayList();
+	ObservableList<ModelTable> patients = FXCollections.observableArrayList();
 	
 	//newPatientPane
 	@FXML Pane createPatientPane;
@@ -207,6 +209,13 @@ public class AdminAdminController implements Initializable {
 	@FXML TextField PatientEthnicity;
 	@FXML ChoiceBox sexChoiceBox;
 	ObservableList<String> sexChoices = FXCollections.observableArrayList();
+	@FXML TextField newPatientStreetTextField;
+	@FXML TextField newPatientCityTextField;
+	@FXML TextField newPatientStateTextField;
+	@FXML TextField newPatientZipTextField;
+	@FXML TextField newPatientPhoneTextField;
+	@FXML TextField newPatientEmailTextField;
+	@FXML TextArea newPatientNotesTextArea;	
 	
 	//modPatientPane
 	@FXML Pane modPatientPane;
@@ -219,14 +228,22 @@ public class AdminAdminController implements Initializable {
 	@FXML DatePicker modDOB;
 	@FXML ChoiceBox modsexChoiceBox;
 	@FXML TextField modPatientIDTextField;
-	
+	@FXML TextField modPatientStreetTextField;
+	@FXML TextField modPatientCityTextField;
+	@FXML TextField modPatientStateTextField;
+	@FXML TextField modPatientZipTextField;
+	@FXML TextField modPatientPhoneTextField;
+	@FXML TextField modPatientEmailTextField;
+	@FXML TextArea modPatientNotesTextArea;
 	// appDeleteConfirmationPane
 	@FXML
 	Pane appDeleteConfirmationPane;
 	@FXML
 	TextField appIDTextField;
 	@FXML
-	Button appConfirmDeleteButton;	
+	Button appConfirmDeleteButton;
+
+
 	 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -481,24 +498,30 @@ public class AdminAdminController implements Initializable {
 		try {
 			Connection con = DatabaseConnection.getConnection();
 			ResultSet rs = con.createStatement().executeQuery("select * from patients");
-
+			int patient_id =0;
+			String dob =null;
+			String lastName=null;
+			String firstName=null;
 			while (rs.next()) {
-				patients.add(new PatientTableModel(rs.getInt("patient_id"), rs.getString("dob"),
-						rs.getString("last_name"), rs.getString("first_name")));
-			}
+				patient_id = rs.getInt("patient_id");
+				dob = rs.getString("dob");
+				lastName = rs.getString("last_name");
+				firstName = rs.getString("first_name");
+				patients.add(new ModelTable(patient_id,0,0,firstName, lastName, dob,null,null,null));
+			}	
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		patientIDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
-		patientDOBCol.setCellValueFactory(new PropertyValueFactory<>("DOB"));
-		patientLastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-		patientFirstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));	
+		patientIDCol.setCellValueFactory(new PropertyValueFactory<>("num1"));
+		patientDOBCol.setCellValueFactory(new PropertyValueFactory<>("s3"));
+		patientLastNameCol.setCellValueFactory(new PropertyValueFactory<>("s2"));
+		patientFirstNameCol.setCellValueFactory(new PropertyValueFactory<>("s1"));	
 		modPatientCol.setCellValueFactory(new PropertyValueFactory<>(""));
 
-		Callback<TableColumn<PatientTableModel, String>, TableCell<PatientTableModel, String>> cellFactory = (param) -> {
+		Callback<TableColumn<ModelTable, String>, TableCell<ModelTable, String>> cellFactory = (param) -> {
 
-			final TableCell<PatientTableModel, String> cell = new TableCell<PatientTableModel, String>() {
+			final TableCell<ModelTable, String> cell = new TableCell<ModelTable, String>() {
 
 				@Override
 				public void updateItem(String item, boolean empty) {
@@ -509,7 +532,7 @@ public class AdminAdminController implements Initializable {
 					} else {
 						final Button modPatientButton = new Button("Modify");
 						modPatientButton.setOnAction(event -> {
-							PatientTableModel m = getTableView().getItems().get(getIndex());
+							ModelTable m = getTableView().getItems().get(getIndex());
 							
 
 							modPatientPane.setVisible(true);
@@ -527,13 +550,54 @@ public class AdminAdminController implements Initializable {
 							ReferralsButton.setDisable(true);
 							LogOut.setDisable(true);
 
-							modPatientFirstName.setText("" + m.getFirstName());
-							modPatientLastName.setText("" + m.getLastName());
-							modPatientRace.setText("" + m.getRace());
-							modPatientEthnicity.setText("" + m.getEthnicity());
-							modPatientIDTextField.setText(""+ m.getID());
-							modPatientRace.setText("");
-							modPatientEthnicity.setText("");
+							modPatientFirstName.setText("" + m.getS1());
+							modPatientLastName.setText("" + m.getS2());
+							LocalDate dob = LocalDate.parse(m.getS3());
+							modDOB.setValue(dob);
+							modPatientIDTextField.setText(""+ m.getNum1());
+							
+							
+							//stuff i need to get from patients table
+							
+							String race=null;
+							String ethnic=null;
+							String street =null;
+							String city= null;
+							String state=null;
+							String zip=null;
+							String phone=null;
+							String email=null;
+							String notes = null;
+							
+							int patient_id = m.getNum1();
+							try {
+								Connection con = DatabaseConnection.getConnection();
+								ResultSet rs = con.createStatement().executeQuery("select * from patients where patient_id="+patient_id+";");
+
+								while (rs.next()) {
+									race= rs.getString("race");
+									ethnic = rs.getString("ethnicity");
+									street = rs.getString("street_address");
+									city = rs.getString("city");
+									state = rs.getString("state_abbreviation");
+									zip = rs.getString("zip");
+									phone = rs.getString("phone_number");
+									email = rs.getString("email_address");
+									notes = rs.getString("patientNotes");
+									
+								}
+							} catch (SQLException e) {
+								e.printStackTrace();
+							}
+							modPatientStreetTextField.setText(street);
+							modPatientCityTextField.setText(city);
+							modPatientStateTextField.setText(state);
+							modPatientZipTextField.setText(zip);
+							modPatientPhoneTextField.setText(phone);
+							modPatientEmailTextField.setText(email);
+							modPatientNotesTextArea.setText(notes);
+							modPatientEthnicity.setText(ethnic);
+							modPatientRace.setText(race);
 						});
 
 						setGraphic(modPatientButton);
@@ -1110,6 +1174,13 @@ public class AdminAdminController implements Initializable {
 		String race = "";
 		String ethnicity = "";
 		String sex = "";
+		String phone = "";
+		String email = "";
+		String notes = "";
+		String street = "";
+		String city = "";
+		String state = "";
+		String zip = "";
 		
 
 		// Set firstName
@@ -1119,7 +1190,7 @@ public class AdminAdminController implements Initializable {
 			errorAlert.showAndWait();
 		}else if (!Character.isLetter(PatientFirstName.getText().charAt(0))) {
 			errorAlert.setHeaderText("Invalid input");
-			errorAlert.setContentText(" must start with a letter.");
+			errorAlert.setContentText(" must start with a letter. Please modify patient.");
 			errorAlert.showAndWait();
 		}else {
 			firstName = PatientFirstName.getText();
@@ -1128,7 +1199,7 @@ public class AdminAdminController implements Initializable {
 		//set lastName
 		if (PatientLastName.getText().isBlank()) {
 			errorAlert.setHeaderText("Invalid input");
-			errorAlert.setContentText("Last name cannot be blank.");
+			errorAlert.setContentText("Last name cannot be blank. Please modify patient.");
 			errorAlert.showAndWait();
 		}else {
 			lastName = PatientLastName.getText();
@@ -1137,7 +1208,7 @@ public class AdminAdminController implements Initializable {
 		//set DOB
 		if (DOB.getValue().toString().isBlank()) {
 			errorAlert.setHeaderText("Invalid input");
-			errorAlert.setContentText("DOB cannot be blank.");
+			errorAlert.setContentText("DOB cannot be blank. Please modify patient.");
 			errorAlert.showAndWait();
 		}else {
 			patientDOB = DOB.getValue().toString();
@@ -1146,7 +1217,7 @@ public class AdminAdminController implements Initializable {
 		//set race
 		if (PatientRace.getText().isBlank()) {
 			errorAlert.setHeaderText("Invalid input");
-			errorAlert.setContentText("Race cannot be blank.");
+			errorAlert.setContentText("Race cannot be blank. Please modify patient.");
 			errorAlert.showAndWait();
 		}else {
 			race = PatientRace.getText();
@@ -1154,7 +1225,7 @@ public class AdminAdminController implements Initializable {
 		//set ethnicity
 		if (PatientEthnicity.getText().isBlank()) {
 			errorAlert.setHeaderText("Invalid input");
-			errorAlert.setContentText("Ethnicity cannot be blank.");
+			errorAlert.setContentText("Ethnicity cannot be blank. Please modify patient.");
 			errorAlert.showAndWait();
 		}else {
 			ethnicity = PatientEthnicity.getText();
@@ -1162,6 +1233,67 @@ public class AdminAdminController implements Initializable {
 		//set sex
 		sex = sexChoiceBox.getValue().toString();
 		
+		//set street
+				if (newPatientStreetTextField.getText().isBlank()) {
+					errorAlert.setHeaderText("Invalid input");
+					errorAlert.setContentText("Street address cannot be blank. Please modify patient.");
+					errorAlert.showAndWait();
+				}else {
+					street = newPatientStreetTextField.getText();
+				}
+		
+		//set city
+				if (newPatientCityTextField.getText().isBlank()) {
+					errorAlert.setHeaderText("Invalid input");
+					errorAlert.setContentText("City cannot be blank. Please modify patient");
+					errorAlert.showAndWait();
+				}else {
+					city = newPatientCityTextField.getText();
+				}
+				
+		//set state
+				if (newPatientStateTextField.getText().isBlank()) {
+					errorAlert.setHeaderText("Invalid input");
+					errorAlert.setContentText("State cannot be blank. Please modify patient.");
+					errorAlert.showAndWait();
+				}else {
+					state = newPatientStateTextField.getText();
+				}
+				
+		//set zip
+				if (newPatientZipTextField.getText().isBlank()) {
+					errorAlert.setHeaderText("Invalid input");
+					errorAlert.setContentText("Zip cannot be blank. Please modify patient.");
+					errorAlert.showAndWait();
+				}else {
+					zip = newPatientZipTextField.getText();
+				}
+				
+		//set phone
+				if (newPatientPhoneTextField.getText().isBlank()) {
+					errorAlert.setHeaderText("Invalid input");
+					errorAlert.setContentText("Phone cannot be blank. Please modify patient.");
+					errorAlert.showAndWait();
+				}else {
+					phone = newPatientPhoneTextField.getText();
+				}
+				
+		//set email
+				if (newPatientEmailTextField.getText().isBlank()) {
+					errorAlert.setHeaderText("Invalid input");
+					errorAlert.setContentText("Email cannot be blank. Please modify patient.");
+					errorAlert.showAndWait();
+				}else {
+					email = newPatientEmailTextField.getText();
+				}
+		//set notes
+				if (newPatientNotesTextArea.getText().isBlank()) {
+					errorAlert.setHeaderText("Invalid input");
+					errorAlert.setContentText("Notes cannot be blank. Please modify patient.");
+					errorAlert.showAndWait();
+				}else {
+					notes = newPatientNotesTextArea.getText();
+				}
 		try {
 			Connection con = DatabaseConnection.getConnection();
 			Statement stmt = con.createStatement();
@@ -1175,9 +1307,9 @@ public class AdminAdminController implements Initializable {
 			}
 			ID = c + 1;
 
-			String newPatient = "INSERT INTO patients (patient_id, first_name, last_name, dob, sex, race, ethnicity) " + "VALUES ("
+			String newPatient = "INSERT INTO patients (patient_id, first_name, last_name, dob, sex, race, ethnicity, phone_number, email_address, patientNotes, street_address, city, state_abbreviation, zip) " + "VALUES ("
 					+ ID + ", \'" + firstName + "\', \'" + lastName + "\', \'" + patientDOB + "\', \'" + sex + "\', \'"
-					+ race + "\', \'"+ethnicity+ "\')";
+					+ race + "\', \'"+ethnicity+"\', \'"+phone+"\', \'"+email+"\', \'"+notes+"\', \'"+street+"\', \'"+city+"\', \'"+state+"\', \'"+zip +"\');";
 			
 
 			stmt.executeUpdate(newPatient);
@@ -1217,7 +1349,13 @@ public class AdminAdminController implements Initializable {
 		String race = null;
 		String ethnicity = null;
 		String sex = null;
-		
+		String phone = "";
+		String email = "";
+		String notes = "";
+		String street = "";
+		String city = "";
+		String state = "";
+		String zip = "";
 		
 		int patientID = Integer.parseInt(modPatientIDTextField.getText());
 		
@@ -1226,10 +1364,6 @@ public class AdminAdminController implements Initializable {
 		if (modPatientFirstName.getText().isBlank()) {
 			errorAlert.setHeaderText("Invalid input");
 			errorAlert.setContentText("First name cannot be blank.");
-			errorAlert.showAndWait();
-		}else if (!Character.isLetter(PatientFirstName.getText().charAt(0))) {
-			errorAlert.setHeaderText("Invalid input");
-			errorAlert.setContentText(" must start with a letter.");
 			errorAlert.showAndWait();
 		}else {
 			firstName = modPatientFirstName.getText();
@@ -1273,12 +1407,68 @@ public class AdminAdminController implements Initializable {
 		//set sex
 		sex = modsexChoiceBox.getValue().toString();
 		
+		//set phone_number
+		if (modPatientPhoneTextField.getText().isBlank()) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText("Phone cannot be blank.");
+			errorAlert.showAndWait();
+		}else {
+			phone = modPatientPhoneTextField.getText();
+		}	
+		
+		//set email_address
+				if (modPatientEmailTextField.getText().isBlank()) {
+					errorAlert.setHeaderText("Invalid input");
+					errorAlert.setContentText("Email cannot be blank.");
+					errorAlert.showAndWait();
+				}else {
+					email = modPatientEmailTextField.getText();
+				}
+		//set notes
+			notes = modPatientNotesTextArea.getText();
+			
+		//set street
+		if (modPatientStreetTextField.getText().isBlank()) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText("Street cannot be blank.");
+			errorAlert.showAndWait();
+		}else {
+			street = modPatientStreetTextField.getText();
+		}
+		//set city
+			if (modPatientCityTextField.getText().isBlank()) {
+				errorAlert.setHeaderText("Invalid input");
+				errorAlert.setContentText("City cannot be blank.");
+				errorAlert.showAndWait();
+			}else {
+				city = modPatientCityTextField.getText();
+			}
+		//set state
+		if (modPatientStateTextField.getText().isBlank()) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText("State cannot be blank.");
+			errorAlert.showAndWait();
+		}else {
+			state = modPatientStateTextField.getText();
+		}
+		
+		//set zip
+		if (modPatientZipTextField.getText().isBlank()) {
+			errorAlert.setHeaderText("Invalid input");
+			errorAlert.setContentText("Zip cannot be blank.");
+			errorAlert.showAndWait();
+		}else {
+			zip = modPatientZipTextField.getText();
+		}
+		
 		try {
 			Connection con = DatabaseConnection.getConnection();
 			Statement stmt = con.createStatement();
-			ResultSet rs;
 			 
-			String modPatient = "update patients set first_name= \'" + firstName + "\', last_name= \'"+lastName+"\', dob=\'"+patientDOB+"\', sex=\'"+sex+"\', race=\'"+race+"\', ethnicity=\'"+ethnicity+ "' WHERE patient_id= \'" + patientID + "\';";
+			String modPatient = "update patients set first_name= \'" + firstName + "\', last_name= \'"+lastName+"\', dob=\'"+patientDOB+"\', sex=\'"+sex+
+						"\', race=\'"+race+"\', ethnicity=\'"+ethnicity+"\', phone_number=\'"+phone +"\', email_address=\'"+email+"\', patientNotes=\'"+notes+
+						"\', street_address=\'"+street+"\', city=\'"+city+"\', state_abbreviation=\'"+state+"\', zip=\'"+zip+"' WHERE patient_id= \'" + patientID + "\';";
+			System.out.println(modPatient);
 			stmt.executeUpdate(modPatient);
 						
 			con.close();
