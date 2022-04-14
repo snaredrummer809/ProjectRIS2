@@ -1468,7 +1468,7 @@ public class AdminAdminController implements Initializable {
 			String modPatient = "update patients set first_name= \'" + firstName + "\', last_name= \'"+lastName+"\', dob=\'"+patientDOB+"\', sex=\'"+sex+
 						"\', race=\'"+race+"\', ethnicity=\'"+ethnicity+"\', phone_number=\'"+phone +"\', email_address=\'"+email+"\', patientNotes=\'"+notes+
 						"\', street_address=\'"+street+"\', city=\'"+city+"\', state_abbreviation=\'"+state+"\', zip=\'"+zip+"' WHERE patient_id= \'" + patientID + "\';";
-			System.out.println(modPatient);
+			//System.out.println(modPatient);
 			stmt.executeUpdate(modPatient);
 						
 			con.close();
