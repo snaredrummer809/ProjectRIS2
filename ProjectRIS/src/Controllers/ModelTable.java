@@ -1,7 +1,7 @@
 package Controllers;
 
 public class ModelTable {
-	String s1,s2,s3,s4,s5,s6, s7, s8, s9, s10;
+	String s1,s2,s3,s4,s5,s6, s7, s8, s9, s10, s11, s12, s13, s14;
 	int num1, num2, num3, num4, num5;
 
 	
@@ -40,6 +40,24 @@ public class ModelTable {
 		this.s9 = s9;
 		this.s10 = s10;
 		
+	}
+
+	public ModelTable(String s1, String s2, String s3, String s4, String s5, String s6, String s7, String s8, String s9, String s10,String s11,String s12,String s13,String s14) {
+		super();
+		this.s1 = s1;
+		this.s2 = s2;
+		this.s3 = s3;
+		this.s4 = s4;
+		this.s5 = s5;
+		this.s6 = s6;
+		this.s7 = s7;
+		this.s8 = s8;
+		this.s9 = s9;
+		this.s10 = s10;
+		this.s11 = s11;
+		this.s12 = s12;
+		this.s13 = s13;
+		this.s14 = s14;
 	}
 
 	public String getS1() {
@@ -121,6 +139,38 @@ public class ModelTable {
 		this.s10 = s10;
 	}
 
+	public String getS11() {
+		return s11;
+	}
+
+	public void setS11(String s11) {
+		this.s11 = s11;
+	}
+
+	public String getS12() {
+		return s12;
+	}
+
+	public void setS12(String s12) {
+		this.s12 = s12;
+	}
+
+	public String getS13() {
+		return s13;
+	}
+
+	public void setS13(String s13) {
+		this.s13 = s13;
+	}
+
+	public String getS14() {
+		return s14;
+	}
+
+	public void setS14(String s14) {
+		this.s14 = s14;
+	}
+	
 	public int getNum1() {
 		return num1;
 	}
@@ -155,8 +205,6 @@ public class ModelTable {
 	public int getNum5() {
 		return num5;
 	}
-
-
 
 	public void setNum5(int num5) {
 		this.num5 = num5;
