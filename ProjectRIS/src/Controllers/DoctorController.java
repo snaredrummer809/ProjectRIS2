@@ -195,7 +195,7 @@ public class DoctorController implements Initializable{
 				//get status name
 				try {
 					Connection con4 = DatabaseConnection.getConnection();
-					ResultSet rs4 = con4.createStatement().executeQuery("select * from order_status where name=" + status);
+					ResultSet rs4 = con4.createStatement().executeQuery("select * from order_status where order_status_id=" + status);
 					
 					while(rs4.next()) {
 						statusName = rs4.getString("name");

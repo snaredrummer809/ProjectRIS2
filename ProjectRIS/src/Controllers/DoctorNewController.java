@@ -53,6 +53,10 @@ public class DoctorNewController {
 	private TextField emailAddress;
 	@FXML
 	private TextArea patientNotes;
+	@FXML TextField newPatientStreetTextField;
+	@FXML TextField newPatientCityTextField;
+	@FXML TextField newPatientStateTextField;
+	@FXML TextField newPatientZipTextField;
 	
 	public void userLogOut(ActionEvent event) throws IOException {
 		
@@ -135,7 +139,7 @@ public class DoctorNewController {
 	   	   //System.out.println("modal is "+modality);	
 	      }
 	       
-	       String query1 = "INSERT INTO orders(patient, referral_md, modality, notes) VALUES("+patientid+", "+referralMD_id+", "+modality+", '"+OrderNotes.getText()+"');";
+	       String query1 = "INSERT INTO orders(patient, referral_md, modality, notes,status) VALUES("+patientid+", "+referralMD_id+", "+modality+", '"+OrderNotes.getText()+"',4);";
 	       //System.out.println(query1);
 	       stmt.executeUpdate(query1);
 	       } catch (SQLException excep) {
@@ -172,7 +176,9 @@ public class DoctorNewController {
 	       conn = DatabaseConnection.getConnection();
 	       stmt = (Statement) conn.createStatement();
 	       
-	       String query1 = "INSERT INTO patients(first_name,last_name,dob,sex,race,ethnicity,email_address,phone_number,patientNotes) VALUES  ('"+PatientFirstName.getText()+"','"+PatientLastName.getText()+"', '"+DOB.getValue()+"' ,'"+sex.getText()+"', '"+PatientRace.getText()+"','" +PatientEthnicity.getText()+"','" + emailAddress.getText()+"','" + phoneNumber.getText()+"','" + patientNotes.getText()+"');";
+	       String query1 = "INSERT INTO patients(first_name,last_name,dob,sex,race,ethnicity,email_address,phone_number,patientNotes,street_address,city,state_abbreviation,zip) VALUES  ('"
+	    		   +PatientFirstName.getText()+"','"+PatientLastName.getText()+"', '"+DOB.getValue()+"' ,'"+sex.getText()+"', '"+PatientRace.getText()+"','" +PatientEthnicity.getText()+"','" + emailAddress.getText()+"','" + phoneNumber.getText()+"','"
+	    		   		+ patientNotes.getText()+"','" +newPatientStreetTextField.getText()+"','" +newPatientCityTextField.getText()+"','" +newPatientStateTextField.getText()+"','" +newPatientZipTextField.getText()+"');";
 	       //System.out.println(query1);
 	       stmt.executeUpdate(query1);
 	       

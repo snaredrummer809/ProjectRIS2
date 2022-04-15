@@ -37,6 +37,7 @@ public class DoctorPatientOverviewController implements Initializable{
 	TableView<ModelTable> overviewTable1;
 	@FXML
 	TableView<ModelTable> overviewTable2;
+	@FXML TableView<ModelTable> overviewTable3;
 	@FXML
 	TableColumn<ModelTable, String> overviewID;
 	@FXML
@@ -57,6 +58,11 @@ public class DoctorPatientOverviewController implements Initializable{
 	TableColumn<ModelTable, String> overviewPhone;
 	@FXML
 	TableColumn<ModelTable, String> overviewNotes;
+	@FXML TableColumn<ModelTable, String> overviewStreet;
+	@FXML TableColumn<ModelTable, String> overviewCity;
+	@FXML TableColumn<ModelTable, String> overviewState;
+	@FXML TableColumn<ModelTable, String> overviewZip;
+	
 	
 	
 	
@@ -128,6 +134,10 @@ public class DoctorPatientOverviewController implements Initializable{
 		String phoneNumber = "";
 		String email = "";
 		String notes = "";
+		String street = "";
+		String city ="";
+		String state ="";
+		String zip="";
 		
 		String field = enterID.getText();
 		for(int i = 0; i < ids.length - 1; i++) {
@@ -146,6 +156,10 @@ public class DoctorPatientOverviewController implements Initializable{
 				phoneNumber = rs.getString("phone_number");
 				email = rs.getString("email_address");
 				notes = rs.getString("patientNotes");
+				street = rs.getString("street_address");;
+				city =rs.getString("city");;
+				state =rs.getString("state_abbreviation");;
+				zip=rs.getString("zip");;
 				break;
 			}
 			else {
@@ -153,7 +167,7 @@ public class DoctorPatientOverviewController implements Initializable{
 			}
 		}
 		//System.out.println(firstName + " " + lastName + " " + dob+ " " +sex+ " " +race+ " " +ethnicity+ " " +phoneNumber+ " " +email+ " " +notes);
-		patient.add(new ModelTable(field, firstName, lastName, dob, sex, race, ethnicity, phoneNumber, email, notes));
+		patient.add(new ModelTable(field, firstName, lastName, dob, sex, race, ethnicity, phoneNumber, email, notes, street, city, state,zip));
 		overviewID.setCellValueFactory(new PropertyValueFactory<>("s1"));
 		overviewFirst.setCellValueFactory(new PropertyValueFactory<>("s2"));
 		overviewLast.setCellValueFactory(new PropertyValueFactory<>("s3"));
@@ -164,8 +178,13 @@ public class DoctorPatientOverviewController implements Initializable{
 		overviewPhone.setCellValueFactory(new PropertyValueFactory<>("s8"));
 		overviewEmail.setCellValueFactory(new PropertyValueFactory<>("s9"));
 		overviewNotes.setCellValueFactory(new PropertyValueFactory<>("s10"));
+		overviewStreet.setCellValueFactory(new PropertyValueFactory<>("s11"));
+		overviewCity.setCellValueFactory(new PropertyValueFactory<>("s12"));
+		overviewState.setCellValueFactory(new PropertyValueFactory<>("s13"));
+		overviewZip.setCellValueFactory(new PropertyValueFactory<>("s14"));
 		overviewTable1.setItems(patient);
 		overviewTable2.setItems(patient);
+		overviewTable3.setItems(patient);
 	}
 
 	@Override

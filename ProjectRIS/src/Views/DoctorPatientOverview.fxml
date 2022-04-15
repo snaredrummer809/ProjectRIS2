@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1460.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.DoctorPatientOverviewController">
    <center>
@@ -35,7 +29,7 @@
                   <Font size="16.0" />
                </font>
             </Button>
-            <Pane id="referralPatients" layoutX="15.0" layoutY="75.0" prefHeight="328.0" prefWidth="720.0" style="-fx-background-color: white;;">
+            <Pane id="referralPatients" layoutX="15.0" layoutY="75.0" prefHeight="402.0" prefWidth="720.0" style="-fx-background-color: white;;">
                <children>
                   <Label id="referralPatientsPaneLabel" layoutX="285.0" layoutY="12.0" text="Patient Overview">
                      <font>
@@ -62,8 +56,16 @@
                         <TableColumn fx:id="overviewNotes" prefWidth="355.0" text="Notes" />
                      </columns>
                   </TableView>
-                  <TextField fx:id="enterID" layoutX="12.0" layoutY="68.0" />
+                  <TextField fx:id="enterID" layoutX="12.0" layoutY="68.0" promptText="Please enter a patient ID" />
                   <Button fx:id="goButton" layoutX="167.0" layoutY="68.0" mnemonicParsing="false" onAction="#ah" text="Go" />
+                  <TableView fx:id="overviewTable3" layoutX="17.0" layoutY="302.0" prefHeight="80.0" prefWidth="692.0">
+                    <columns>
+                      <TableColumn fx:id="overviewStreet" prefWidth="324.79998779296875" text="Street" />
+                      <TableColumn fx:id="overviewCity" minWidth="0.0" prefWidth="205.60003662109375" text="City" />
+                        <TableColumn fx:id="overviewState" prefWidth="68.79998779296875" text="State" />
+                        <TableColumn fx:id="overviewZip" prefWidth="93.5999755859375" text="Zip" />
+                    </columns>
+                  </TableView>
                </children>
             </Pane>
             <Button fx:id="ReferralsButton" layoutX="86.0" layoutY="15.0" mnemonicParsing="false" onAction="#ReferralsButton" style="-fx-background-color: white;" text="Referrals" textFill="#462323">
