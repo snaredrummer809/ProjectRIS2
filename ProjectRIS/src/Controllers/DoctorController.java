@@ -456,7 +456,7 @@ public class DoctorController implements Initializable{
 		String imagePath = "FILEPATH TO SAVE PATIENT IMAGES"+imageName+".jpg";
 		File file = new File(imagePath);
 		String reportName = report.getS1()+"_report_"+java.time.LocalDate.now();
-		String filePath = "FILEPATH TO SAVE PATIENT IMAGES"+reportName+".rtf";
+		String filePath = "FILEPATH TO SAVE PATIENT IMAGES"+reportName+".txt";
 		File reportFile = new File(filePath);
 		
 		//trying to add image to report
