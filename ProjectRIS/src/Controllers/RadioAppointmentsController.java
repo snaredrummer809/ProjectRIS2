@@ -37,35 +37,33 @@ public class RadioAppointmentsController implements Initializable {
 	Button LogOut;
 	
 	// Appointment Pane
-	@FXML
-	TextField searchAllAppsTextField;
-	@FXML
-	TableView<ModelTable> appointmentsTable;
-	@FXML
-	TableColumn<ModelTable, String> appPatientNameColumn;
-	@FXML
-	TableColumn<ModelTable, String> appModalityColumn;
-	@FXML
-	TableColumn<ModelTable, String> appDateAndTimeColumn;
-	@FXML
-	TableColumn<ModelTable, String> appTechNameColumn;
-	@FXML
-	TableColumn<ModelTable, String> appRadioColumn;
-
-	//TableColumn<ModelTable, String> appDeleteColumn;
-	ObservableList<ModelTable> appointments = FXCollections.observableArrayList();
-
-	//appDeleteConfirmationPane
-	@FXML
-	Pane appDeleteConfirmationPane;
-	@FXML
-	TextField appIDTextField;
-	@FXML
-	Button appConfirmDeleteButton;
-
-	//Alerts
-	Alert errorAlert = new Alert(AlertType.ERROR);
-	Alert updateAlert = new Alert(AlertType.CONFIRMATION);
+		@FXML
+		TableView<ModelTable> appointmentsTable;
+		@FXML
+		TableColumn<ModelTable, String> appPatientNameColumn;
+		@FXML
+		TableColumn<ModelTable, String> appModalityColumn;
+		@FXML
+		TableColumn<ModelTable, String> appDateAndTimeColumn;
+		@FXML
+		TableColumn<ModelTable, String> appTechNameColumn;
+		@FXML
+		TableColumn<ModelTable, String> appRadioColumn;
+		
+		//TableColumn<ModelTable, String> appDeleteColumn;
+		ObservableList<ModelTable> appointments = FXCollections.observableArrayList();
+		
+		//appDeleteConfirmationPane
+		@FXML
+		Pane appDeleteConfirmationPane;
+		@FXML
+		TextField appIDTextField;
+		@FXML
+		Button appConfirmDeleteButton;
+		
+		//Alerts
+		Alert errorAlert = new Alert(AlertType.ERROR);
+		Alert updateAlert = new Alert(AlertType.CONFIRMATION);
 		
 		
 public void initialize(URL arg0, ResourceBundle arg1) {
@@ -171,22 +169,6 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 			
 			appointmentsTable.setItems(appointments);
 		}
-
-		public void searchApps() {
-			searchApps.clear();
-			String userSearch = searchAllAppsTextField.getText();
-			if(!userSearch.equals("")) {
-				for(int i = 0; i < appointments.size(); i++) {
-					if(appointments.get(i).getS1().contains(userSearch)) {
-						searchApps.add(appointments.get(i));
-					}
-				}
-				appointmentsTable.setItems(searchApps);
-			}
-			else {
-				populateAppointments();
-			}
-		}	
 		
 		
 }
