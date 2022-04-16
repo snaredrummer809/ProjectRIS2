@@ -54,7 +54,6 @@ public class RadioAppointmentsController implements Initializable {
 
 	//TableColumn<ModelTable, String> appDeleteColumn;
 	ObservableList<ModelTable> appointments = FXCollections.observableArrayList();
-	ObservableList<ModelTable> searchApps = FXCollections.observableArrayList();
 
 	//appDeleteConfirmationPane
 	@FXML
