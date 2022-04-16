@@ -42,6 +42,8 @@ public class DeskAppointmentsController implements Initializable{
 		
 		// Appointment Pane
 		@FXML
+		TextField searchAppsTextField;
+		@FXML
 		TableView<ModelTable> deskAppsTable;
 		@FXML
 		TableColumn<ModelTable, String> deskAppsPatientColumn;
@@ -56,6 +58,7 @@ public class DeskAppointmentsController implements Initializable{
 		@FXML
 		TableColumn<ModelTable, String> deskAppsDeleteColumn;
 		ObservableList<ModelTable> appointments = FXCollections.observableArrayList();
+		ObservableList<ModelTable> searchApps = FXCollections.observableArrayList();
 		
 		//appDeleteConfirmationPane
 		@FXML
@@ -221,6 +224,22 @@ public class DeskAppointmentsController implements Initializable{
 			}
 			catch(SQLException e) {
 				System.out.println("Error: Could not delete appointment.");
+			}
+		}
+	
+		public void searchApps() {
+			searchApps.clear();
+			String userSearch = searchAppsTextField.getText();
+			if(!userSearch.equals("")) {
+				for(int i = 0; i < appointments.size(); i++) {
+					if(appointments.get(i).getS1().contains(userSearch)) {
+						searchApps.add(appointments.get(i));
+					}
+				}
+				deskAppsTable.setItems(searchApps);
+			}
+			else {
+				populateAppointments();
 			}
 		}
 		
