@@ -27,8 +27,6 @@ import javafx.util.Callback;
 public class DoctorReferralController implements Initializable{
 	//Patients Pane	
 	@FXML
-	TextField searchReferralPatientTextField;
-	@FXML
 	TableView<PatientTableModel> patientsTable;
 	@FXML
 	TableColumn<PatientTableModel, Integer> patientIDCol; //these are by fx:id found in fxml
@@ -107,21 +105,5 @@ public class DoctorReferralController implements Initializable{
 		Main m = new Main();
 		m.changeScene("../Views/DoctorPatientOverview.fxml");
 		
-	}
-	
-	public void searchPatients() {
-		searchPatients.clear();
-		String userSearch = searchReferralPatientTextField.getText();
-		if(!userSearch.equals("")) {
-			for(int i = 0; i < patients.size(); i++) {
-				if(patients.get(i).getS1().contains(userSearch) || patients.get(i).getS2().contains(userSearch)){
-					searchPatients.add(patients.get(i));
-				}
-			}
-			patientsTable.setItems(searchPatients);
-		}
-		else {
-			populatePatients();
-		}
 	}
 }
