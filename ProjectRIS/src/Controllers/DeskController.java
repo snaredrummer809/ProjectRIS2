@@ -171,6 +171,7 @@ public class DeskController implements Initializable{
 		int order = 0;
 		int status = 0;
 		int checkedIn = 0;
+		int closed = 0;
 		String patientName = null;
 		String modalityName = null;
 		String techName = null;
@@ -189,9 +190,10 @@ public class DeskController implements Initializable{
 				radio = rs.getInt("radiologist");
 				order = rs.getInt("order_id");
 				checkedIn = rs.getInt("checked_in");
+				closed = rs.getInt("closed");
 				
 				// Check to make sure appointment has been checked in
-				if(checkedIn == 1) {
+				if(checkedIn == 1 && closed == 0) {
 					ResultSet rs2 = con.createStatement().executeQuery("select * from patients where patient_id=" + patient);
 					while(rs2.next()) {
 						patientName = rs2.getString("first_name") + " " + rs2.getString("last_name");
@@ -248,6 +250,7 @@ public class DeskController implements Initializable{
 		int tech = 0;
 		int radio = 0;
 		int checkedIn = 0;
+		int closed = 0;
 		int appID = 0;
 		LocalDate todaysDate = null;
 		String dateCheck = null;
@@ -285,11 +288,12 @@ public class DeskController implements Initializable{
 				tech = rs.getInt("technician");
 				radio = rs.getInt("radiologist");
 				checkedIn = rs.getInt("checked_in");
+				closed = rs.getInt("closed");
 				appID = rs.getInt("appointment_id");
 				date = rs.getString("date_time");
 				
 				// Make sure patient isn't already checked in
-				if(checkedIn == 0) {
+				if(checkedIn == 0 && closed == 0) {
 					
 					// Only display appointment if it is scheduled for today's date
 					if(date.contains(dateCheck)) {
