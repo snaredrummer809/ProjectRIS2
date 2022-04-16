@@ -29,26 +29,25 @@ public class DoctorReferralController implements Initializable{
 	@FXML
 	TextField searchReferralPatientTextField;
 	@FXML
-	TableView<ModelTable> patientsTable;
+	TableView<PatientTableModel> patientsTable;
 	@FXML
-	TableColumn<ModelTable, Integer> patientIDCol; //these are by fx:id found in fxml
+	TableColumn<PatientTableModel, Integer> patientIDCol; //these are by fx:id found in fxml
 	@FXML
-	TableColumn<ModelTable, String> patientLastNameCol;
+	TableColumn<PatientTableModel, String> patientLastNameCol;
 	@FXML
-	TableColumn<ModelTable, String> patientFirstNameCol;
+	TableColumn<PatientTableModel, String> patientFirstNameCol;
 	@FXML
 	ChoiceBox<String> sexChoiceBox;
-	ObservableList<ModelTable> patients = FXCollections.observableArrayList();
-	ObservableList<ModelTable> searchPatients = FXCollections.observableArrayList();
+	ObservableList<PatientTableModel> patients = FXCollections.observableArrayList();
 	
 	
 	//overview
 	@FXML
 	private TextField patientSearch;
 	@FXML
-	TableView<ModelTable> overviewTable1;
+	TableView<PatientTableModel> overviewTable1;
 	@FXML
-	private TableColumn<ModelTable, String> overviewID;
+	private TableColumn<PatientTableModel, String> overviewID;
 
 	public void userLogOut(ActionEvent event) throws IOException {
 		
@@ -91,16 +90,16 @@ public class DoctorReferralController implements Initializable{
 			ResultSet rs = con.createStatement().executeQuery("select * from patients");
 
 				while (rs.next()) {
-					patients.add(new ModelTable(rs.getInt("patient_id"), 0, 0 rs.getString("dob"),
-							rs.getString("last_name"), rs.getString("first_name"), null, null, null));
+					patients.add(new PatientTableModel(rs.getInt("patient_id"), rs.getString("dob"),
+							rs.getString("last_name"), rs.getString("first_name")));
 				}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		patientIDCol.setCellValueFactory(new PropertyValueFactory<>("num1"));
-		patientLastNameCol.setCellValueFactory(new PropertyValueFactory<>("s2"));
-		patientFirstNameCol.setCellValueFactory(new PropertyValueFactory<>("s3"));	
+		patientIDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
+		patientLastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+		patientFirstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));	
 		patientsTable.setItems(patients);
 		}
 	
