@@ -43,8 +43,6 @@ public class TechController implements Initializable{
 	
 	// Checked In Apps Pane
 	@FXML
-	TextField searchCheckedInAppsTextField;
-	@FXML
 	TableView<ModelTable> checkedInAppsTable;
 	@FXML
 	TableColumn<ModelTable, String> checkedInPatientCol;
@@ -59,7 +57,6 @@ public class TechController implements Initializable{
 	@FXML 
 	TableColumn<ModelTable, String> checkedInCompleteOrderCol;
 	ObservableList<ModelTable> checkedInApps = FXCollections.observableArrayList();
-	ObservableList<ModelTable> searchCheckedIn = FXCollections.observableArrayList();
 
 
 	// Imaging Order Pane
@@ -160,15 +157,11 @@ public class TechController implements Initializable{
 				checkedIn = rs.getInt("checked_in");
 				closed = rs.getInt("closed");
 				
-				ResultSet rs2 = con.createStatement().executeQuery("select * from orders where order_id=" + order);
-				while(rs2.next()) {
-					status = rs2.getInt("status");
-				}
 				
 				// Check to make sure appointment has been checked in
 				//added check to make sure appt is not closed
-				if(checkedIn == 1  && closed == 0 && status == 1) {
-					rs2 = con.createStatement().executeQuery("select * from patients where patient_id=" + patient);
+				if(checkedIn == 1  && closed == 0) {
+					ResultSet rs2 = con.createStatement().executeQuery("select * from patients where patient_id=" + patient);
 					while(rs2.next()) {
 						patientName = rs2.getString("first_name") + " " + rs2.getString("last_name");
 					}
@@ -183,6 +176,10 @@ public class TechController implements Initializable{
 					rs2 = con.createStatement().executeQuery("select * from users where user_id=" + radio);
 					while(rs2.next()) {
 						radioName = rs2.getString("full_name");
+					}
+					rs2 = con.createStatement().executeQuery("select * from orders where order_id=" + order);
+					while(rs2.next()) {
+						status = rs2.getInt("status");
 					}
 					rs2 = con.createStatement().executeQuery("select * from order_status where order_status_id=" + status);
 					while(rs2.next()) {
@@ -423,8 +420,6 @@ public class TechController implements Initializable{
 					System.out.println("image failed to insert");
 					e.printStackTrace();
 				}
-				
-				populateCheckedInApps();
 	}
 	
 	//cancel order method
@@ -459,30 +454,23 @@ public class TechController implements Initializable{
 
 	}
 	
+	
 	public void selectFile(ActionEvent event) {
 		stage = (Stage) ImagingOrderPane.getScene().getWindow();
 		file = fileChooser.showOpenDialog(stage);
 		
+		/*try {
+			deskTop.open(file);
+		} catch (IOException e) {
+			System.out.println("File failed to open.");
+			e.printStackTrace();
+		}
+		*/
 		if(file != null) {
+			//System.out.println(""+file.getAbsolutePath());
 			image = new Image(file.getAbsoluteFile().toURI().toString(), scanImageView.getFitWidth(), scanImageView.getFitHeight(), true, true);
 			scanImageView.setImage(image);
 			scanImageView.setPreserveRatio(true);
-		}
-	}
-	
-	public void searchCheckedIn() {
-		searchCheckedIn.clear();
-		String userSearch = searchCheckedInAppsTextField.getText();
-		if(!userSearch.equals("")) {
-			for(int i = 0; i < checkedInApps.size(); i++) {
-				if(checkedInApps.get(i).getS1().contains(userSearch)) {
-					searchCheckedIn.add(checkedInApps.get(i));
-				}
-			}
-			checkedInAppsTable.setItems(searchCheckedIn);
-		}
-		else {
-			populateCheckedInApps();
 		}
 	}
 }
