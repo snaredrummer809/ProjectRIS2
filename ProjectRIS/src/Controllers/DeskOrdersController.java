@@ -40,7 +40,9 @@ public class DeskOrdersController implements Initializable{
 	@FXML
 	Button LogOut;
 	
-	// Appointment Pane
+	// Orders Pane
+	@FXML
+	TextField searchOrdersTextField;
 	@FXML
 	TableView<ModelTable> deskAllOrdersTable;
 	@FXML
@@ -60,6 +62,7 @@ public class DeskOrdersController implements Initializable{
 	@FXML
 	TableColumn<ModelTable, String> deskAllOrdersDeleteCol;
 	ObservableList<ModelTable> orders = FXCollections.observableArrayList();
+	ObservableList<ModelTable> searchOrders = FXCollections.observableArrayList();
 	
 	//appDeleteConfirmationPane
 	@FXML
@@ -490,6 +493,22 @@ public class DeskOrdersController implements Initializable{
 		}
 		catch(SQLException e) {
 			System.out.println("Error: Could not delete order.");
+		}
+	}
+	
+	public void searchOrders() {
+		searchOrders.clear();
+		String userSearch = searchOrdersTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < orders.size(); i++) {
+				if(orders.get(i).getS1().contains(userSearch)) {
+					searchOrders.add(orders.get(i));
+				}
+			}
+			deskAllOrdersTable.setItems(searchOrders);
+		}
+		else {
+			populateOrders();
 		}
 	}
 	
