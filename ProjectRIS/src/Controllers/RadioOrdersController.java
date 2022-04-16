@@ -39,10 +39,11 @@ public class RadioOrdersController implements Initializable {
 	@FXML
 	Button OrderButton;
 	@FXML
-	Button LogOut;
-	
+	Button LogOut;	
 	
 	// Orders Pane
+	@FXML
+	TextField searchOrdersTextField;
 	@FXML
 	TableView<ModelTable> allOrdersTable;
 	@FXML
@@ -54,8 +55,7 @@ public class RadioOrdersController implements Initializable {
 	@FXML
 	TableColumn<ModelTable, String> allOrdersStatusCol;
 	ObservableList<ModelTable> orders = FXCollections.observableArrayList();
-	
-	
+	ObservableList<ModelTable> searchOrders = FXCollections.observableArrayList();	
 	
 	//orders
 	@FXML
@@ -65,8 +65,7 @@ public class RadioOrdersController implements Initializable {
 	@FXML
 	private TextField OrderModalityNeeded;
 	@FXML
-	private TextArea OrderNotes;
-	
+	private TextArea OrderNotes;	
 	
 	//orderDeleteConfirmationPane
 			@FXML
@@ -80,12 +79,10 @@ public class RadioOrdersController implements Initializable {
 	Alert errorAlert = new Alert(AlertType.ERROR);
 	Alert updateAlert = new Alert(AlertType.CONFIRMATION);
 	
-public void initialize(URL arg0, ResourceBundle arg1) {
+	public void initialize(URL arg0, ResourceBundle arg1) {
 		
 		populateOrders();
-
-	}
-	
+	}	
 	
 	public void userLogOut(ActionEvent event) throws IOException {
 		
@@ -111,19 +108,8 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 	
 		Main m = new Main();
 		m.changeScene("../Views/RadioOrders.fxml");
-	}
+	}	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	@SuppressWarnings("unused")
 	public void populateOrders() {
 		orders.clear();
 		int orderID = 0;
