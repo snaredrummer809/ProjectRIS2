@@ -394,14 +394,15 @@ public class RadioController implements Initializable{
 			}
 			
 			//close appointment
-			String closeAppt = "UPDATE appointments SET closed=1 where order_id="+order_id+";";
+			//String closeAppt = "UPDATE appointments SET closed=1 where order_id="+order_id+";";
 			
-			try{
+			/*try{
 				stmt.executeUpdate(closeAppt);
 			}
 			catch(SQLException e){
 				System.out.println("Close appt update failed...");
 			}
+			*/
 		}
 		catch(SQLException e) {
 			System.out.println("image failed to insert");
