@@ -133,7 +133,7 @@ public class BillController implements Initializable{
 
 			try {
 				Connection con = DatabaseConnection.getConnection();
-				ResultSet rs = con.createStatement().executeQuery("select * from appointments where closed=0");
+				ResultSet rs = con.createStatement().executeQuery("select * from appointments where closed!=1");
 
 				while (rs.next()) {
 						
@@ -358,6 +358,7 @@ public class BillController implements Initializable{
 			appointmentIDTextField.setText("");
 			costTextField.setText("");
 			populateAppointments();
+			populateInvoices();
 		}
 		
 		public void cancelButton(ActionEvent event) throws IOException {
