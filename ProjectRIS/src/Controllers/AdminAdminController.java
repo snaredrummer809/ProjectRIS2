@@ -66,6 +66,8 @@ public class AdminAdminController implements Initializable {
 
 	// System User Pane
 	@FXML
+	TextField searchUsersTextField;
+	@FXML
 	TableView<ModelTable> usersTable;
 	@FXML
 	TableColumn<ModelTable, Integer> userIDCol;
@@ -80,8 +82,11 @@ public class AdminAdminController implements Initializable {
 	@FXML
 	TableColumn<ModelTable, String> modifyCol;
 	ObservableList<ModelTable> systemUsers = FXCollections.observableArrayList();
+	ObservableList<ModelTable> searchUsers = FXCollections.observableArrayList();
 	
 	// Modality Pane
+	@FXML
+	TextField searchModalitiesTextField;
 	@FXML
 	TableView<ModelTable> modalitiesTable;
 	@FXML
@@ -93,8 +98,11 @@ public class AdminAdminController implements Initializable {
 	@FXML
 	TableColumn<ModelTable, String> modalitiesTableModifyColumn;
 	ObservableList<ModelTable> modalities = FXCollections.observableArrayList();
+	ObservableList<ModelTable> searchModalities = FXCollections.observableArrayList();
 	
 	// Appointment Pane
+	@FXML
+	TextField searchAppsTextField;
 	@FXML
 	TableView<ModelTable> appointmentsTable;
 	@FXML
@@ -110,6 +118,7 @@ public class AdminAdminController implements Initializable {
 	@FXML
 	TableColumn<ModelTable, String> appDeleteColumn;
 	ObservableList<ModelTable> appointments = FXCollections.observableArrayList();
+	ObservableList<ModelTable> searchApps = FXCollections.observableArrayList();
 
 	// newUserPane pane & controls
 	@FXML
@@ -184,6 +193,8 @@ public class AdminAdminController implements Initializable {
 
 	//Patients Pane	
 	@FXML
+	TextField searchPatientsTextField;
+	@FXML
 	TableView<ModelTable> patientsTable;
 	@FXML
 	TableColumn<ModelTable, Integer> patientIDCol; //these are by fx:id found in fxml
@@ -197,6 +208,7 @@ public class AdminAdminController implements Initializable {
 	TableColumn<ModelTable, String> modPatientCol;
 	@FXML
 	ObservableList<ModelTable> patients = FXCollections.observableArrayList();
+	ObservableList<ModelTable> searchPatients = FXCollections.observableArrayList();
 	
 	//newPatientPane
 	@FXML Pane createPatientPane;
@@ -1513,6 +1525,134 @@ public class AdminAdminController implements Initializable {
 			errorAlert.setHeaderText("Error");
 			errorAlert.setContentText("Unable to delete appointment.");
 			errorAlert.showAndWait();
+		}
+	}
+	
+	public void searchUsers() {
+		searchUsers.clear();
+		String userSearch = searchUsersTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < systemUsers.size(); i++) {
+				if(systemUsers.get(i).getS2().contains(userSearch)) {
+					searchUsers.add(systemUsers.get(i));
+				}
+			}
+			usersTable.setItems(searchUsers);
+		}
+		else {
+			populateSystemUsers();
+		}
+	}
+	
+	public void searchModalities() {
+		searchModalities.clear();
+		String userSearch = searchModalitiesTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < modalities.size(); i++) {
+				if(modalities.get(i).getS1().contains(userSearch)) {
+					searchModalities.add(modalities.get(i));
+				}
+			}
+			modalitiesTable.setItems(searchModalities);
+		}
+		else {
+			populateModalities();
+		}
+	}
+	
+	public void searchAlerts() {
+		searchAlerts.clear();
+		String userSearch = searchAlertsTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < alerts.size(); i++) {
+				if(alerts.get(i).getS1().contains(userSearch)) {
+					searchAlerts.add(alerts.get(i));
+				}
+			}
+			patientAlertsTable.setItems(searchAlerts);
+		}
+		else {
+			populateAlerts();
+		}
+	}
+	
+	public void searchPatients() {
+		searchPatients.clear();
+		String userSearch = searchPatientsTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < patients.size(); i++) {
+				if(patients.get(i).getS2().contains(userSearch) || patients.get(i).getS3().contains(userSearch)) {
+					searchPatients.add(patients.get(i));
+				}
+			}
+			patientsTable.setItems(searchPatients);
+		}
+		else {
+			populatePatients();
+		}
+	}
+	
+	public void searchOrders() {
+		searchOrders.clear();
+		String userSearch = searchOrdersTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < orders.size(); i++) {
+				if(orders.get(i).getS1().contains(userSearch)) {
+					searchOrders.add(orders.get(i));
+				}
+			}
+			orderTable.setItems(searchOrders);
+		}
+		else {
+			populateOrders();
+		}
+	}
+	
+	public void searchApps() {
+		searchApps.clear();
+		String userSearch = searchAppsTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < appointments.size(); i++) {
+				if(appointments.get(i).getS1().contains(userSearch)) {
+					searchApps.add(appointments.get(i));
+				}
+			}
+			appointmentsTable.setItems(searchApps);
+		}
+		else {
+			populateAppointments();
+		}
+	}
+	
+	public void searchFiles() {
+		searchFiles.clear();
+		String userSearch = searchFilesTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < files.size(); i++) {
+				if(files.get(i).getS1().contains(userSearch)) {
+					searchFiles.add(files.get(i));
+				}
+			}
+			filesTable.setItems(searchFiles);
+		}
+		else {
+			populateFiles();
+		}
+	}
+	
+	public void searchReports() {
+		searchReports.clear();
+		String userSearch = searchReportsTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < reports.size(); i++) {
+				if(reports.get(i).getS1().contains(userSearch)) {
+					searchReports.add(reports.get(i));
+				}
+			}
+			reportsTable.setItems(searchReports);
+		}
+		else {
+			populateReports();
 		}
 	}
 }
