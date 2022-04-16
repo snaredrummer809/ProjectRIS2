@@ -38,6 +38,8 @@ public class RadioAppointmentsController implements Initializable {
 	
 	// Appointment Pane
 		@FXML
+		TextField searchAllAppsTextField;
+		@FXML
 		TableView<ModelTable> appointmentsTable;
 		@FXML
 		TableColumn<ModelTable, String> appPatientNameColumn;
@@ -52,6 +54,7 @@ public class RadioAppointmentsController implements Initializable {
 		
 		//TableColumn<ModelTable, String> appDeleteColumn;
 		ObservableList<ModelTable> appointments = FXCollections.observableArrayList();
+		ObservableList<ModelTable> searchApps = FXCollections.observableArrayList();
 		
 		//appDeleteConfirmationPane
 		@FXML
@@ -168,6 +171,22 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 			
 			
 			appointmentsTable.setItems(appointments);
+		}
+	
+	public void searchApps() {
+			searchApps.clear();
+			String userSearch = searchAllAppsTextField.getText();
+			if(!userSearch.equals("")) {
+				for(int i = 0; i < appointments.size(); i++) {
+					if(appointments.get(i).getS1().contains(userSearch)) {
+						searchApps.add(appointments.get(i));
+					}
+				}
+				appointmentsTable.setItems(searchApps);
+			}
+			else {
+				populateAppointments();
+			}
 		}
 		
 		
