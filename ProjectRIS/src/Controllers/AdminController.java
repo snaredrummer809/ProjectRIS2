@@ -49,6 +49,8 @@ public class AdminController implements Initializable{
 	@FXML
 	Pane placedOrdersPane;
 	@FXML
+	TextField searchPlacedOrdersTextField;
+	@FXML
 	TableView<ModelTable> placedOrdersTable;
 	@FXML
 	TableColumn<ModelTable, String> placedOrdersIDCol;
@@ -63,6 +65,7 @@ public class AdminController implements Initializable{
 	@FXML
 	TableColumn<ModelTable, String> placedOrdersStatusCol;
 	ObservableList<ModelTable> orders = FXCollections.observableArrayList();
+	ObservableList<ModelTable> searchOrders = FXCollections.observableArrayList();
 	
 	// Checked In Apps Pane
 	@FXML
@@ -1144,6 +1147,22 @@ public class AdminController implements Initializable{
 		unscheduledOrdersPane.setDisable(false);
 		reviewImagingOrdersPane.setDisable(false);
 		patientAppsPane.setDisable(false);
+	}
+	
+	public void searchPlacedOrders() {
+		searchOrders.clear();
+		String userSearch = searchPlacedOrdersTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < orders.size(); i++) {
+				if(orders.get(i).getS1().contains(userSearch)) {
+					searchOrders.add(orders.get(i));
+				}
+			}
+			placedOrdersTable.setItems(searchOrders);
+		}
+		else {
+			populatePlacedOrders();
+		}
 	}
 	
 	public void searchCheckedIn() {
