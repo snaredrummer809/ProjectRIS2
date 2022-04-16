@@ -43,6 +43,8 @@ public class AdminOrdersController implements Initializable{
 		
 		// Orders Pane
 		@FXML
+		TextField searchOrdersTextField;
+		@FXML
 		TableView<ModelTable> allOrdersTable;
 		@FXML
 		TableColumn<ModelTable, Integer> allOrdersOrderIDCol;
@@ -59,6 +61,7 @@ public class AdminOrdersController implements Initializable{
 		@FXML
 		TableColumn<ModelTable, String> allOrdersDeleteCol;
 		ObservableList<ModelTable> orders = FXCollections.observableArrayList();
+		ObservableList<ModelTable> searchOrders = FXCollections.observableArrayList();
 		
 		//orders
 		@FXML
@@ -239,6 +242,22 @@ public class AdminOrdersController implements Initializable{
 				errorAlert.setHeaderText("Error");
 				errorAlert.setContentText("Unable to delete order.");
 				errorAlert.showAndWait();
+			}
+		}
+	
+		public void searchOrders() {
+			searchOrders.clear();
+			String userSearch = searchOrdersTextField.getText();
+			if(!userSearch.equals("")) {
+				for(int i = 0; i < orders.size(); i++) {
+					if(orders.get(i).getS1().contains(userSearch)) {
+						searchOrders.add(orders.get(i));
+					}
+				}
+				allOrdersTable.setItems(searchOrders);
+			}
+			else {
+				populateOrders();
 			}
 		}
 		
