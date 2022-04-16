@@ -1,28 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Line?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
 
 <ScrollPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.BillController">
    <content>
-      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2600.0" prefWidth="750.0">
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="570.0" prefWidth="750.0">
          <center>
-            <AnchorPane prefHeight="2600.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="1460.0" prefWidth="750.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
                <children>
-                  <Label id="invoicePaneLabel" layoutX="25.0" layoutY="19.0" text="Invoices">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
                   <Button fx:id="LogOut" layoutX="657.0" layoutY="14.0" mnemonicParsing="false" onAction="#userLogOut" style="-fx-background-color: yellow;" text="Log Out" textFill="#462323">
                      <font>
                         <Font size="16.0" />
@@ -33,74 +22,60 @@
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <Label layoutX="610.0" layoutY="19.0" text="Bill">
+                  <Label layoutX="601.0" layoutY="19.0" text="Billing">
                      <font>
                         <Font size="17.0" />
                      </font>
                   </Label>
-                  <Pane id="completedAppsPane" fx:id="completedAppsPane" disable="false" layoutX="15.0" layoutY="100.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;" visible="true">
+                  <Pane id="checkedInAppointmentsPane" layoutX="15.0" layoutY="75.0" prefHeight="215.0" prefWidth="720.0" style="-fx-background-color: white;">
                      <children>
-                        <Label id="completedAppsPaneLabel" layoutX="229.0" layoutY="22.0" text="Completed Appointments">
+                        <Label id="checkedInAppointmentsPaneLabel" layoutX="325.0" layoutY="14.0" text="Invoices">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Line id="completedAppsCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
-                        <Label id="searchCompletedAppsLabel" layoutX="519.0" layoutY="77.0" text="Search:">
+                        <Line id="checkedInAppointmentsCosmeticLine" endX="410.0" endY="1.52587890625E-5" layoutX="284.0" layoutY="55.0" startX="-264.6666564941406" startY="1.52587890625E-5" />
+                        <TableView id="checkedInAppointmentsTable" layoutX="14.0" layoutY="115.0" prefHeight="90.0" prefWidth="694.0">
+                           <columns>
+                              <TableColumn id="CIATablePatientColumn" prefWidth="100.66665649414062" text="Cost" />
+                              <TableColumn id="CIATableModalityColumn" prefWidth="102.0" text="Modality" />
+                              <TableColumn id="CIATableDateAndTimeColumn" prefWidth="149.33331298828125" text="Date and Time" />
+                              <TableColumn id="CIATableRadiologistColumn" prefWidth="127.3333740234375" text="Radiologist" />
+                              <TableColumn id="CIATableTechnicianColumn" minWidth="0.0" prefWidth="122.6666259765625" text="Technician" />
+                              <TableColumn id="CIATablePatientColumn" maxWidth="154.0" minWidth="-1.0" prefWidth="92.0" text="Patient" />
+                           </columns>
+                        </TableView>
+                        <Label id="searchCIALabel" layoutX="506.0" layoutY="74.0" text="Search:">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField id="searchCompletedAppsTextField" fx:id="searchCompletedAppsTextField" layoutX="567.0" layoutY="74.0" onAction="#searchApps" prefHeight="25.0" prefWidth="113.0" />
-                        <TableView id="completedAppsTable" fx:id="completedAppsTable" layoutX="14.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
-                          <columns>
-                            <TableColumn id="appPatientNameColumn" fx:id="appPatientNameColumn" prefWidth="115.0" text="Patient" />
-                            <TableColumn id="appModalityColumn" fx:id="appModalityColumn" prefWidth="115.0" text="Modality" />
-                            <TableColumn id="appDateAndTimeColumn" fx:id="appDateAndTimeColumn" prefWidth="115.0" text="Date/Time" />
-                            <TableColumn id="appTechNameColumn" fx:id="appTechNameColumn" prefWidth="115.0" text="Technician" />
-                            <TableColumn id="appRadiologistColumn" fx:id="appRadiologistColumn" prefWidth="115.0" text="Radiologist" />
-                            <TableColumn id="appDeleteColumn" fx:id="appDeleteColumn" prefWidth="80.0" />
-                          </columns>
-                        </TableView>
-                        <Pane id="createInvoicePane" fx:id="createInvoicePane" layoutX="170.0" layoutY="22.0" prefHeight="187.0" prefWidth="365.0" style="-fx-background-color: white;" visible="false">
-                           <children>
-                              <Label id="createInvoiceLabel" layoutX="132.0" layoutY="14.0" text="Create Invoice">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <Label id="appointmentLabel" layoutX="82.0" layoutY="58.0" prefHeight="23.0" prefWidth="76.0" text="Appointment:" />
-                              <TextField id="appointmentIDTextField" fx:id="appointmentIDTextField" layoutX="157.0" layoutY="57.0" prefHeight="25.0" prefWidth="97.0" />
-                              <Label id="costLabel" layoutX="130.0" layoutY="108.0" text="Cost:" />
-                              <TextField id="costTextField" fx:id="costTextField" layoutX="158.0" layoutY="104.0" prefHeight="25.0" prefWidth="97.0" />
-                              <Button id="submitButton" fx:id="submitButton" layoutX="105.0" layoutY="141.0" mnemonicParsing="false" onAction="#submitInvoice" text="Submit" />
-                              <Button id="cancelButton" fx:id="cancelButton" layoutX="206.0" layoutY="141.0" mnemonicParsing="false" onAction="#cancelButton" text="Cancel" />
-                           </children>
-                        </Pane>       
+                        <TextField id="searchCIATextField" layoutX="554.0" layoutY="71.0" prefHeight="26.0" prefWidth="152.0" />
                      </children>
                   </Pane>
-                  <Pane id="invoicePane" fx:id="invoicePane" disable="false" layoutX="15.0" layoutY="400.0" prefHeight="285.0" prefWidth="699.0" style="-fx-background-color: white;" visible="true">
+                  <Pane id="checkedInAppointmentsPane" layoutX="15.0" layoutY="321.0" prefHeight="215.0" prefWidth="720.0" style="-fx-background-color: white;">
                      <children>
-                        <Label id="invoicePaneLabel" layoutX="290.0" layoutY="22.0" text="Invoices">
+                        <Label id="checkedInAppointmentsPaneLabel" layoutX="284.0" layoutY="14.0" text="All Appointments">
                            <font>
                               <Font size="20.0" />
                            </font>
                         </Label>
-                        <Line id="invoiceCosmeticLine" endX="405.33331298828125" endY="1.52587890625E-5" layoutX="275.0" layoutY="64.0" startX="-250.0" startY="1.52587890625E-5" />
-                        <Label id="searchInvoicesLabel" layoutX="519.0" layoutY="77.0" text="Search:">
+                        <Line id="checkedInAppointmentsCosmeticLine" endX="410.0" endY="1.52587890625E-5" layoutX="284.0" layoutY="55.0" startX="-264.6666564941406" startY="1.52587890625E-5" />
+                        <TableView id="checkedInAppointmentsTable" layoutX="14.0" layoutY="115.0" prefHeight="90.0" prefWidth="694.0">
+                           <columns>
+                              <TableColumn id="CIATablePatientColumn" prefWidth="138.5" text="Patient" />
+                              <TableColumn id="CIATableModalityColumn" prefWidth="138.5" text="Modality" />
+                              <TableColumn id="CIATableDateAndTimeColumn" prefWidth="138.5" text="Date and Time" />
+                              <TableColumn id="CIATableRadiologistColumn" prefWidth="138.5" text="Radiologist" />
+                              <TableColumn id="CIATableTechnicianColumn" prefWidth="138.5" text="Technician" />
+                           </columns>
+                        </TableView>
+                        <Label id="searchCIALabel" layoutX="506.0" layoutY="74.0" text="Search:">
                            <font>
                               <Font name="System Bold" size="14.0" />
                            </font>
                         </Label>
-                        <TextField id="searchInvoicesTextField" fx:id="searchInvoicesTextField" layoutX="567.0" layoutY="74.0" onAction="#searchInvoices" prefHeight="25.0" prefWidth="113.0" />
-                        <TableView id="invoiceTable" fx:id="invoiceTable" layoutX="14.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
-                          <columns>
-                            <TableColumn id="invoiceIDCol" fx:id="invoiceIDCol" prefWidth="115.0" text="ID" />
-                            <TableColumn id="invoiceAppIDCol" fx:id="invoiceAppIDCol" prefWidth="115.0" text="Appointment ID" />
-                            <TableColumn id="invoicePatientCol" fx:id="invoicePatientCol" prefWidth="115.0" text="Patient Name" />
-                            <TableColumn id="invoiceCostCol" fx:id="invoiceCostCol" prefWidth="115.0" text="Cost" />
-                          </columns>
-                        </TableView>     
+                        <TextField id="searchCIATextField" layoutX="554.0" layoutY="71.0" prefHeight="26.0" prefWidth="152.0" />
                      </children>
                   </Pane>
                </children>
