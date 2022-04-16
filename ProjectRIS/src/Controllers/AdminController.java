@@ -1,8 +1,14 @@
 package Controllers;
 
-import java.io.IOException; 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.URL;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,6 +34,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
+import javafx.scene.control.TextArea;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class AdminController implements Initializable{
 	
@@ -209,7 +218,19 @@ public class AdminController implements Initializable{
 	
 	// Alerts
 	Alert errorAlert = new Alert(AlertType.ERROR);
-	Alert updateAlert = new Alert(AlertType.CONFIRMATION);	
+	Alert updateAlert = new Alert(AlertType.CONFIRMATION);
+	@FXML TextField reportOrderIDTextField;
+	@FXML Button closeReportButton;
+	@FXML Button viewImageButton;
+	@FXML TextArea reportTextArea;
+	@FXML TextField reportPatientTextField;
+	@FXML TextField reportRadioTextField;
+	@FXML Pane reportPane;
+	@FXML Pane scanPane;
+	@FXML ImageView imageView;
+	@FXML Button closeImage;	
+	
+	private Image image;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
@@ -1166,17 +1187,17 @@ public class AdminController implements Initializable{
 				Connection con1 = DatabaseConnection.getConnection();
 				int order_id = Integer.parseInt(reportOrderIDTextField.getText());
 				ResultSet rs1 = con1.createStatement().executeQuery("select * from orders where order_id=" + order_id);
-				
+
 				while(rs1.next()) {
 					imaging_id = rs1.getInt("image");
-									
+
 				}
 				con1.close();
 			}
 			catch(SQLException e) {
 				e.printStackTrace();
 			}
-			
+
 			PreparedStatement pst = con.prepareStatement("Select imaging from imaging_info where imaging_id=?");
 			pst.setInt(1, imaging_id);
 			ResultSet rs = pst.executeQuery();
@@ -1203,7 +1224,7 @@ public class AdminController implements Initializable{
 			e.printStackTrace();
 		}
 	}
-	
+
 	@FXML public void closeImagePane() {
 		scanPane.setVisible(false);
 	}
