@@ -2,6 +2,7 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
@@ -11,80 +12,81 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1460.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminController">
-   <center>
-      <AnchorPane prefHeight="1460.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
-         <children>
-            <Button fx:id="LogOut" layoutX="657.0" layoutY="14.0" mnemonicParsing="false" onAction="#userLogOut" style="-fx-background-color: yellow;" text="Log Out" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Label layoutX="516.0" layoutY="19.0" text="Logged In: ">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Label layoutX="601.0" layoutY="19.0" text="Admin">
-               <font>
-                  <Font size="17.0" />
-               </font>
-            </Label>
-            <Button fx:id="Admin" layoutX="83.0" layoutY="14.0" mnemonicParsing="false" onAction="#AdminButton" style="-fx-background-color: yellow;" text="Admin" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="Appointment" layoutX="154.0" layoutY="14.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: yellow;" text="Appointments" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="Invoice" layoutX="279.0" layoutY="14.0" mnemonicParsing="false" onAction="#InvoiceButton" style="-fx-background-color: yellow;" text="Invoice" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="Orders" layoutX="354.0" layoutY="14.0" mnemonicParsing="false" onAction="#OrderButton" style="-fx-background-color: yellow;" text="Orders" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Button fx:id="Home" layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: yellow;" text="Home" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-            <Pane id="referralPatients" layoutX="15.0" layoutY="75.0" prefHeight="289.0" prefWidth="720.0" style="-fx-background-color: white;;">
+<ScrollPane xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controllers.AdminReferralsController">
+   <content>
+      <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="2600.0" prefWidth="750.0">
+         <center>
+            <AnchorPane prefHeight="2600.0" prefWidth="600.0" style="-fx-background-color: gray;" BorderPane.alignment="CENTER">
                <children>
-                  <Label id="referralPatientsPaneLabel" layoutX="332.0" layoutY="15.0" text="Patients">
+                  <Label id="referralPaneLabel" layoutX="15.0" layoutY="19.0" text="Referrals">
                      <font>
-                        <Font size="20.0" />
+                        <Font size="16.0" />
                      </font>
                   </Label>
-                  <Line id="referralPatientsCosmeticLine" endX="422.12945556640625" endY="-1.52587890625E-5" layoutX="286.0" layoutY="50.0" startX="-269.0" startY="-1.52587890625E-5" />
-                  <TableView id="patientsTable" layoutX="15.0" layoutY="96.0" prefHeight="173.0" prefWidth="694.0">
-                    <columns>
-                      <TableColumn id="patientsTableDOBCol" prefWidth="185.0" text="Date of Birth" />
-                        <TableColumn id="patientsTableFirstNameCol" prefWidth="172.0" text="First Name" />
-                      <TableColumn id="patientsTableLastNameCol" minWidth="0.0" prefWidth="204.0" text="Last Name" />
-                    </columns>
-                  </TableView>
-                  <TextField layoutX="554.0" layoutY="63.0" />
-                  <Label layoutX="506.0" layoutY="66.0" text="Search:">
+                  <Button fx:id="LogOut" layoutX="657.0" layoutY="14.0" mnemonicParsing="false" onAction="#userLogOut" style="-fx-background-color: yellow;" text="Log Out" textFill="#462323">
                      <font>
-                        <Font name="System Bold" size="14.0" />
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Label layoutX="516.0" layoutY="19.0" text="Logged In: ">
+                     <font>
+                        <Font size="17.0" />
                      </font>
                   </Label>
-                  <Button layoutX="628.0" layoutY="14.0" mnemonicParsing="false" onAction="#NewPatientButton" text="New Patient" />
+                  <Label layoutX="601.0" layoutY="19.0" text="Admin">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
+                  <Button id="homeButton" fx:id="HomeButton" layoutX="80.0" layoutY="14.0" mnemonicParsing="false" onAction="#HomeButton" style="-fx-background-color: yellow;" text="Home" textFill="#462323">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button id="adminButton" fx:id="AdminButton" layoutX="150.0" layoutY="14.0" mnemonicParsing="false" onAction="#AdminButton" style="-fx-background-color: yellow;" text="Admin" textFill="#462323">
+              	   	 <font>
+              	   	 	<Font size="16.0" />
+          	   	 	 </font>
+          	   	  </Button>
+                  <Button id="appointmentButton" fx:id="AppointmentButton" layoutX="223.0" layoutY="14.0" mnemonicParsing="false" onAction="#AppointmentButton" style="-fx-background-color: yellow;" text="Appointments" textFill="#462323">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Button id="ordersButton" fx:id="OrdersButton" layoutX="351.0" layoutY="14.0" mnemonicParsing="false" onAction="#OrderButton" style="-fx-background-color: yellow;" text="Orders" textFill="#462323">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button> 
+                  <Button id="invoiceButton" fx:id="InvoiceButton" layoutX="425.0" layoutY="14.0" mnemonicParsing="false" onAction="#InvoiceButton" style="-fx-background-color: yellow;" text="Invoices" textFill="#462323">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Button>
+                  <Pane id="referralPatients" layoutX="15.0" layoutY="75.0" prefHeight="312.0" prefWidth="720.0" style="-fx-background-color: white;;">
+		               <children>
+		                  <Label id="referralPatientsPaneLabel" layoutX="326.0" layoutY="15.0" text="Patients">
+		                     <font>
+		                        <Font size="20.0" />
+		                     </font>
+		                  </Label>
+		                  <Line id="referralPatientsCosmeticLine" endX="421.5" endY="-1.52587890625E-5" layoutX="286.0" layoutY="50.0" startX="-269.0" startY="-1.52587890625E-5" />
+		                  <TableView id="patientsTable" fx:id="patientsTable" layoutX="15.0" layoutY="96.0" prefHeight="200.0" prefWidth="694.0">
+		                    <columns>
+		                      <TableColumn id="patientsTableDOBCol" fx:id="patientIDCol" prefWidth="70.0" text="Patient ID" />
+		                       <TableColumn id="patientsTableFirstNameCol" fx:id="patientFirstNameCol" prefWidth="277.0" text="First Name" />
+		                      <TableColumn id="patientsTableLastNameCol" fx:id="patientLastNameCol" minWidth="0.0" prefWidth="243.0" text="Last Name" />
+		                    </columns>
+		                  </TableView>
+		                  <Button layoutX="628.0" layoutY="14.0" mnemonicParsing="false" onAction="#NewPatientButton" text="New Patient" />
+		                  <Button fx:id="overviewButton" layoutX="603.0" layoutY="65.0" mnemonicParsing="false" onAction="#overviewButton" text="Patient Overview" />
+		                  <Label id="searchReferralPatientLabel" layoutX="415.0" layoutY="69.0" text="Search:" />
+		                  <TextField id="searchReferralPatientTextField" fx:id="searchReferralPatientTextField" layoutX="453.0" layoutY="65.0" onAction="#searchPatients" prefHeight="25.0" prefWidth="139.0" />
+		               </children>
+		            </Pane>
                </children>
-            </Pane>
-            <Button fx:id="ReferralsButton" layoutX="427.0" layoutY="14.0" mnemonicParsing="false" onAction="#ReferralsButton" style="-fx-background-color: white;" text="Referrals" textFill="#462323">
-               <font>
-                  <Font size="16.0" />
-               </font>
-            </Button>
-         </children>
-      </AnchorPane>
-   </center>
-</BorderPane>
+            </AnchorPane>
+         </center>
+      </BorderPane>
+   </content>
+</ScrollPane>
