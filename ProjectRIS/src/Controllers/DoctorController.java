@@ -39,6 +39,7 @@ import javafx.scene.layout.Pane;
 
 
 public class DoctorController implements Initializable{
+	
 	//orders
 	@FXML
 	private TextField OrderPatientName;
@@ -49,6 +50,8 @@ public class DoctorController implements Initializable{
 	@FXML
 	private TextArea OrderNotes;
 	
+	@FXML
+	TextField searchOrdersTextField;
 	@FXML
 	TableView<ModelTable> allOrdersTable;
 	@FXML
@@ -64,9 +67,10 @@ public class DoctorController implements Initializable{
 	@FXML
 	TableColumn<ModelTable, String> allOrdersStatusCol;
 	@FXML 
-	TableColumn<ModelTable, String> allOrdersReportCol;
-	
+	TableColumn<ModelTable, String> allOrdersReportCol;	
 	ObservableList<ModelTable> orders = FXCollections.observableArrayList();
+	ObservableList<ModelTable> searchOrders = FXCollections.observableArrayList();
+	
 	ModelTable m = new ModelTable();
 	private Image image;
 	@FXML Pane scanPane;
@@ -533,5 +537,21 @@ public class DoctorController implements Initializable{
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void searchOrders() {
+		searchOrders.clear();
+		String userSearch = searchOrdersTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < orders.size(); i++) {
+				if(orders.get(i).getS1().contains(userSearch)) {
+					searchOrders.add(orders.get(i));
+				}
+			}
+			allOrdersTable.setItems(searchOrders);
+		}
+		else {
+			populateOrders();
+		}
 	}
 }
