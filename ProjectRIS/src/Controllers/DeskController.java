@@ -854,9 +854,9 @@ public class DeskController implements Initializable{
 			
 			// Update the appointments table
 			String updateApps = "insert into appointments(appointment_id, patient, order_id, modality,"
-					+ "date_time, radiologist, technician, phone_number, email_address) "
+					+ "date_time, radiologist, technician, phone_number, email_address, checked_in, closed) "
 					+ " values(" + appNum + ", " + patientID + ", " + orderID + ", " + modalityID + ", \'"
-					+ date + " " + time + "\', " + radioID + ", " + techID + ", '" + phone + "', '" + email + "')";
+					+ date + " " + time + "\', " + radioID + ", " + techID + ", '" + phone + "', '" + email + "',0,0)";
 			stmt.executeUpdate(updateApps);
 			
 			// Update the orders table
