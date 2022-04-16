@@ -27,13 +27,10 @@ import javafx.scene.shape.Line;
 import javafx.scene.control.TextField;
 
 public class TechAppointmentsController implements Initializable{
-
-	
-
-
 	
 	@FXML Button TechAppointments;
 	@FXML Pane ApptPane;
+	@FXML TextField searchAppsTextField;
 	@FXML TableView<ModelTable> ApptTable;
 	@FXML TableColumn<ModelTable, String> ApptTablePatientCol;
 	@FXML TableColumn<ModelTable, String> ApptTableDateTimeCol;
@@ -41,56 +38,57 @@ public class TechAppointmentsController implements Initializable{
 	@FXML TableColumn<ModelTable, String> ApptTableRadioCol;
 	@FXML TableColumn<ModelTable, String> ApptTableTechCol;
 	ObservableList<ModelTable> appointments = FXCollections.observableArrayList();
+	ObservableList<ModelTable> searchApps = FXCollections.observableArrayList();
 
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		populateAppointments();
 	}
 	
 	//method to fill checked-in appointments table
-		public void populateAppointments() {
-			appointments.clear();
-			int patient = 0;
-			int modality = 0;
-			int tech = 0;
-			int radio = 0;
-			String patientName = null;
-			String modalityName = null;
-			String techName = null;
-			String radioName = null;
-			try {
-				Connection con = DatabaseConnection.getConnection();
-				ResultSet rs = con.createStatement().executeQuery("select * from appointments where closed=0");
+	public void populateAppointments() {
+		appointments.clear();
+		int patient = 0;
+		int modality = 0;
+		int tech = 0;
+		int radio = 0;
+		String patientName = null;
+		String modalityName = null;
+		String techName = null;
+		String radioName = null;
+		try {
+			Connection con = DatabaseConnection.getConnection();
+			ResultSet rs = con.createStatement().executeQuery("select * from appointments where closed=0");
 
-				while (rs.next()) {
-					patient = rs.getInt("patient");
-					//System.out.println(patient);
-					modality = rs.getInt("modality");
-					//System.out.println(modality);
-					radio = rs.getInt("radiologist");
-					//System.out.println(radio);
-					tech = rs.getInt("technician");
-					//System.out.println(tech);
-					ResultSet rs2 = con.createStatement().executeQuery("select * from patients where patient_id=" + patient);
-					while(rs2.next()) {
-						patientName = rs2.getString("first_name") + " " + rs2.getString("last_name");
-					}
-					rs2 = con.createStatement().executeQuery("select * from modalities where modality_id=" + modality);
-					while(rs2.next()) {
-						modalityName = rs2.getString("name");
-					}
-					rs2 = con.createStatement().executeQuery("select * from users where user_id=" + radio);
-					while(rs2.next()) {
-						techName = rs2.getString("full_name");
-					}
-					rs2 = con.createStatement().executeQuery("select * from users where user_id=" + tech);
-					while(rs2.next()) {
-						radioName = rs2.getString("full_name");
-					}				
-					
-					appointments.add(new ModelTable(patient, 0, 0, patientName,
-							modalityName, rs.getString("date_time"), techName, 
-							radioName, null));
+			while (rs.next()) {
+				patient = rs.getInt("patient");
+				//System.out.println(patient);
+				modality = rs.getInt("modality");
+				//System.out.println(modality);
+				radio = rs.getInt("radiologist");
+				//System.out.println(radio);
+				tech = rs.getInt("technician");
+				//System.out.println(tech);
+				ResultSet rs2 = con.createStatement().executeQuery("select * from patients where patient_id=" + patient);
+				while(rs2.next()) {
+					patientName = rs2.getString("first_name") + " " + rs2.getString("last_name");
 				}
+				rs2 = con.createStatement().executeQuery("select * from modalities where modality_id=" + modality);
+				while(rs2.next()) {
+					modalityName = rs2.getString("name");
+				}
+				rs2 = con.createStatement().executeQuery("select * from users where user_id=" + radio);
+				while(rs2.next()) {
+					techName = rs2.getString("full_name");
+				}
+				rs2 = con.createStatement().executeQuery("select * from users where user_id=" + tech);
+				while(rs2.next()) {
+					radioName = rs2.getString("full_name");
+				}				
+
+				appointments.add(new ModelTable(patient, 0, 0, patientName,
+						modalityName, rs.getString("date_time"), techName, 
+						radioName, null));
+			}
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -104,7 +102,7 @@ public class TechAppointmentsController implements Initializable{
 			
 			
 			ApptTable.setItems(appointments);
-		}
+	}
 	
 	public void userLogOut(ActionEvent event) throws IOException {
 		
@@ -123,5 +121,21 @@ public class TechAppointmentsController implements Initializable{
 		
 		Main m = new Main();
 		m.changeScene("../Views/TechAppointments.fxml");
+	}
+	
+	public void searchApps() {
+		searchApps.clear();
+		String userSearch = searchAppsTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < appointments.size(); i++) {
+				if(appointments.get(i).getS1().contains(userSearch)) {
+					searchApps.add(appointments.get(i));
+				}
+			}
+			ApptTable.setItems(searchApps);
+		}
+		else {
+			populateAppointments();
+		}
 	}
 }
