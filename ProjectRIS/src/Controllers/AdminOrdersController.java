@@ -19,6 +19,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
@@ -40,9 +41,7 @@ public class AdminOrdersController implements Initializable{
 		@FXML
 		Button LogOut;
 		
-		// Appointment Pane
-		@FXML
-		TextField searchOrdersTextField;
+		// Orders Pane
 		@FXML
 		TableView<ModelTable> allOrdersTable;
 		@FXML
@@ -60,7 +59,16 @@ public class AdminOrdersController implements Initializable{
 		@FXML
 		TableColumn<ModelTable, String> allOrdersDeleteCol;
 		ObservableList<ModelTable> orders = FXCollections.observableArrayList();
-		ObservableList<ModelTable> searchOrders = FXCollections.observableArrayList();
+		
+		//orders
+		@FXML
+		private TextField OrderPatientName;
+		@FXML
+		private TextField OrderReferralMD;
+		@FXML
+		private TextField OrderModalityNeeded;
+		@FXML
+		private TextArea OrderNotes;
 		
 		//appDeleteConfirmationPane
 		@FXML
@@ -69,6 +77,7 @@ public class AdminOrdersController implements Initializable{
 		TextField allOrdersIDTextField;
 		@FXML
 		Button allOrdersConfirmDeleteButton;
+		ModelTable m;
 		
 		//Alerts
 		Alert errorAlert = new Alert(AlertType.ERROR);
@@ -115,6 +124,19 @@ public class AdminOrdersController implements Initializable{
 
 		}
 		
+		public void OrderButton(ActionEvent event) throws IOException{
+			
+			Main m = new Main();
+			m.changeScene("../Views/AdminOrders.fxml");
+		}
+		
+		
+		public void newOrderButton(ActionEvent event) throws IOException{
+			
+			Main m = new Main();
+			m.changeScene("../Views/NewOrder.fxml");
+		}
+		
 		public void populateOrders() {
 			orders.clear();
 			int orderID = 0;
@@ -133,39 +155,13 @@ public class AdminOrdersController implements Initializable{
 
 				while (rs.next()) {
 					orderID = rs.getInt("order_id");
-					System.out.println(orderID);
-					patient = rs.getInt("patient");
-					System.out.println(patient);
-					doc = rs.getInt("referral_md");
-					System.out.println(doc);
+					patientName = rs.getString("patient");
+					docName = rs.getString("referral_md");
 					notes = rs.getString("notes");
-					System.out.println(notes);
-					modality = rs.getInt("modality");
-					System.out.println(modality);
-					status = rs.getInt("status");
-					System.out.println(status);
-					ResultSet rs2 = con.createStatement().executeQuery("select * from patients where patient_id=" + patient);
-					while(rs2.next()) {
-						patientName = rs2.getString("first_name") + " " + rs2.getString("last_name");
-					}
-					System.out.println(patientName);
-					rs2 = con.createStatement().executeQuery("select * from modalities where modality_id=" + modality);
-					while(rs2.next()) {
-						modalityName = rs2.getString("name");
-					}
-					System.out.println(modalityName);
-					rs2 = con.createStatement().executeQuery("select * from users where user_id=" + doc);
-					while(rs2.next()) {
-						docName = rs2.getString("full_name");
-					}
-					System.out.println(docName);
-					rs2 = con.createStatement().executeQuery("select * from order_status where order_status_id=" + status);
-					while(rs2.next()) {
-						statusName = rs2.getString("name");
-					}
-					orders.add(new ModelTable(orderID, 0, 0, patientName, docName
-							, modalityName, notes, 
-							statusName, null));
+					modalityName = rs.getString("modality");
+					statusName = rs.getString("status");
+					
+					orders.add(new ModelTable(orderID, 0, 0, patientName, docName, modalityName, notes, statusName, null));
 				}
 			} 
 			catch (SQLException e) {
@@ -188,9 +184,7 @@ public class AdminOrdersController implements Initializable{
 
 						if (empty) {
 							setText(null);
-							setGraphic(null);
-						} 
-						else {
+						} else {
 							final Button modButton = new Button("Delete");
 							modButton.setOnAction(event -> {
 								ModelTable m = getTableView().getItems().get(getIndex());
@@ -245,22 +239,6 @@ public class AdminOrdersController implements Initializable{
 				errorAlert.setHeaderText("Error");
 				errorAlert.setContentText("Unable to delete order.");
 				errorAlert.showAndWait();
-			}
-		}
-		
-		public void searchOrders() {
-			searchOrders.clear();
-			String userSearch = searchOrdersTextField.getText();
-			if(!userSearch.equals("")) {
-				for(int i = 0; i < orders.size(); i++) {
-					if(orders.get(i).getS1().contains(userSearch)) {
-						searchOrders.add(orders.get(i));
-					}
-				}
-				allOrdersTable.setItems(searchOrders);
-			}
-			else {
-				populateOrders();
 			}
 		}
 		
