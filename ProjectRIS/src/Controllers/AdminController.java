@@ -1157,6 +1157,61 @@ public class AdminController implements Initializable{
 		patientAppsPane.setDisable(false);
 	}
 	
+	public void viewImage() {
+		try{
+			Connection con = DatabaseConnection.getConnection();
+			int imaging_id=0;
+			//get imaging_id
+			try {
+				Connection con1 = DatabaseConnection.getConnection();
+				int order_id = Integer.parseInt(reportOrderIDTextField.getText());
+				ResultSet rs1 = con1.createStatement().executeQuery("select * from orders where order_id=" + order_id);
+				
+				while(rs1.next()) {
+					imaging_id = rs1.getInt("image");
+									
+				}
+				con1.close();
+			}
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			
+			PreparedStatement pst = con.prepareStatement("Select imaging from imaging_info where imaging_id=?");
+			pst.setInt(1, imaging_id);
+			ResultSet rs = pst.executeQuery();
+			if(rs.next()) {
+				InputStream is = rs.getBinaryStream(1);
+				OutputStream os = new FileOutputStream(new File("photo.jpg"));
+				byte[] contents = new byte[1024];
+				int size = 0;
+				while((size=is.read(contents)) != -1) {
+					os.write(contents, 0, size);
+				}
+				image = new Image("file:photo.jpg", imageView.getFitWidth(),imageView.getFitHeight(), true, true);
+				imageView.setImage(image);
+				scanPane.setVisible(true);
+			}
+		}catch(SQLException e) {
+			System.out.println("failed to retrieve image from database");
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@FXML public void closeImagePane() {
+		scanPane.setVisible(false);
+	}
+	@FXML public void closeReport() {
+		reportPane.setVisible(false);
+		LogOut.setDisable(false);
+	}
+	
 	public void searchPlacedOrders() {
 		searchOrders.clear();
 		String userSearch = searchPlacedOrdersTextField.getText();
