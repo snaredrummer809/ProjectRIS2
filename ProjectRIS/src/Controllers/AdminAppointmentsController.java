@@ -42,8 +42,6 @@ public class AdminAppointmentsController implements Initializable {
 	
 	// Appointment Pane
 	@FXML
-	TextField searchAppsTextField;
-	@FXML
 	TableView<ModelTable> appointmentsTable;
 	@FXML
 	TableColumn<ModelTable, String> appPatientNameColumn;
@@ -58,7 +56,14 @@ public class AdminAppointmentsController implements Initializable {
 	@FXML
 	TableColumn<ModelTable, String> appDeleteColumn;
 	ObservableList<ModelTable> appointments = FXCollections.observableArrayList();
-	ObservableList<ModelTable> searchApps = FXCollections.observableArrayList();
+	
+	//appDeleteConfirmationPane
+	@FXML
+	Pane appDeleteConfirmationPane;
+	@FXML
+	TextField appIDTextField;
+	@FXML
+	Button appConfirmDeleteButton;
 	
 	//Alerts
 	Alert errorAlert = new Alert(AlertType.ERROR);
@@ -122,13 +127,13 @@ public class AdminAppointmentsController implements Initializable {
 
 			while (rs.next()) {
 				patient = rs.getInt("patient");
-				System.out.println(patient);
+				//System.out.println(patient);
 				modality = rs.getInt("modality");
-				System.out.println(modality);
+				//System.out.println(modality);
 				tech = rs.getInt("technician");
-				System.out.println(tech);
+				//System.out.println(tech);
 				radio = rs.getInt("radiologist");
-				System.out.println(radio);
+				//System.out.println(radio);
 				ResultSet rs2 = con.createStatement().executeQuery("select * from patients where patient_id=" + patient);
 				while(rs2.next()) {
 					patientName = rs2.getString("first_name") + " " + rs2.getString("last_name");
@@ -160,23 +165,71 @@ public class AdminAppointmentsController implements Initializable {
 		appDateAndTimeColumn.setCellValueFactory(new PropertyValueFactory<>("s3"));
 		appTechNameColumn.setCellValueFactory(new PropertyValueFactory<>("s4"));
 		appRadiologistColumn.setCellValueFactory(new PropertyValueFactory<>("s5"));
+		Callback<TableColumn<ModelTable, String>, TableCell<ModelTable, String>> cellFactory = (param) -> {
+
+			final TableCell<ModelTable, String> cell = new TableCell<ModelTable, String>() {
+
+				@Override
+				public void updateItem(String item, boolean empty) {
+					super.updateItem(item, empty);
+
+					if (empty) {
+						setText(null);
+					} else {
+						final Button modButton = new Button("Delete");
+						modButton.setOnAction(event -> {
+							ModelTable m = getTableView().getItems().get(getIndex());
+
+							appDeleteConfirmationPane.setVisible(true);
+							HomeButton.setDisable(true);
+							AdminButton.setDisable(true);
+							InvoiceButton.setDisable(true);
+							OrdersButton.setDisable(true);
+							ReferralsButton.setDisable(true);
+							LogOut.setDisable(true);
+							
+							//System.out.println(m.getNum1());
+							appIDTextField.setText(m.getNum1()+"");
+
+						});
+
+						setGraphic(modButton);
+						setText(null);
+					}
+				}
+			};
+
+			return cell;
+		};
+		appDeleteColumn.setCellFactory(cellFactory);
 
 		appointmentsTable.setItems(appointments);
 	}
-
-	public void searchApps() {
-		searchApps.clear();
-		String userSearch = searchAppsTextField.getText();
-		if(!userSearch.equals("")) {
-			for(int i = 0; i < appointments.size(); i++) {
-				if(appointments.get(i).getS1().contains(userSearch)) {
-					searchApps.add(appointments.get(i));
-				}
-			}
-			appointmentsTable.setItems(searchApps);
-		}
-		else {
+	
+	public void appConfirmDelete(ActionEvent event) throws IOException {
+		try {
+			Connection con = DatabaseConnection.getConnection();
+			Statement stmt = con.createStatement();
+			String deleteApp = "delete from appointments where appointment_id=" + appIDTextField.getText();
+			
+			stmt.executeUpdate(deleteApp);
+			con.close();
+			appDeleteConfirmationPane.setVisible(false);
+			HomeButton.setDisable(false);
+			AdminButton.setDisable(false);
+			InvoiceButton.setDisable(false);
+			OrdersButton.setDisable(false);
+			ReferralsButton.setDisable(false);
+			LogOut.setDisable(false);
+			updateAlert.setHeaderText("Success");
+			updateAlert.setContentText("Appointment has been successfully deleted.");
+			updateAlert.showAndWait();
 			populateAppointments();
+		}
+		catch(SQLException e) {
+			errorAlert.setHeaderText("Error");
+			errorAlert.setContentText("Unable to delete appointment.");
+			errorAlert.showAndWait();
 		}
 	}
 	
@@ -187,6 +240,7 @@ public class AdminAppointmentsController implements Initializable {
 		OrdersButton.setDisable(false);
 		ReferralsButton.setDisable(false);
 		LogOut.setDisable(false);
+		appDeleteConfirmationPane.setVisible(false);
 		
 	}
 }
