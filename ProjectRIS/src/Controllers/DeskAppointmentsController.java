@@ -35,10 +35,12 @@ public class DeskAppointmentsController implements Initializable{
 		Button ordersButton;
 		@FXML
 		Button LogOut;
+		@FXML
+		Button UserHomeButton;
+		@FXML
+		Button UserResourcesButton;
 		
 		// Appointment Pane
-		@FXML
-		TextField searchAppsTextField;
 		@FXML
 		TableView<ModelTable> deskAppsTable;
 		@FXML
@@ -54,10 +56,29 @@ public class DeskAppointmentsController implements Initializable{
 		@FXML
 		TableColumn<ModelTable, String> deskAppsDeleteColumn;
 		ObservableList<ModelTable> appointments = FXCollections.observableArrayList();
-		ObservableList<ModelTable> searchApps = FXCollections.observableArrayList();
+		
+		//appDeleteConfirmationPane
+		@FXML
+		Pane appDeleteConfirmationPane;
+		@FXML
+		TextField appIDTextField;
+		@FXML
+		Button appConfirmDeleteButton;
 		
 		//Alerts
 		Alert updateAlert = new Alert(AlertType.CONFIRMATION);
+		
+		public void UserResourcesButton(ActionEvent event) throws IOException {
+
+			Main m = new Main();
+			m.changeScene("../Views/UserResources.fxml");
+		}
+		
+		public void UserHomeButton(ActionEvent event) throws IOException {
+
+			Main m = new Main();
+			m.changeScene("../Views/User.fxml");
+		}
 		
 		public void userLogOut(ActionEvent event) throws IOException {
 
@@ -129,7 +150,7 @@ public class DeskAppointmentsController implements Initializable{
 				}
 			} 
 			catch (SQLException e) {
-				e.printStackTrace();
+				System.out.println("Error: Could not get appointment data.");
 			}
 			
 			deskAppsPatientColumn.setCellValueFactory(new PropertyValueFactory<>("s1"));
@@ -137,29 +158,77 @@ public class DeskAppointmentsController implements Initializable{
 			deskAppsDateAndTimeColumn.setCellValueFactory(new PropertyValueFactory<>("s3"));
 			deskAppsTechNameColumn.setCellValueFactory(new PropertyValueFactory<>("s4"));
 			deskAppsRadiologistColumn.setCellValueFactory(new PropertyValueFactory<>("s5"));
+			Callback<TableColumn<ModelTable, String>, TableCell<ModelTable, String>> cellFactory = (param) -> {
+
+				final TableCell<ModelTable, String> cell = new TableCell<ModelTable, String>() {
+
+					@Override
+					public void updateItem(String item, boolean empty) {
+						super.updateItem(item, empty);
+
+						if (empty) {
+							setText(null);
+						} else {
+							final Button modButton = new Button("Delete");
+							modButton.setOnAction(event -> {
+								ModelTable m = getTableView().getItems().get(getIndex());
+
+								appDeleteConfirmationPane.setVisible(true);
+								HomeButton.setDisable(true);
+								ordersButton.setDisable(true);
+								LogOut.setDisable(true);
+
+								appIDTextField.setText(m.getNum1()+"");
+
+							});
+
+							setGraphic(modButton);
+							setText(null);
+						}
+					}
+				};
+
+				return cell;
+			};
+			
+			// deskAppsDeleteColumn.setCellFactory(cellFactory);
 
 			deskAppsTable.setItems(appointments);
 		}
 		
-		public void searchApps() {
-			searchApps.clear();
-			String userSearch = searchAppsTextField.getText();
-			if(!userSearch.equals("")) {
-				for(int i = 0; i < appointments.size(); i++) {
-					if(appointments.get(i).getS1().contains(userSearch)) {
-						searchApps.add(appointments.get(i));
-					}
-				}
-				deskAppsTable.setItems(searchApps);
-			}
-			else {
+		public void appConfirmDelete(ActionEvent event) throws IOException {
+			
+			try {
+				Connection con = DatabaseConnection.getConnection();
+				Statement stmt = con.createStatement();
+				
+				String deleteApp = "delete from appointments where appointment_id=" + appIDTextField.getText();
+				stmt.executeUpdate(deleteApp);
+				
+				String updateOrders = "update orders set appointment= 0 where appointment=" 
+						+ appIDTextField.getText();
+				stmt.executeUpdate(updateOrders);
+				
+				con.close();
+				
+				appDeleteConfirmationPane.setVisible(false);
+				HomeButton.setDisable(false);
+				ordersButton.setDisable(false);
+				LogOut.setDisable(false);
+				updateAlert.setContentText("Appointment has been successfully deleted.");
+				updateAlert.showAndWait();
 				populateAppointments();
+			}
+			catch(SQLException e) {
+				System.out.println("Error: Could not delete appointment.");
 			}
 		}
 		
 		public void cancelButton(ActionEvent event) throws IOException {
 			HomeButton.setDisable(false);
 			ordersButton.setDisable(false);
-			LogOut.setDisable(false);			
+			LogOut.setDisable(false);
+			appDeleteConfirmationPane.setVisible(false);
+			
 		}
 }
