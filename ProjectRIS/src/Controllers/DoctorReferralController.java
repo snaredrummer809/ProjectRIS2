@@ -25,27 +25,31 @@ import javafx.util.Callback;
 
 
 public class DoctorReferralController implements Initializable{
+	
 	//Patients Pane	
 	@FXML
-	TableView<PatientTableModel> patientsTable;
+	TextField searchPatientsTextField;
 	@FXML
-	TableColumn<PatientTableModel, Integer> patientIDCol; //these are by fx:id found in fxml
+	TableView<ModelTable> patientsTable;
 	@FXML
-	TableColumn<PatientTableModel, String> patientLastNameCol;
+	TableColumn<ModelTable, Integer> patientIDCol; //these are by fx:id found in fxml
 	@FXML
-	TableColumn<PatientTableModel, String> patientFirstNameCol;
+	TableColumn<ModelTable, String> patientLastNameCol;
+	@FXML
+	TableColumn<ModelTable, String> patientFirstNameCol;
 	@FXML
 	ChoiceBox<String> sexChoiceBox;
-	ObservableList<PatientTableModel> patients = FXCollections.observableArrayList();
+	ObservableList<ModelTable> patients = FXCollections.observableArrayList();
+	ObservableList<ModelTable> searchPatients = FXCollections.observableArrayList();
 	
 	
 	//overview
 	@FXML
 	private TextField patientSearch;
 	@FXML
-	TableView<PatientTableModel> overviewTable1;
+	TableView<ModelTable> overviewTable1;
 	@FXML
-	private TableColumn<PatientTableModel, String> overviewID;
+	private TableColumn<ModelTable, String> overviewID;
 
 	public void userLogOut(ActionEvent event) throws IOException {
 		
@@ -88,16 +92,16 @@ public class DoctorReferralController implements Initializable{
 			ResultSet rs = con.createStatement().executeQuery("select * from patients");
 
 				while (rs.next()) {
-					patients.add(new PatientTableModel(rs.getInt("patient_id"), rs.getString("dob"),
-							rs.getString("last_name"), rs.getString("first_name")));
+					patients.add(new ModelTable(rs.getInt("patient_id"), 0, 0, rs.getString("dob"),
+							rs.getString("last_name"), rs.getString("first_name"), null, null, null));
 				}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 
-		patientIDCol.setCellValueFactory(new PropertyValueFactory<>("ID"));
-		patientLastNameCol.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-		patientFirstNameCol.setCellValueFactory(new PropertyValueFactory<>("firstName"));	
+		patientIDCol.setCellValueFactory(new PropertyValueFactory<>("num1"));
+		patientLastNameCol.setCellValueFactory(new PropertyValueFactory<>("s2"));
+		patientFirstNameCol.setCellValueFactory(new PropertyValueFactory<>("s3"));	
 		patientsTable.setItems(patients);
 		}
 	
@@ -105,5 +109,21 @@ public class DoctorReferralController implements Initializable{
 		Main m = new Main();
 		m.changeScene("../Views/DoctorPatientOverview.fxml");
 		
+	}
+	
+	public void searchPatients() {
+		searchPatients.clear();
+		String userSearch = searchReferralPatientTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < patients.size(); i++) {
+				if(patients.get(i).getS1().contains(userSearch) || patients.get(i).getS2().contains(userSearch)){
+					searchPatients.add(patients.get(i));
+				}
+			}
+			patientsTable.setItems(searchPatients);
+		}
+		else {
+			populatePatients();
+		}
 	}
 }
