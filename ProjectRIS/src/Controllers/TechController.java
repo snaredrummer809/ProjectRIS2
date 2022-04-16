@@ -107,6 +107,25 @@ public class TechController implements Initializable{
 		);
 	}
 	
+	public void userLogOut(ActionEvent event) throws IOException {
+		
+		Main m = new Main();
+		
+		m.changeScene("../Views/Login.fxml");
+	}
+	
+	public void HomeButton(ActionEvent event) throws IOException{
+		
+		Main m = new Main();
+		m.changeScene("../Views/Tech.fxml");
+	}
+	
+	public void AppointmentButton(ActionEvent event) throws IOException{
+		
+		Main m = new Main();
+		m.changeScene("../Views/TechAppointments.fxml");
+	}
+	
 	// Populate checkedInAppsTable
 	public void populateCheckedInApps() {
 		checkedInApps.clear();
@@ -117,12 +136,12 @@ public class TechController implements Initializable{
 		int order = 0;
 		int status = 0;
 		int checkedIn = 0;
+		int closed = 0;
 		String patientName = null;
 		String modalityName = null;
 		String techName = null;
 		String radioName = null;
 		String statusName = null;
-		int closed = 0;
 		
 		// Get all appointment data
 		try {
@@ -141,7 +160,7 @@ public class TechController implements Initializable{
 				
 				// Check to make sure appointment has been checked in
 				//added check to make sure appt is not closed
-				if(checkedIn == 1  && closed==0) {
+				if(checkedIn == 1  && closed == 0) {
 					ResultSet rs2 = con.createStatement().executeQuery("select * from patients where patient_id=" + patient);
 					while(rs2.next()) {
 						patientName = rs2.getString("first_name") + " " + rs2.getString("last_name");
@@ -453,24 +472,5 @@ public class TechController implements Initializable{
 			scanImageView.setImage(image);
 			scanImageView.setPreserveRatio(true);
 		}
-	}
-
-	public void userLogOut(ActionEvent event) throws IOException {
-		
-		Main m = new Main();
-		
-		m.changeScene("../Views/Login.fxml");
-	}
-	
-	public void HomeButton(ActionEvent event) throws IOException{
-		
-		Main m = new Main();
-		m.changeScene("../Views/Tech.fxml");
-	}
-	
-	public void AppointmentButton(ActionEvent event) throws IOException{
-		
-		Main m = new Main();
-		m.changeScene("../Views/TechAppointments.fxml");
 	}
 }
