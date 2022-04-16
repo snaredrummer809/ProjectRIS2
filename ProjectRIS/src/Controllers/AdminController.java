@@ -44,6 +44,8 @@ public class AdminController implements Initializable{
 	Button OrdersButton;
 	@FXML
 	Button ReferralsButton;	
+	@FXML
+	Button performanceButton;
 	
 	// Placed Orders Pane
 	@FXML
@@ -256,6 +258,12 @@ public class AdminController implements Initializable{
 	
 		Main m = new Main();
 		m.changeScene("../Views/AdminReferrals.fxml");
+	}
+	
+	public void performanceButton(ActionEvent event) throws IOException{
+		
+		Main m = new Main();
+		m.changeScene("../Views/AdminPerformance.fxml");
 	}
 	
 	public void populatePlacedOrders(){
