@@ -44,6 +44,8 @@ public class DeskController implements Initializable{
 	@FXML
 	Pane deskCheckedInAppPane;
 	@FXML
+	TextField searchCheckedInAppsTextField;
+	@FXML
 	TableView<ModelTable> checkedInAppTable;
 	@FXML
 	TableColumn<ModelTable, String> patientCol;
@@ -58,10 +60,13 @@ public class DeskController implements Initializable{
 	@FXML
 	TableColumn<ModelTable, String> statusCol;
 	ObservableList<ModelTable> checkedInApps = FXCollections.observableArrayList();
+	ObservableList<ModelTable> searchCheckedIn = FXCollections.observableArrayList();
 	
 	// todaysAppPane
 	@FXML
 	Pane deskTodaysAppPane;
+	@FXML
+	TextField searchTodaysAppsTextField;
 	@FXML
 	TableView<ModelTable> todaysAppTable;
 	@FXML
@@ -77,8 +82,11 @@ public class DeskController implements Initializable{
 	@FXML
 	TableColumn<ModelTable, String> checkInCol;
 	ObservableList<ModelTable> todaysApps = FXCollections.observableArrayList();
+	ObservableList<ModelTable> searchTodays = FXCollections.observableArrayList();
 	
 	// unscheduledOrdersPane
+	@FXML
+	TextField searchUnscheduledOrdersTextField;
 	@FXML
 	TableView<ModelTable> unscheduledOrdersTable;
 	@FXML
@@ -92,6 +100,7 @@ public class DeskController implements Initializable{
 	@FXML
 	TableColumn<ModelTable, String> scheduleCol;
 	ObservableList<ModelTable> unscheduledOrders = FXCollections.observableArrayList();
+	ObservableList<ModelTable> searchUnscheduled = FXCollections.observableArrayList();
 	
 	// scheduleAppPane
 	@FXML
@@ -879,6 +888,54 @@ public class DeskController implements Initializable{
 		}
 		catch(SQLException e) {
 			System.out.println("Error: Could not schedule appointment.");
+		}
+	}
+	
+	public void searchCheckedIn() {
+		searchCheckedIn.clear();
+		String userSearch = searchCheckedInAppsTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < checkedInApps.size(); i++) {
+				if(checkedInApps.get(i).getS1().contains(userSearch)) {
+					searchCheckedIn.add(checkedInApps.get(i));
+				}
+			}
+			checkedInAppTable.setItems(searchCheckedIn);
+		}
+		else {
+			populateCheckedInApps();
+		}
+	}
+	
+	public void searchTodays() {
+		searchTodays.clear();
+		String userSearch = searchTodaysAppsTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < todaysApps.size(); i++) {
+				if(todaysApps.get(i).getS1().contains(userSearch)) {
+					searchTodays.add(todaysApps.get(i));
+				}
+			}
+			todaysAppTable.setItems(searchTodays);
+		}
+		else {
+			populateTodaysApps();
+		}
+	}
+	
+	public void searchUnscheduled() {
+		searchUnscheduled.clear();
+		String userSearch = searchUnscheduledOrdersTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < unscheduledOrders.size(); i++) {
+				if(unscheduledOrders.get(i).getS1().contains(userSearch)) {
+					searchUnscheduled.add(unscheduledOrders.get(i));
+				}
+			}
+			unscheduledOrdersTable.setItems(searchUnscheduled);
+		}
+		else {
+			populateUnscheduledOrders();
 		}
 	}
 	
