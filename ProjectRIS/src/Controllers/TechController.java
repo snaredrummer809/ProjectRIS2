@@ -43,6 +43,8 @@ public class TechController implements Initializable{
 	
 	// Checked In Apps Pane
 	@FXML
+	TextField searchCheckedInAppsTextField;
+	@FXML
 	TableView<ModelTable> checkedInAppsTable;
 	@FXML
 	TableColumn<ModelTable, String> checkedInPatientCol;
@@ -57,7 +59,7 @@ public class TechController implements Initializable{
 	@FXML 
 	TableColumn<ModelTable, String> checkedInCompleteOrderCol;
 	ObservableList<ModelTable> checkedInApps = FXCollections.observableArrayList();
-
+	ObservableList<ModelTable> searchCheckedIn = FXCollections.observableArrayList();
 
 	// Imaging Order Pane
 	@FXML
@@ -472,5 +474,21 @@ public class TechController implements Initializable{
 		
 		Main m = new Main();
 		m.changeScene("../Views/TechAppointments.fxml");
+	}
+	
+	public void searchCheckedIn() {
+		searchCheckedIn.clear();
+		String userSearch = searchCheckedInAppsTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < checkedInApps.size(); i++) {
+				if(checkedInApps.get(i).getS1().contains(userSearch)) {
+					searchCheckedIn.add(checkedInApps.get(i));
+				}
+			}
+			checkedInAppsTable.setItems(searchCheckedIn);
+		}
+		else {
+			populateCheckedInApps();
+		}
 	}
 }
