@@ -42,6 +42,8 @@ public class AdminAppointmentsController implements Initializable {
 	
 	// Appointment Pane
 	@FXML
+	TextField searchAppsTextField;
+	@FXML
 	TableView<ModelTable> appointmentsTable;
 	@FXML
 	TableColumn<ModelTable, String> appPatientNameColumn;
@@ -56,6 +58,7 @@ public class AdminAppointmentsController implements Initializable {
 	@FXML
 	TableColumn<ModelTable, String> appDeleteColumn;
 	ObservableList<ModelTable> appointments = FXCollections.observableArrayList();
+	ObservableList<ModelTable> searchApps = FXCollections.observableArrayList();
 	
 	//appDeleteConfirmationPane
 	@FXML
@@ -233,6 +236,22 @@ public class AdminAppointmentsController implements Initializable {
 		}
 	}
 	
+	public void searchApps() {
+		searchApps.clear();
+		String userSearch = searchAppsTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < appointments.size(); i++) {
+				if(appointments.get(i).getS1().contains(userSearch)) {
+					searchApps.add(appointments.get(i));
+				}
+			}
+			appointmentsTable.setItems(searchApps);
+		}
+		else {
+			populateAppointments();
+		}
+	}
+	
 	public void cancelButton(ActionEvent event) throws IOException {
 		HomeButton.setDisable(false);
 		AdminButton.setDisable(false);
@@ -243,4 +262,6 @@ public class AdminAppointmentsController implements Initializable {
 		appDeleteConfirmationPane.setVisible(false);
 		
 	}
+	
+	
 }
