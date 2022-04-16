@@ -34,6 +34,7 @@ public class TechAppointmentsController implements Initializable{
 	
 	@FXML Button TechAppointments;
 	@FXML Pane ApptPane;
+	@FXML TextField searchAppsTextField;
 	@FXML TableView<ModelTable> ApptTable;
 	@FXML TableColumn<ModelTable, String> ApptTablePatientCol;
 	@FXML TableColumn<ModelTable, String> ApptTableDateTimeCol;
@@ -41,6 +42,7 @@ public class TechAppointmentsController implements Initializable{
 	@FXML TableColumn<ModelTable, String> ApptTableRadioCol;
 	@FXML TableColumn<ModelTable, String> ApptTableTechCol;
 	ObservableList<ModelTable> appointments = FXCollections.observableArrayList();
+	ObservableList<ModelTable> searchApps = FXCollections.observableArrayList();
 
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		populateAppointments();
@@ -123,5 +125,21 @@ public class TechAppointmentsController implements Initializable{
 		
 		Main m = new Main();
 		m.changeScene("../Views/TechAppointments.fxml");
+	}
+	
+	public void searchApps() {
+		searchApps.clear();
+		String userSearch = searchAppsTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < appointments.size(); i++) {
+				if(appointments.get(i).getS1().contains(userSearch)) {
+					searchApps.add(appointments.get(i));
+				}
+			}
+			ApptTable.setItems(searchApps);
+		}
+		else {
+			populateAppointments();
+		}
 	}
 }
