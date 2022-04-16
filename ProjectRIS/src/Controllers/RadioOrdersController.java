@@ -44,6 +44,8 @@ public class RadioOrdersController implements Initializable {
 	
 	// Orders Pane
 	@FXML
+	TextField searchOrdersTextField;
+	@FXML
 	TableView<ModelTable> allOrdersTable;
 	@FXML
 	TableColumn<ModelTable, String> allOrdersPatientCol;
@@ -54,7 +56,7 @@ public class RadioOrdersController implements Initializable {
 	@FXML
 	TableColumn<ModelTable, String> allOrdersStatusCol;
 	ObservableList<ModelTable> orders = FXCollections.observableArrayList();
-	
+	ObservableList<ModelTable> searchOrders = FXCollections.observableArrayList();
 	
 	
 	//orders
@@ -232,4 +234,20 @@ public void initialize(URL arg0, ResourceBundle arg1) {
 		allOrdersTable.setItems(orders);
 	}
 	
+	public void searchOrders() {
+		searchOrders.clear();
+		String userSearch = searchOrdersTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < orders.size(); i++) {
+				if(orders.get(i).getS1().contains(userSearch)) {
+					searchOrders.add(orders.get(i));
+				}
+			}
+			allOrdersTable.setItems(searchOrders);
+		}
+		else {
+			populateOrders();
+		}
 	}
+	
+}
