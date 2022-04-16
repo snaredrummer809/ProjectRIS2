@@ -1,5 +1,7 @@
 package Controllers;
 
+import java.awt.Desktop;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -7,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -47,8 +50,6 @@ public class DoctorController implements Initializable{
 	private TextArea OrderNotes;
 	
 	@FXML
-	TextField searchOrdersTextField;
-	@FXML
 	TableView<ModelTable> allOrdersTable;
 	@FXML
 	TableColumn<ModelTable, Integer> allOrdersOrderIDCol;
@@ -64,15 +65,15 @@ public class DoctorController implements Initializable{
 	TableColumn<ModelTable, String> allOrdersStatusCol;
 	@FXML 
 	TableColumn<ModelTable, String> allOrdersReportCol;
-	ObservableList<ModelTable> orders = FXCollections.observableArrayList();
-	ObservableList<ModelTable> searchOrders = FXCollections.observableArrayList();
 	
+	ObservableList<ModelTable> orders = FXCollections.observableArrayList();
 	ModelTable m = new ModelTable();
 	private Image image;
 	@FXML Pane scanPane;
 	@FXML Button closeImage;
 	@FXML ImageView imageView;
 	ModelTable instance = new ModelTable();
+	ModelTable report = new ModelTable();
 	
 	//report pane
 	@FXML Pane reportPane;
@@ -83,6 +84,7 @@ public class DoctorController implements Initializable{
 	@FXML Button viewImageButton;
 	@FXML TextArea reportTextArea;
 	@FXML Button LogOut;
+	@FXML Button printReportButton;
 	
 	public void userLogOut(ActionEvent event) throws IOException {
 		
@@ -137,10 +139,11 @@ public class DoctorController implements Initializable{
 				notes = rs.getString("notes");
 				modality = rs.getInt("modality");
 				status = rs.getInt("status");
-				// getting values we need to populate table with textual info
+				//getting values we need to populate table with textual info
 				
 				
-				// get patient name
+				
+				//get patient name
 				try {
 					Connection con1 = DatabaseConnection.getConnection();
 					ResultSet rs1 = con1.createStatement().executeQuery("select * from patients where patient_id=" + patient_id);
@@ -149,6 +152,7 @@ public class DoctorController implements Initializable{
 						String firstName = rs1.getString("first_name");
 						String lastName = rs1.getString("last_name");
 						patientName = firstName +" "+ lastName;
+						
 						
 					}
 					con1.close();
@@ -164,7 +168,8 @@ public class DoctorController implements Initializable{
 					ResultSet rs2 = con2.createStatement().executeQuery("select * from users where user_id=" + doc_id);
 					
 					while(rs2.next()) {
-						docName = rs2.getString("full_name");						
+						docName = rs2.getString("full_name");	
+						
 					}
 					con2.close();
 				}
@@ -178,7 +183,8 @@ public class DoctorController implements Initializable{
 					ResultSet rs3 = con3.createStatement().executeQuery("select * from modalities where modality_id=" + modality);
 					
 					while(rs3.next()) {
-						modalityName = rs3.getString("name");						
+						modalityName = rs3.getString("name");	
+						
 					}
 					con3.close();
 				}
@@ -187,10 +193,9 @@ public class DoctorController implements Initializable{
 				}
 				
 				//get status name
-				//get patient name
 				try {
 					Connection con4 = DatabaseConnection.getConnection();
-					ResultSet rs4 = con4.createStatement().executeQuery("select * from order_status where name=" + status);
+					ResultSet rs4 = con4.createStatement().executeQuery("select * from order_status where order_status_id=" + status);
 					
 					while(rs4.next()) {
 						statusName = rs4.getString("name");
@@ -237,11 +242,44 @@ public class DoctorController implements Initializable{
 							int patient = 0;
 							int radio = 0;
 							int order = 0;
+							int modality = 0;
 							
 							order = m.getNum1();
-							//System.out.println("order is "+order);
-							//getting patient and radio IDs
-							//getting notes
+							try {
+								
+								Connection con = DatabaseConnection.getConnection();
+								ResultSet rs = con.createStatement().executeQuery("select * from orders where order_id=" + order+";");
+								
+								
+								while(rs.next()) {
+									String reason = rs.getString("notes");
+									report.setS2(reason);	
+									modality = rs.getInt("modality");
+								}
+								con.close();
+							}
+							catch(SQLException e) {
+								e.printStackTrace();
+							}
+							
+							//getting modalityName
+							try {
+								
+								Connection con = DatabaseConnection.getConnection();
+								ResultSet rs = con.createStatement().executeQuery("select * from modalities where modality_id=" + modality+";");
+								
+								
+								while(rs.next()) {
+									String modalityName = rs.getString("name");
+									report.setS3(modalityName);	
+									
+								}
+								con.close();
+							}
+							catch(SQLException e) {
+								e.printStackTrace();
+							}
+							
 							try {
 								
 								Connection con = DatabaseConnection.getConnection();
@@ -252,7 +290,8 @@ public class DoctorController implements Initializable{
 									patient = rs.getInt("patient");
 									radio = rs.getInt("radiologist");
 									radioReport = rs.getString("diagnostic");
-																		
+									report.setS5(radioReport);
+									report.setNum1(patient);									
 								}
 								con.close();
 							}
@@ -269,7 +308,8 @@ public class DoctorController implements Initializable{
 								while(rs.next()) {
 									String firstName = rs.getString("first_name");
 									String lastName = rs.getString("last_name");
-									patientName = firstName + " " +lastName;								
+									patientName = firstName + " " +lastName;
+									report.setS1(patientName);								
 								}
 								con.close();
 							}
@@ -283,7 +323,8 @@ public class DoctorController implements Initializable{
 								ResultSet rs2 = con2.createStatement().executeQuery("select * from users where user_id=" + radio);
 								
 								while(rs2.next()) {
-									radioName = rs2.getString("full_name");						
+									radioName = rs2.getString("full_name");
+									report.setS4(radioName);
 								}
 								con2.close();
 							}
@@ -314,7 +355,7 @@ public class DoctorController implements Initializable{
 		allOrdersReportCol.setCellFactory(cellFactory);
 
 		allOrdersTable.setItems(orders);
-	}
+		}
 	
 	public void addNewOrder(ActionEvent event) throws IOException {
 		 
@@ -395,10 +436,8 @@ public class DoctorController implements Initializable{
 			System.out.println("failed to retrieve image from database");
 			e.printStackTrace();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -410,20 +449,89 @@ public class DoctorController implements Initializable{
 		reportPane.setVisible(false);
 		LogOut.setDisable(false);
 	}
-	
-	public void searchOrders() {
-		searchOrders.clear();
-		String userSearch = searchOrdersTextField.getText();
-		if(!userSearch.equals("")) {
-			for(int i = 0; i < orders.size(); i++) {
-				if(orders.get(i).getS1().contains(userSearch)) {
-					searchOrders.add(orders.get(i));
+
+	@FXML public void printReport() {
+		String imageName = report.getS1()+"_image_"+java.time.LocalDate.now();
+		DataOutputStream dos;
+		String imagePath = "FILEPATH TO SAVE PATIENT IMAGES"+imageName+".jpg";
+		File file = new File(imagePath);
+		String reportName = report.getS1()+"_report_"+java.time.LocalDate.now();
+		String filePath = "FILEPATH TO SAVE PATIENT IMAGES"+reportName+".txt";
+		File reportFile = new File(filePath);
+		
+		//trying to add image to report
+		try{
+			Connection con = DatabaseConnection.getConnection();
+			int imaging_id=0;
+			//get imaging_id
+			try {
+				Connection con1 = DatabaseConnection.getConnection();
+				int order_id = Integer.parseInt(reportOrderIDTextField.getText());
+				ResultSet rs1 = con1.createStatement().executeQuery("select * from orders where order_id=" + order_id);
+				
+				while(rs1.next()) {
+					imaging_id = rs1.getInt("image");
+									
 				}
+				con1.close();
 			}
-			allOrdersTable.setItems(searchOrders);
+			catch(SQLException e) {
+				e.printStackTrace();
+			}
+			
+			FileOutputStream fos = new FileOutputStream(file);
+			byte[] b;
+			Blob blob;
+			PreparedStatement pst = con.prepareStatement("Select imaging from imaging_info where imaging_id=?");
+			pst.setInt(1, imaging_id);
+			ResultSet rs = pst.executeQuery();
+			while(rs.next()) {
+				blob = rs.getBlob("imaging");
+				b=blob.getBytes(1,(int)blob.length());
+				fos.write(b);
+			}
+			fos.close();
+		}catch(SQLException e) {
+			System.out.println("failed to retrieve image from database");
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
-		else {
-			populateOrders();
+		
+		
+		try {
+			dos = new DataOutputStream(new FileOutputStream(reportFile));
+			try {
+				dos.writeBytes("\t\t\t\tPatient Radiology Report\n\n\n");
+				dos.writeBytes("Report printed on "+java.time.LocalDate.now()+"\n\n");
+				dos.writeBytes("Patient name: "+report.getS1()+"\n\n");
+				dos.writeBytes("Patient ID: "+report.getNum1()+"\n\n");
+				dos.writeBytes("Reason for visit: "+report.getS2()+"\n\n");
+				dos.writeBytes("Modality: "+report.getS3()+"\n\n");
+				dos.writeBytes("Radiologist name: "+report.getS4()+"\n\n");
+				dos.writeBytes("Radiologist report: "+report.getS5()+"\n\n");				
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			dos.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
+		
+		
+		//open created files: image and report
+		try{
+			Desktop desktop = Desktop.getDesktop();
+			desktop.open(reportFile);
+			desktop.open(file);
+		} catch(IOException e) {
+			System.out.println("File failed to open.");
+			e.printStackTrace();
+		}
+		
 	}
 }
