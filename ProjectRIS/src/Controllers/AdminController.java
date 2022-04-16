@@ -1,14 +1,8 @@
 package Controllers;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.IOException; 
 import java.net.URL;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -29,12 +23,9 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
@@ -53,14 +44,10 @@ public class AdminController implements Initializable{
 	Button OrdersButton;
 	@FXML
 	Button ReferralsButton;	
-	@FXML
-	Button performanceButton;
 	
 	// Placed Orders Pane
 	@FXML
 	Pane placedOrdersPane;
-	@FXML
-	TextField searchPlacedOrdersTextField;
 	@FXML
 	TableView<ModelTable> placedOrdersTable;
 	@FXML
@@ -76,7 +63,6 @@ public class AdminController implements Initializable{
 	@FXML
 	TableColumn<ModelTable, String> placedOrdersStatusCol;
 	ObservableList<ModelTable> orders = FXCollections.observableArrayList();
-	ObservableList<ModelTable> searchOrders = FXCollections.observableArrayList();
 	
 	// Checked In Apps Pane
 	@FXML
@@ -196,22 +182,6 @@ public class AdminController implements Initializable{
 	ObservableList<ModelTable> reviewImagingOrders = FXCollections.observableArrayList();
 	ObservableList<ModelTable> searchReviewImagingOrders = FXCollections.observableArrayList();
 	
-	ModelTable m = new ModelTable();
-	private Image image;
-	@FXML Pane scanPane;
-	@FXML Button closeImage;
-	@FXML ImageView imageView;
-	ModelTable instance = new ModelTable();
-	
-	//report pane
-	@FXML Pane reportPane;
-	@FXML TextField reportRadioTextField;
-	@FXML TextField reportPatientTextField;
-	@FXML TextField reportOrderIDTextField;
-	@FXML Button closeReportButton;
-	@FXML Button viewImageButton;
-	@FXML TextArea reportTextArea;
-	
 	// Patient Apps Pane
 	@FXML
 	Pane patientAppsPane;
@@ -283,12 +253,6 @@ public class AdminController implements Initializable{
 	
 		Main m = new Main();
 		m.changeScene("../Views/AdminReferrals.fxml");
-	}
-	
-	public void performanceButton(ActionEvent event) throws IOException{
-		
-		Main m = new Main();
-		m.changeScene("../Views/AdminPerformance.fxml");
 	}
 	
 	public void populatePlacedOrders(){
@@ -1181,77 +1145,6 @@ public class AdminController implements Initializable{
 		unscheduledOrdersPane.setDisable(false);
 		reviewImagingOrdersPane.setDisable(false);
 		patientAppsPane.setDisable(false);
-	}
-	
-	public void viewImage() {
-		try{
-			Connection con = DatabaseConnection.getConnection();
-			int imaging_id=0;
-			//get imaging_id
-			try {
-				Connection con1 = DatabaseConnection.getConnection();
-				int order_id = Integer.parseInt(reportOrderIDTextField.getText());
-				ResultSet rs1 = con1.createStatement().executeQuery("select * from orders where order_id=" + order_id);
-				
-				while(rs1.next()) {
-					imaging_id = rs1.getInt("image");
-									
-				}
-				con1.close();
-			}
-			catch(SQLException e) {
-				e.printStackTrace();
-			}
-			
-			PreparedStatement pst = con.prepareStatement("Select imaging from imaging_info where imaging_id=?");
-			pst.setInt(1, imaging_id);
-			ResultSet rs = pst.executeQuery();
-			if(rs.next()) {
-				InputStream is = rs.getBinaryStream(1);
-				OutputStream os = new FileOutputStream(new File("photo.jpg"));
-				byte[] contents = new byte[1024];
-				int size = 0;
-				while((size=is.read(contents)) != -1) {
-					os.write(contents, 0, size);
-				}
-				image = new Image("file:photo.jpg", imageView.getFitWidth(),imageView.getFitHeight(), true, true);
-				imageView.setImage(image);
-				scanPane.setVisible(true);
-			}
-		}catch(SQLException e) {
-			System.out.println("failed to retrieve image from database");
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	@FXML public void closeImagePane() {
-		scanPane.setVisible(false);
-	}
-	@FXML public void closeReport() {
-		reportPane.setVisible(false);
-		LogOut.setDisable(false);
-	}
-	
-	public void searchPlacedOrders() {
-		searchOrders.clear();
-		String userSearch = searchPlacedOrdersTextField.getText();
-		if(!userSearch.equals("")) {
-			for(int i = 0; i < orders.size(); i++) {
-				if(orders.get(i).getS1().contains(userSearch)) {
-					searchOrders.add(orders.get(i));
-				}
-			}
-			placedOrdersTable.setItems(searchOrders);
-		}
-		else {
-			populatePlacedOrders();
-		}
 	}
 	
 	public void searchCheckedIn() {
