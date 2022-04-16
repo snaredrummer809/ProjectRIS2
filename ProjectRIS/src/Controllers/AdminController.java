@@ -407,7 +407,6 @@ public class AdminController implements Initializable{
 		int tech = 0;
 		int radio = 0;
 		int checkedIn = 0;
-		int closed = 0;
 		int appID = 0;
 		LocalDate todaysDate = null;
 		String dateCheck = null;
@@ -449,7 +448,7 @@ public class AdminController implements Initializable{
 				date = rs.getString("date_time");
 				
 				// Make sure patient isn't already checked in
-				if(checkedIn == 0 && closed == 0) {
+				if(checkedIn == 0) {
 					
 					// Only display appointment if it is scheduled for today's date
 					if(date.contains(dateCheck)) {
