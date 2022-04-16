@@ -38,7 +38,7 @@ import javafx.scene.control.Label;
 
 public class RadioController implements Initializable{
 
-	
+	@FXML TextField searchOrdersTextField;
 	@FXML TableColumn<ModelTable, String> revOrdersPatientCol;
 	@FXML TableColumn<ModelTable, String> revOrdersDocCol;
 	@FXML TableColumn<ModelTable, String> revOrdersModalCol;
@@ -47,6 +47,8 @@ public class RadioController implements Initializable{
 	@FXML Pane ReviewOrdersPane;
 	@FXML TableView<ModelTable> revOrdersTable;
 	ObservableList<ModelTable> reviewOrders = FXCollections.observableArrayList();
+	ObservableList<ModelTable> searchReviewOrders = FXCollections.observableArrayList();
+	
 	ModelTable m = new ModelTable();
 	ModelTable instance = new ModelTable();
 	@FXML Pane diagnosticReportPane;
@@ -468,4 +470,20 @@ public class RadioController implements Initializable{
 	@FXML public void closeImagePane() {
 		scanPane.setVisible(false);
 	}
+	
+	public void searchOrders() {
+		searchReviewOrders.clear();
+		String userSearch = searchOrdersTextField.getText();
+		if(!userSearch.equals("")) {
+			for(int i = 0; i < reviewOrders.size(); i++) {
+				if(reviewOrders.get(i).getS1().contains(userSearch)) {
+					searchReviewOrders.add(reviewOrders.get(i));
+				}
+			}
+			revOrdersTable.setItems(searchReviewOrders);
+		}
+		else {
+			populateReviewOrders();
+		}
+	}	
 }
