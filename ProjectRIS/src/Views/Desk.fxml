@@ -92,12 +92,13 @@
                         <TextField id="searchTodaysAppTextField" layoutX="567.0" layoutY="74.0" prefHeight="25.0" prefWidth="113.0" />
                         <TableView id="todaysAppTable" fx:id="todaysAppTable" layoutX="14.0" layoutY="111.0" prefHeight="170.0" prefWidth="658.0">
                           <columns>
-                            <TableColumn id="patientCol" fx:id="todaysPatientCol" prefWidth="115.0" text="Patient" />
-                            <TableColumn id="modalityCol" fx:id="todaysModalityCol" prefWidth="115.0" text="Modality" />
-                            <TableColumn id="dateAndTimeCol" fx:id="todaysDateAndTimeCol" prefWidth="115.0" text="Date/Time" />
-                            <TableColumn id="radiologistCol" fx:id="todaysRadiologistCol" prefWidth="115.0" text="Radiologist" />
-                            <TableColumn id="techCol" fx:id="todaysTechCol" prefWidth="115.0" text="Technician" />
-                            <TableColumn id="checkInCol" fx:id="checkInCol" prefWidth="115.0" />
+                            <TableColumn id="patientCol" fx:id="todaysPatientCol" prefWidth="100.0" text="Patient" />
+                            <TableColumn id="modalityCol" fx:id="todaysModalityCol" prefWidth="100.0" text="Modality" />
+                            <TableColumn id="dateAndTimeCol" fx:id="todaysDateAndTimeCol" prefWidth="100.0" text="Date/Time" />
+                            <TableColumn id="radiologistCol" fx:id="todaysRadiologistCol" prefWidth="100.0" text="Radiologist" />
+                            <TableColumn id="techCol" fx:id="todaysTechCol" prefWidth="100.0" text="Technician" />
+                            <TableColumn id="checkInCol" fx:id="checkInCol" prefWidth="100.0" />
+                            <TableColumn id="missedCol" fx:id="missedCol" prefWidth="100.0" />
                           </columns>
                         </TableView>          
                      </children>
